@@ -3,3 +3,8 @@ variable "aws_region" {
   type        = string
   default     = "us-east-1"
 }
+
+variable "namespace" {
+  description = "The project namespace to use for unique resource naming"
+  type        = string
+}
