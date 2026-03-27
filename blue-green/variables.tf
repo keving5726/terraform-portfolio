@@ -8,3 +8,13 @@ variable "namespace" {
   description = "The project namespace to use for unique resource naming"
   type        = string
 }
+
+variable "deployment" {
+  description = "The current deployment version or environment"
+  type        = string
+
+  validation {
+    condition     = contains(["blue", "green"], var.deployment)
+    error_message = "The deployment variable must be either 'blue' or 'green'"
+  }
+}
