@@ -43,3 +43,23 @@ variable "private_network_cidr" {
   type        = string
   default     = "10.0.0.0/16"
 }
+
+variable "default_egress_rule" {
+  description = "Default egress rule allowing all outbound IPv4 traffic on all ports and protocols"
+  type = list(object({
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    description = string
+    cidr_blocks = string
+  }))
+  default = [
+    {
+      from_port   = -1
+      to_port     = -1
+      protocol    = "-1"
+      description = "Allows outbound traffic to any IPv4 address"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+}
