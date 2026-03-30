@@ -31,3 +31,15 @@ variable "alb_port" {
   type        = number
   default     = 80
 }
+
+variable "allow_all_cidr" {
+  description = "CIDR block that allows all incoming and outgoing traffic"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "private_network_cidr" {
+  description = "CIDR block for a private network range"
+  type        = string
+  default     = "10.0.0.0/16"
+}
