@@ -19,3 +19,15 @@ variable "public_subnets" {
   type        = list(string)
   default     = ["10.0.101.0/24", "10.0.102.0/24"]
 }
+
+variable "blue_green_port" {
+  description = "The port that the Blue-Green deployment will use for HTTP requests"
+  type        = number
+  default     = 8080
+}
+
+variable "alb_port" {
+  description = "The port that the ALB will use for HTTP requests"
+  type        = number
+  default     = 80
+}
