@@ -95,3 +95,81 @@ module "blue_green_sg" {
     Name = "Blue-Green SG"
   }
 }
+
+module "alb" {
+  source  = "terraform-aws-modules/alb/aws"
+  version = "10.5.0"
+
+  name                       = "blue-green-alb"
+  load_balancer_type         = "application"
+  vpc_id                     = module.vpc.vpc_id
+  subnets                    = module.vpc.public_subnets
+  security_groups            = [module.alb_sg.security_group_id]
+  enable_deletion_protection = false
+
+  listeners = {
+    ex_http = {
+      port     = var.alb_port
+      protocol = "HTTP"
+
+      actions = [{
+        fixed_response = {
+          content_type = "text/plain"
+          status_code  = 404
+          message_body = "404: Page not found"
+        }
+      }]
+
+      forward = {
+        target_group_key = var.deployment == "blue" ? "ex_blue" : "ex_green"
+      }
+    }
+  }
+
+  target_groups = {
+    ex_blue = {
+      name                 = "blue-tg"
+      protocol             = "HTTP"
+      port                 = var.blue_green_port
+      target_type          = "instance"
+      deregistration_delay = 10
+      create_attachment    = false
+
+      health_check = {
+        enabled             = true
+        path                = "/"
+        port                = "traffic-port"
+        protocol            = "HTTP"
+        matcher             = "200"
+        interval            = 30
+        timeout             = 5
+        healthy_threshold   = 5
+        unhealthy_threshold = 2
+      }
+    }
+    ex_green = {
+      name                 = "green-tg"
+      protocol             = "HTTP"
+      port                 = var.blue_green_port
+      target_type          = "instance"
+      deregistration_delay = 10
+      create_attachment    = false
+
+      health_check = {
+        enabled             = true
+        path                = "/"
+        port                = "traffic-port"
+        protocol            = "HTTP"
+        matcher             = "200"
+        interval            = 30
+        timeout             = 5
+        healthy_threshold   = 5
+        unhealthy_threshold = 2
+      }
+    }
+  }
+
+  tags = {
+    ResourceGroup = local.namespace
+  }
+}
