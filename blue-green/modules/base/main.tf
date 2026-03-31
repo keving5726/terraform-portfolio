@@ -31,3 +31,23 @@ resource "aws_resourcegroups_group" "blue_green_rg" {
   JSON
   }
 }
+
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "6.6.0"
+
+  name = "${local.namespace}-vpc"
+  cidr = var.private_network_cidr
+
+  azs             = local.azs
+  private_subnets = var.private_subnets
+  public_subnets  = var.public_subnets
+
+  enable_nat_gateway = true
+  single_nat_gateway = true
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
