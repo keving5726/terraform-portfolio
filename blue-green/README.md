@@ -55,3 +55,29 @@ The infrastructure consists of the following key components:
       - Desired capacity: 1.
       - Min size: 1.
       - Max size: 2.
+
+## :world_map: Architecture Diagrams
+
+### Deployment Strategy
+
+The **Base** infrastructure is deployed first. \
+Initially, **Blue** will be the live server, while **Green** is idle. \
+Then a manual cutover will take place so that **Green** becomes the new live server.
+
+<div align="center">
+  <img width="601" height="141" alt="blue-green-deployment-strategy drawio" src="https://github.com/user-attachments/assets/40f7f3d5-708f-40e5-ac41-e7d20de3fc4e" />
+</div>
+
+The end result is that the customer experiences an instantaneous software update from version **1.0** to **2.0**.
+
+### Blue
+
+<div align="center">
+  <img width="811" height="631" alt="blue-green-deployment-a drawio" src="https://github.com/user-attachments/assets/17d09a94-9b1d-4dc0-afa7-1276d0a04916" />
+</div>
+
+### Green
+
+<div align="center">
+  <img width="811" height="631" alt="blue-green-deployment-b drawio" src="https://github.com/user-attachments/assets/304d1959-82a2-404c-989c-ec84ffa8aa82" />
+</div>
