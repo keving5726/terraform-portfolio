@@ -21,3 +21,37 @@ The deployment process includes:
 </div>
 
 This practice demonstrates how to achieve safe, efficient, and reversible deployments while maintaining high availability and minimizing risks during production updates.
+
+## :building_construction: Infrastructure Overview
+
+The infrastructure consists of the following key components:
+
+- Base Module:
+  - 1 VPC.
+  - 1 route table.
+  - 1 Internet gateway.
+  - 1 NAT gateway.
+  - 2 public subnets for the Application Load Balancer.
+  - 2 private subnets for the EC2 instances.
+  - 2 security groups (ALB and Blue-Green app).
+  - 1 IAM role instance profile.
+  - 1 Application Load Balancer (ALB):
+    - 1 listener.
+    - 2 target groups.
+  - 1 resource group.
+
+- Autoscaling Module:
+  - 2 Launch template (Blue and Green):
+    - **AMI**: Ubuntu Server 24.04 LTS (HVM), SSD Volume Type.
+    - **Instance type**: t4g.micro (eligible for AWS free tier).
+    - **Architecture**: 64-bit (Arm).
+    - **User data**: startup.sh.
+  - 2 Auto Scaling Group (ASG):
+    - Blue:
+      - Desired capacity: 1.
+      - Min size: 1.
+      - Max size: 2.
+    - Green:
+      - Desired capacity: 1.
+      - Min size: 1.
+      - Max size: 2.
