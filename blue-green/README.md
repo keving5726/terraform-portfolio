@@ -87,3 +87,14 @@ The end result is that the customer experiences an instantaneous software update
 <div align="center">
   <img width="361" height="391" alt="blue-gree-deployment-dependencies drawio" src="https://github.com/user-attachments/assets/367af6f0-6012-4d24-bde3-ac3fd3303104" />
 </div>
+
+## :arrow_forward: How to Run
+
+**NOTE**: This practice will deploy real resources into your AWS account.
+Remember to delete created resources to avoid charges on your AWS account.
+
+### Pre-requisites
+
+- Terraform installed (version v1.14.8 or higher recommended).
+- AWS CLI configured with your credentials and default region.
+- An AWS account with permissions to create VPCs and all its components, resources groups, IAM roles, Application Load Balancing, Auto Scaling groups and EC2 instances.
