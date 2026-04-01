@@ -12,3 +12,24 @@ locals {
   html    = templatefile("${path.module}/server/index.html", { NAME = join("-", [var.label, var.app_version]), BG_COLOR = var.label })
   startup = templatefile("${path.module}/server/startup.sh", { HTML = local.html })
 }
+
+resource "aws_launch_template" "ubuntu_blue_green" {
+  name          = "Ubuntu-${var.label}"
+  description   = "Ubuntu template used for the ${var.label} deployment"
+  image_id      = data.aws_ami.ubuntu.id
+  instance_type = var.instance_type
+  user_data     = base64encode(local.startup)
+
+  iam_instance_profile {
+    name = var.base.iam_role
+  }
+
+  network_interfaces {
+    security_groups             = [var.base.sg.blue_green]
+    associate_public_ip_address = false
+  }
+
+  tags = {
+    ResourceGroup = var.base.namespace
+  }
+}
