@@ -81,3 +81,9 @@ The end result is that the customer experiences an instantaneous software update
 <div align="center">
   <img width="811" height="631" alt="blue-green-deployment-b drawio" src="https://github.com/user-attachments/assets/304d1959-82a2-404c-989c-ec84ffa8aa82" />
 </div>
+
+## :deciduous_tree: Terraform Dependency Graph
+
+<div align="center">
+  <img width="361" height="391" alt="blue-gree-deployment-dependencies drawio" src="https://github.com/user-attachments/assets/367af6f0-6012-4d24-bde3-ac3fd3303104" />
+</div>
