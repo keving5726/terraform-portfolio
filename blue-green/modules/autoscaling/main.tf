@@ -33,3 +33,30 @@ resource "aws_launch_template" "ubuntu_blue_green" {
     ResourceGroup = var.base.namespace
   }
 }
+
+resource "aws_autoscaling_group" "blue_green_asg" {
+  name                = "${var.label}-asg"
+  vpc_zone_identifier = var.base.vpc.private_subnets
+  target_group_arns   = var.label == "blue" ? [var.base.target_group_arns.ex_blue.arn] : [var.base.target_group_arns.ex_green.arn]
+  health_check_type   = "EC2"
+  desired_capacity    = 1
+  min_size            = 1
+  max_size            = 2
+
+  launch_template {
+    id      = aws_launch_template.ubuntu_blue_green.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = "ResourceGroup"
+    value               = var.base.namespace
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Name"
+    value               = var.label
+    propagate_at_launch = true
+  }
+}
