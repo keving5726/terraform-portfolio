@@ -18,6 +18,7 @@ Each folder represents an independent Terraform practice with its own focus and 
 - [multi-tier-webapp](multi-tier-webapp): Build a multi-tier web application architecture. Demonstrates how to organize infrastructure with separate layers like presentation, application, and data.
 - [s3backend-dynamodb](s3backend-dynamodb): Configure a Terraform backend using Amazon S3 with DynamoDB for state locking. This practice demonstrates how to manage remote state with locking to prevent conflicts in team environments and how to use workspaces. However, this setup is no longer recommended since Amazon S3 now provides a native state locking feature that simplifies and improves backend management.
 - [s3backend](s3backend): Learn how to use Terraform’s remote backend with Amazon S3 to store infrastructure state. This practice also introduces the use of workspaces to manage multiple environments or configurations within the same project, helping organize and control state versions effectively.
+- [blue-green](blue-green): Implement a blue-green deployment strategy using Terraform. This practice demonstrates how to deploy two identical environments (blue and green) to enable zero-downtime updates, safe rollbacks, and high availability during production deployments. It covers managing infrastructure versions, switching traffic between environments, and minimizing risks during updates.
 
 ## :rocket: Getting Started
 
