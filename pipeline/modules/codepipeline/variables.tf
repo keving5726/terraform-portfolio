@@ -15,3 +15,9 @@ variable "working_directory" {
   type        = string
   default     = "."
 }
+
+variable "auto_apply" {
+  description = "Whether to automatically apply changes when a Terraform plan is successful. Defaults to false"
+  type        = bool
+  default     = false
+}
