@@ -37,3 +37,12 @@ variable "deployment_policy" {
   type        = string
   default     = null
 }
+
+variable "s3backend_config" {
+  description = "Settings for configuring the S3 remote backend"
+  type = object({
+    bucket   = string
+    region   = string
+    role_arn = string
+  })
+}
