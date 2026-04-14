@@ -9,3 +9,9 @@ variable "terraform_version" {
   type        = string
   default     = "latest"
 }
+
+variable "working_directory" {
+  description = "A relative path that Terraform will execute within. Defaults to the root of your repository"
+  type        = string
+  default     = "."
+}
