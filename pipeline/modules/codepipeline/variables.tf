@@ -31,3 +31,9 @@ variable "environment" {
     CONFIRM_DESTROY  = "0"
   }
 }
+
+variable "deployment_policy" {
+  description = "An optional IAM deployment policy"
+  type        = string
+  default     = null
+}
