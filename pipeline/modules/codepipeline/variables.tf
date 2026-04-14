@@ -21,3 +21,13 @@ variable "auto_apply" {
   type        = bool
   default     = false
 }
+
+variable "environment" {
+  description = "A map of environment variables to pass into pipeline"
+  type        = map(string)
+  default = {
+    TF_IN_AUTOMATION = "1"
+    TF_INPUT         = "0"
+    CONFIRM_DESTROY  = "0"
+  }
+}
