@@ -66,3 +66,44 @@ resource "aws_codecommit_repository" "tf_project" {
     Terraform   = "true"
   }
 }
+
+resource "aws_codebuild_project" "tf_project" {
+  count         = length(local.projects)
+  name          = "${local.namespace}-${local.projects[count.index]}"
+  description   = "CodeBuild project to run 'terraform ${local.projects[count.index]}'"
+  service_role  = aws_iam_role.codebuild.arn
+  build_timeout = 5
+
+  artifacts {
+    type = "NO_ARTIFACTS"
+  }
+
+  cache {
+    type = "NO_CACHE"
+  }
+
+  environment {
+    compute_type                = "BUILD_GENERAL1_SMALL"
+    image                       = "hashicorp/terraform:${var.terraform_version}"
+    image_pull_credentials_type = "CODEBUILD"
+    type                        = "LINUX_CONTAINER"
+    privileged_mode             = false
+  }
+
+  logs_config {
+    s3_logs {
+      status   = "ENABLED"
+      location = "${aws_s3_bucket.tf_project.id}/codebuild-logs/${local.projects[count.index]}"
+    }
+  }
+
+  source {
+    type      = "NO_SOURCE"
+    buildspec = file("${path.module}/templates/buildspec_${local.projects[count.index]}.yaml")
+  }
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
