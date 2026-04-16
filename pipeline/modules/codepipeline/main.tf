@@ -18,3 +18,13 @@ locals {
 
   environment = jsonencode([for k, v in merge(var.environment, local.pipeline_default_env) : { name : k, value : v, type : "PLAINTEXT" }])
 }
+
+resource "aws_kms_key" "tf_project" {
+  description             = "Terraform KMS key for the AWS CodeCommit repository"
+  deletion_window_in_days = 7
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
