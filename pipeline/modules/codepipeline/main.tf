@@ -55,3 +55,14 @@ resource "aws_sns_topic" "tf_project" {
     Terraform   = "true"
   }
 }
+
+resource "aws_codecommit_repository" "tf_project" {
+  repository_name = local.namespace
+  description     = "Terraform sample repository"
+  kms_key_id      = aws_kms_key.tf_project.arn
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
