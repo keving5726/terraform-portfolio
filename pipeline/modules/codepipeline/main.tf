@@ -46,3 +46,12 @@ resource "aws_s3_bucket_versioning" "enabled" {
     status = "Enabled"
   }
 }
+
+resource "aws_sns_topic" "tf_project" {
+  name = local.namespace
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
