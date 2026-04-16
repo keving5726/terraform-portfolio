@@ -155,3 +155,22 @@ resource "aws_iam_role" "codepipeline" {
     Terraform   = "true"
   }
 }
+
+resource "aws_iam_role_policy" "codebuild" {
+  name   = "CodeBuildPolicy"
+  role   = aws_iam_role.codebuild.id
+  policy = data.aws_iam_policy_document.codebuild.json
+}
+
+resource "aws_iam_role_policy" "codepipeline" {
+  name   = "CodePipelinePolicy"
+  role   = aws_iam_role.codepipeline.id
+  policy = data.aws_iam_policy_document.codepipeline.json
+}
+
+resource "aws_iam_role_policy" "deploy" {
+  count  = var.deployment_policy != null ? 1 : 0
+  name   = "DeployPolicy"
+  role   = aws_iam_role.codebuild.name
+  policy = var.deployment_policy
+}
