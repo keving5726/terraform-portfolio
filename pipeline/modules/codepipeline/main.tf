@@ -38,3 +38,11 @@ resource "aws_s3_bucket" "tf_project" {
     Terraform   = "true"
   }
 }
+
+resource "aws_s3_bucket_versioning" "enabled" {
+  bucket = aws_s3_bucket.tf_project.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
