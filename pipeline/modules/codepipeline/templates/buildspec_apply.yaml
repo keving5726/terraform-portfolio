@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Build started on `date`
+      - echo $BACKEND >> backend.tf.json
+      - echo Initializing Terraform
+      - terraform init
+  build:
+    commands:
+      - |
+        if [[ "$CONFIRM_DESTROY" == "0" ]]
+        then
+          echo Create or updates infraestructure
+          terraform apply -auto-approve
+        else
+          echo Destroy infraestructure
+          terraform destroy -auto-approve
+        fi
+  post_build:
+    commands:
+      - echo Terraform plan completed on `date`
