@@ -23,3 +23,47 @@ data "aws_iam_policy_document" "assume_role_codepipeline" {
     actions = ["sts:AssumeRole"]
   }
 }
+
+data "aws_iam_policy_document" "codebuild" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+      "s3:GetBucketVersioning",
+      "s3:PutObject"
+    ]
+
+    resources = [
+      aws_s3_bucket.tf_project.arn,
+      "${aws_s3_bucket.tf_project.arn}/*"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+
+    resources = ["*"]
+  }
+}
