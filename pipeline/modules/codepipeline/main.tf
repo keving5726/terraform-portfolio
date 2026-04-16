@@ -28,3 +28,13 @@ resource "aws_kms_key" "tf_project" {
     Terraform   = "true"
   }
 }
+
+resource "aws_s3_bucket" "tf_project" {
+  bucket        = local.namespace
+  force_destroy = true
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
