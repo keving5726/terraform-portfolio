@@ -107,3 +107,100 @@ resource "aws_codebuild_project" "tf_project" {
     Terraform   = "true"
   }
 }
+
+resource "aws_codepipeline" "codepipeline" {
+  name     = local.namespace
+  role_arn = aws_iam_role.codepipeline.arn
+
+  artifact_store {
+    location = aws_s3_bucket.tf_project.bucket
+    type     = "S3"
+
+    encryption_key {
+      id   = aws_kms_key.tf_project.arn
+      type = "KMS"
+    }
+  }
+
+  stage {
+    name = "Source"
+
+    action {
+      name             = "Source"
+      category         = "Source"
+      owner            = "AWS"
+      provider         = "CodeCommit"
+      version          = "1"
+      output_artifacts = ["source_output"]
+
+      configuration = {
+        RepositoryName       = local.namespace
+        BranchName           = "main"
+        PollForSourceChanges = true
+        OutputArtifactFormat = "CODE_ZIP"
+      }
+    }
+  }
+
+  stage {
+    name = "Plan"
+
+    action {
+      name            = "Plan"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      input_artifacts = ["source_output"]
+      version         = "1"
+
+      configuration = {
+        ProjectName          = aws_codebuild_project.tf_project[0].name
+        EnvironmentVariables = local.environment
+      }
+    }
+  }
+
+  dynamic "stage" {
+    for_each = var.auto_apply ? [] : [1]
+
+    content {
+      name = "Approval"
+
+      action {
+        name     = "Approval"
+        category = "Approval"
+        owner    = "AWS"
+        provider = "Manual"
+        version  = "1"
+
+        configuration = {
+          NotificationArn = aws_sns_topic.tf_project.arn
+          CustomData      = "Please review output of plan and approve"
+        }
+      }
+    }
+  }
+
+  stage {
+    name = "Apply"
+
+    action {
+      name            = "Apply"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      input_artifacts = ["source_output"]
+      version         = "1"
+
+      configuration = {
+        ProjectName          = aws_codebuild_project.tf_project[1].name
+        EnvironmentVariables = local.environment
+      }
+    }
+  }
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
