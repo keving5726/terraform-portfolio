@@ -28,3 +28,24 @@ How the CI/CD pipeline works:
 </div>
 
 This automation ensures consistent, repeatable infrastructure deployments and streamlines the management of Terraform code changes.
+
+## :building_construction: Infrastructure Overview
+
+The infrastructure consists of the following key components:
+
+- S3 Backend Module:
+  - 1 KMS key.
+  - 1 S3 bucket.
+  - 1 IAM role.
+  - 1 IAM policy.
+  - 1 resource group.
+
+- CodePipeline Module:
+  - 1 KMS key.
+  - 1 S3 bucket.
+  - 2 IAM role.
+  - 2 IAM policy.
+  - 1 CodeCommit repository.
+  - 2 CodeBuild projects.
+  - 1 CodePipeline pipeline.
+  - 1 EC2 instance: **t4g.micro** (eligible for AWS free tier).
