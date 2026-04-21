@@ -1,0 +1,16 @@
+{
+  "terraform": {
+    "backend": {
+      "s3": {
+        "bucket": "${config.bucket}",
+        "key": "aws/${name}",
+        "encrypt": true,
+        "use_lockfile": true,
+        "region": "${config.region}",
+        "assume_role": {
+          "role_arn": "${config.role_arn}"
+        }
+      }
+    }
+  }
+}

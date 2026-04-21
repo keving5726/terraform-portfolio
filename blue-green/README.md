@@ -1,0 +1,184 @@
+<div align="center">
+  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+</div>
+
+# Terraform Practice: Blue-Green Deployment in AWS
+
+## :dart: Objective
+
+The objective of this practice is to implement and understand the Blue-Green Deployment strategy, a release methodology designed to minimize downtime and reduce deployment risks.
+
+This approach involves maintaining two identical production environments: Blue (current live environment) and Green (idle environment for the new version).
+
+The deployment process includes:
+- Deploying the new version of the application to the **Green** environment.
+- Testing and validating the **Green** environment to ensure stability and functionality.
+- Switching traffic from the **Blue** environment to the **Green** environment using a router, ensuring a seamless transition with zero downtime.
+- Retaining the **Blue** environment as a fallback for quick rollbacks in case of issues with the new version.
+
+<div align="center">
+  <img width="711" height="392" alt="blue-green-deployment drawio" src="https://github.com/user-attachments/assets/161fe077-cbcd-4c2a-ab4a-af31f74d1ee3" />
+</div>
+
+This practice demonstrates how to achieve safe, efficient, and reversible deployments while maintaining high availability and minimizing risks during production updates. Additionally, it shows how to use Terraform module expansions to create reusable, modular infrastructure components.
+
+## :building_construction: Infrastructure Overview
+
+The infrastructure consists of the following key components:
+
+- Base Module:
+  - 1 VPC.
+  - 1 route table.
+  - 1 Internet gateway.
+  - 1 NAT gateway.
+  - 2 public subnets for the Application Load Balancer.
+  - 2 private subnets for the EC2 instances.
+  - 2 security groups (ALB and Blue-Green app).
+  - 1 IAM role instance profile.
+  - 1 Application Load Balancer (ALB):
+    - 1 listener.
+    - 2 target groups.
+  - 1 resource group.
+
+- Autoscaling Module:
+  - 2 Launch template (Blue and Green):
+    - **AMI**: Ubuntu Server 24.04 LTS (HVM), SSD Volume Type.
+    - **Instance type**: t4g.micro (eligible for AWS free tier).
+    - **Architecture**: 64-bit (Arm).
+    - **User data**: startup.sh.
+  - 2 Auto Scaling Group (ASG):
+    - Blue:
+      - Desired capacity: 1.
+      - Min size: 1.
+      - Max size: 2.
+    - Green:
+      - Desired capacity: 1.
+      - Min size: 1.
+      - Max size: 2.
+
+## :world_map: Architecture Diagrams
+
+### Deployment Strategy
+
+The **Base** infrastructure is deployed first. \
+Initially, **Blue** will be the live server, while **Green** is idle. \
+Then a manual cutover will take place so that **Green** becomes the new live server.
+
+<div align="center">
+  <img width="601" height="141" alt="blue-green-deployment-strategy drawio" src="https://github.com/user-attachments/assets/40f7f3d5-708f-40e5-ac41-e7d20de3fc4e" />
+</div>
+
+The end result is that the customer experiences an instantaneous software update from version **1.0** to **2.0**.
+
+### Blue
+
+<div align="center">
+  <img width="811" height="631" alt="blue-green-deployment-a drawio" src="https://github.com/user-attachments/assets/17d09a94-9b1d-4dc0-afa7-1276d0a04916" />
+</div>
+
+### Green
+
+<div align="center">
+  <img width="811" height="631" alt="blue-green-deployment-b drawio" src="https://github.com/user-attachments/assets/304d1959-82a2-404c-989c-ec84ffa8aa82" />
+</div>
+
+## :deciduous_tree: Terraform Dependency Graph
+
+<div align="center">
+  <img width="361" height="391" alt="blue-gree-deployment-dependencies drawio" src="https://github.com/user-attachments/assets/367af6f0-6012-4d24-bde3-ac3fd3303104" />
+</div>
+
+## :arrow_forward: How to Run
+
+**NOTE**: This practice will deploy real resources into your AWS account.
+Remember to delete created resources to avoid charges on your AWS account.
+
+### Pre-requisites
+
+- Terraform installed (version v1.14.8 or higher recommended).
+- AWS CLI configured with your credentials and default region.
+- An AWS account with permissions to create VPCs and all its components, resources groups, IAM roles, Application Load Balancing, Auto Scaling groups and EC2 instances.
+
+### Steps
+
+1. Initialize Terraform (downloads provider plugins):
+   ```bash
+   terraform init
+   ```
+
+2. Preview the infrastructure changes Terraform will apply:
+   ```bash
+   terraform plan
+   ```
+
+3. Apply the configuration to deploy the **Blue** application:
+   ```bash
+   terraform apply
+   ```
+
+4. Check the **Outputs** in the terminal, for example:
+   ```bash
+   Outputs:
+
+   alb_dns_name = "blue-green-alb-1874018011.us-east-1.elb.amazonaws.com"
+   ```
+
+5. From your browser, enter the DNS name:
+   ```bash
+   http://blue-green-alb-1874018011.us-east-1.elb.amazonaws.com
+   ```
+
+   You should see the **Blue** application:
+
+   <div align="center">
+     <img width="1920" height="1006" alt="blue-app" src="https://github.com/user-attachments/assets/a041833d-0fb9-4966-8f46-9db23bb2b79e" />
+   </div>
+
+6. Deploy the **Green** application:
+
+   - Update the **terraform.tfvars** file to deploy the **Green** application:
+     ```bash
+     namespace  = "blue-green"
+     aws_region = "us-east-1"
+     deployment = "green"
+     ```
+
+   - Preview the infrastructure changes Terraform will apply:
+     ```bash
+     terraform plan
+     ```
+
+   - Apply the configuration:
+     ```bash
+     terraform apply
+     ```
+
+7. Check the **Outputs** in the terminal, for example:
+   ```bash
+   Outputs:
+
+   alb_dns_name = "blue-green-alb-1874018011.us-east-1.elb.amazonaws.com"
+   ```
+
+8. From your browser, enter the DNS name:
+   ```bash
+   http://blue-green-alb-1874018011.us-east-1.elb.amazonaws.com
+   ```
+
+   You should see the **Green** application:
+
+   <div align="center">
+     <img width="1918" height="1006" alt="green-app" src="https://github.com/user-attachments/assets/4ca1902b-a9f8-4011-93b0-edf4b12af7ac" />
+   </div>
+
+   You can take a look at all the resources created using the **AWS Management Console**.
+
+9. Clean up when you're done:
+   ```bash
+   terraform destroy
+   ```
+
+## :rocket: Looking Ahead
+
+This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
+You can extend this by adding variables, outputs, and more complex resources in future practices.
