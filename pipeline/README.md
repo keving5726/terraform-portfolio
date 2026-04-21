@@ -49,3 +49,16 @@ The infrastructure consists of the following key components:
   - 2 CodeBuild projects.
   - 1 CodePipeline pipeline.
   - 1 EC2 instance: **t4g.micro** (eligible for AWS free tier).
+
+## :twisted_rightwards_arrows: Flowchart
+
+<div align="center">
+  <img width="689" height="473" alt="pipeline-workflow drawio" src="https://github.com/user-attachments/assets/253b983b-5eec-44b0-b21f-1cf49f99ce34" />
+</div>
+
+1. Download source code from AWS CodeCommit repository.
+2. AWS CodePipeline sends a signal to AWS CodeBuild and AWS CodeBuild runs `terraform plan`.
+3. The status is read from the S3 backend.
+4. AWS SNS notifies the relevant stakeholders. The stakeholders manually approve or reject the changes.
+5. AWS CodePipeline sends a signal to AWS CodeBuild and AWS CodeBuild runs `terraform apply`.
+6. The state is written in the S3 backend.
