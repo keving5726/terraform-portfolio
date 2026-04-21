@@ -165,3 +165,8 @@ Remember to delete created resources to avoid charges on your AWS account.
      ```bash
      terraform destroy
      ```
+
+## :rocket: Looking Ahead
+
+This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
+You can extend this by adding variables, outputs, and more complex resources in future practices.
