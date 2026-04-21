@@ -3,3 +3,28 @@
 </div>
 
 # Terraform Practice: CI/CD Pipeline in AWS
+
+## :dart: Objective
+
+The objective of this practice is to create and deploy a four-stage CI/CD pipeline for Terraform deployments:
+1. **Source**: Changes to the Terraform configuration code stored in a version-controlled source (VCS) repository are detected. This triggers the pipeline to start running.
+2. **Plan**: The pipeline runs `terraform plan` to create an execution plan, showing what changes will be made to the infrastructure based on the new code.
+3. **Approve**: If the `terraform plan` succeeds without errors, the pipeline pauses and requires manual approval before proceeding. This step ensures that changes are reviewed before applying.
+4. **Apply**: Once approved, the pipeline runs `terraform apply` to apply the planned changes to the production environment, updating the infrastructure accordingly.
+
+<div align="center">
+  <img width="736" height="100" alt="pipeline-stages drawio" src="https://github.com/user-attachments/assets/15b06f53-3a79-4fe4-bd24-900a2176e924" />
+</div>
+
+How the CI/CD pipeline works:
+
+* The pipeline integrates AWS CodeCommit as the source repository.
+* When a user pushes changes to the CodeCommit repository, the system registers these changes and creates an event reflecting the new state of the repository.
+* This event is then captured by Amazon EventBridge, which acts as a trigger to start the execution of the CodePipeline.
+* From there, CodePipeline takes control, coordinating and managing the progression through each stage of the pipeline automatically.
+
+<div align="center">
+  <img width="795" height="147" alt="pipeline-implementation drawio" src="https://github.com/user-attachments/assets/ff77cbd4-ca72-42e5-a8d8-eb603d775c60" />
+</div>
+
+This automation ensures consistent, repeatable infrastructure deployments and streamlines the management of Terraform code changes.
