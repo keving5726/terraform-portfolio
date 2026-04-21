@@ -62,3 +62,9 @@ The infrastructure consists of the following key components:
 4. AWS SNS notifies the relevant stakeholders. The stakeholders manually approve or reject the changes.
 5. AWS CodePipeline sends a signal to AWS CodeBuild and AWS CodeBuild runs `terraform apply`.
 6. The state is written in the S3 backend.
+
+## :deciduous_tree: Terraform Dependency Graph
+
+<div align="center">
+  <img width="401" height="181" alt="pipeline-dependencies drawio" src="https://github.com/user-attachments/assets/35a58fc7-53d5-4f6c-8414-09530087fef3" />
+</div>
