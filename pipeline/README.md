@@ -68,3 +68,14 @@ The infrastructure consists of the following key components:
 <div align="center">
   <img width="401" height="181" alt="pipeline-dependencies drawio" src="https://github.com/user-attachments/assets/35a58fc7-53d5-4f6c-8414-09530087fef3" />
 </div>
+
+## :arrow_forward: How to Run
+
+**NOTE**: This practice will deploy real resources into your AWS account.
+Remember to delete created resources to avoid charges on your AWS account.
+
+### Pre-requisites
+
+- Terraform installed (version v1.14.8 or higher recommended).
+- AWS CLI configured with your credentials and default region.
+- An AWS account with permissions to create IAM roles, IAM policies, S3 buckets, KMS keys.
