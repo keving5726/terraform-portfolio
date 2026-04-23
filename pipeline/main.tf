@@ -1,5 +1,5 @@
 module "s3backend" {
-  source         = "github.com/keving5726/terraform-practice-portfolio/s3backend/deploy?ref=develop"
+  source         = "github.com/keving5726/terraform-practice-portfolio/s3backend/deploy?ref=master"
   namespace      = var.namespace
   principal_arns = [module.codepipeline.deployment_role_arn]
 }
