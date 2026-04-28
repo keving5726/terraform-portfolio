@@ -14,7 +14,7 @@ It is designed as a starting point for learning Infrastructure as Code (IaC) wit
 The infrastructure consists of the following key components:
 
 - 1 EC2 instance:
-  - **AMI**: Amazon Linux 2023 kernel-6.12 AMI.
+  - **AMI**: Amazon Linux 2023 kernel-6.1 AMI.
   - **Instance type**: t4g.micro (eligible for AWS free tier).
   - **Architecture**: 64-bit (Arm).
 
