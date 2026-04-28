@@ -48,7 +48,7 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
 
-- Terraform installed (version v1.14.4 or higher recommended).
+- Terraform installed (version v1.14.9 or higher recommended).
 - AWS CLI configured with your credentials and default region.
 - An AWS account with permissions to create EC2 instances.
 
