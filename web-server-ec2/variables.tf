@@ -33,3 +33,14 @@ variable "sg_cidr_ipv4" {
   description = "The source IPv4 CIDR range of the security group"
   default     = "0.0.0.0/0"
 }
+
+variable "instance_count" {
+  type        = number
+  description = "Number of EC2 instances to deploy"
+  default     = 1
+
+  validation {
+    condition     = var.instance_count > 0
+    error_message = "This deploy requires at least one instance"
+  }
+}
