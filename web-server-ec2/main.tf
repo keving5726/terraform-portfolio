@@ -1,3 +1,10 @@
+data "aws_ec2_instance_types" "free_tier" {
+  filter {
+    name   = "free-tier-eligible"
+    values = ["true"]
+  }
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]
@@ -41,6 +48,14 @@ resource "aws_instance" "web_server_ec2" {
   user_data_replace_on_change = true
 
   tags = {
-    Name = "Web Server EC2"
+    Name = "Web Server EC2 ${count.index + 1}"
+  }
+
+  lifecycle {
+    precondition {
+      # Check if the chosen instance type is on the AWS Free Tier list
+      condition     = contains(data.aws_ec2_instance_types.free_tier.instance_types, var.instance_type)
+      error_message = "The '${var.instance_type}' instance type is not elegible for Free Tier in this region"
+    }
   }
 }
