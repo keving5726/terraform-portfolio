@@ -27,6 +27,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ipv4" {
 }
 
 resource "aws_instance" "web_server_ec2" {
+  count                  = var.instance_count
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.web_server_ec2_sg.id]
