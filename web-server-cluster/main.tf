@@ -108,7 +108,7 @@ resource "aws_lb" "web_server_lb" {
   ip_address_type    = "ipv4"
 
   tags = {
-    Environment = "develop"
+    Name = "Application Load Balancer"
   }
 }
 
