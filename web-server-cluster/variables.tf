@@ -10,6 +10,17 @@ variable "instance_type" {
   default     = "t4g.micro"
 }
 
+variable "environment" {
+  type        = string
+  description = "Deployment environment (dev, staging, prod)"
+  default     = "dev"
+
+  validation {
+    condition     = contains(["dev", "staging", "prod"])
+    error_message = "The environment variables must be one of: dev, staging, or prod"
+  }
+}
+
 variable "web_server_port" {
   type        = number
   description = "The port the web server will use for HTTP requests"
