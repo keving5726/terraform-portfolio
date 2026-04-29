@@ -135,11 +135,12 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_lb_target_group" "web_server_tg" {
-  name        = "web-server-tg"
-  port        = var.web_server_port
-  protocol    = var.protocol
-  target_type = "instance"
-  vpc_id      = data.aws_vpc.default.id
+  name                 = "web-server-tg"
+  port                 = var.web_server_port
+  protocol             = var.protocol
+  target_type          = "instance"
+  vpc_id               = data.aws_vpc.default.id
+  deregistration_delay = 30
 
   health_check {
     path                = "/"
