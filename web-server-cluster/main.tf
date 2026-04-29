@@ -178,6 +178,7 @@ resource "aws_autoscaling_group" "web_server_asg" {
   desired_capacity    = 3
   min_size            = 2
   max_size            = 5
+  force_delete        = true
 
   launch_template {
     id      = aws_launch_template.ubuntu.id
