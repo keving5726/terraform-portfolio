@@ -22,7 +22,7 @@ variable "environment" {
   default     = "dev"
 
   validation {
-    condition     = contains(["dev", "staging", "prod"])
+    condition     = contains(["dev", "staging", "prod"], var.environment)
     error_message = "The environment variables must be one of: dev, staging, or prod"
   }
 }
