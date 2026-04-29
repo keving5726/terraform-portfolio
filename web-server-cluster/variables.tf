@@ -1,53 +1,53 @@
 variable "aws_region" {
-  description = "AWS Region where the instance will be deployed"
   type        = string
+  description = "AWS Region where the instance will be deployed"
   default     = "us-east-1"
 }
 
 variable "instance_type" {
-  description = "EC2 instance type"
   type        = string
+  description = "EC2 instance type"
   default     = "t4g.micro"
 }
 
 variable "web_server_port" {
-  description = "The port the web server will use for HTTP requests"
   type        = number
+  description = "The port the web server will use for HTTP requests"
   default     = 8080
 }
 
 variable "alb_port" {
-  description = "The port the ALB will use for HTTP requests"
   type        = number
+  description = "The port the ALB will use for HTTP requests"
   default     = 80
 }
 
 variable "protocol" {
-  description = "Protocol to use for routing traffic"
   type        = string
+  description = "Protocol to use for routing traffic"
   default     = "HTTP"
 }
 
 variable "instance_sg_name" {
-  description = "The name of the security group of the instances"
   type        = string
+  description = "The name of the security group of the instances"
   default     = "web-server-sg"
 }
 
 variable "alb_sg_name" {
-  description = "The name of the security group of the Application Load Balancer"
   type        = string
+  description = "The name of the security group of the Application Load Balancer"
   default     = "alb-sg"
 }
 
 variable "ip_protocol" {
-  description = "The IP protocol name of the security group"
   type        = string
+  description = "The IP protocol name of the security group"
   default     = "tcp"
 }
 
 variable "cidr_ipv4" {
-  description = "The source IPv4 CIDR range of the security group"
   type        = string
+  description = "The source IPv4 CIDR range of the security group"
   default     = "0.0.0.0/0"
 }
