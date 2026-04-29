@@ -189,4 +189,14 @@ resource "aws_autoscaling_group" "web_server_asg" {
     value               = "Web Server"
     propagate_at_launch = true
   }
+
+  dynamic "tag" {
+    for_each = local.common_tags
+
+    content {
+      key                 = tag.key
+      value               = tag.value
+      propagate_at_launch = true
+    }
+  }
 }
