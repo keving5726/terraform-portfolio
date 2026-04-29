@@ -10,6 +10,12 @@ variable "instance_type" {
   default     = "t4g.micro"
 }
 
+variable "namespace" {
+  type        = string
+  description = "The project namespace to use for unique resource naming"
+  default     = "web-server-cluster"
+}
+
 variable "environment" {
   type        = string
   description = "Deployment environment (dev, staging, prod)"
