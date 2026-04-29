@@ -31,6 +31,12 @@ locals {
     for s in data.aws_subnet.default :
     s.id if contains(local.allowed_azs, s.availability_zone)
   ]
+
+  common_tags = {
+    Project     = var.namespace
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+  }
 }
 
 resource "aws_security_group" "web_server_sg" {
