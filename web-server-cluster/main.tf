@@ -116,6 +116,13 @@ resource "aws_lb" "web_server_lb" {
   tags = {
     Name = "Application Load Balancer"
   }
+
+  lifecycle {
+    postcondition {
+      condition     = length(self.subnets) > 1
+      error_message = "At least two subnets in two different Availability Zones must be specified"
+    }
+  }
 }
 
 resource "aws_lb_listener" "http" {
