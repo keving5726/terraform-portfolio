@@ -1,20 +1,20 @@
 variable "namespace" {
-  description = "The project namespace to use for unique resource naming"
   type        = string
+  description = "The project namespace to use for unique resource naming"
 }
 
 variable "vpc" {
-  description = "Reference to the VPC module outputs"
   type        = any
+  description = "Reference to the VPC module outputs"
 }
 
 variable "sg" {
-  description = "Security group IDs for the Application Load Balancer, web server, and database"
   type        = any
+  description = "Security group IDs for the Application Load Balancer, web server, and database"
 }
 
 variable "db_instance_class" {
-  description = "DB instance class"
   type        = string
+  description = "DB instance class"
   default     = "db.t4g.micro"
 }
