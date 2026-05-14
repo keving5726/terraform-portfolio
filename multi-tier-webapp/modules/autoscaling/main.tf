@@ -116,7 +116,7 @@ resource "aws_launch_template" "ubuntu_webapp" {
 
 module "autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "9.2.0"
+  version = "9.2.1"
 
   name            = "WebAppASG"
   use_name_prefix = false
