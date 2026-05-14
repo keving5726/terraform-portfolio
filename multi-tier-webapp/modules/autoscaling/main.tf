@@ -45,11 +45,6 @@ module "iam_role_instance_profile" {
     CloudWatchLogsFullAccess = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
     AmazonRDSFullAccess      = "arn:aws:iam::aws:policy/AmazonRDSFullAccess"
   }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 module "alb" {
@@ -102,11 +97,6 @@ module "alb" {
         unhealthy_threshold = 2
       }
     }
-  }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
   }
 }
 
