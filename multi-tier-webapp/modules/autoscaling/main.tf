@@ -21,7 +21,7 @@ data "aws_ami" "ubuntu" {
 
 module "iam_role_instance_profile" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role"
-  version = "6.4.0"
+  version = "6.6.0"
 
   name                    = "${var.namespace}-instance-profile"
   use_name_prefix         = false
