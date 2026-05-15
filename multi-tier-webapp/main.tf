@@ -1,3 +1,11 @@
+locals {
+  common_tags = {
+    Project     = var.namespace
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+  }
+}
+
 module "networking" {
   source    = "./modules/networking"
   namespace = var.namespace
