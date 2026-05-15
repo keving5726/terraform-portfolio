@@ -3,6 +3,31 @@ variable "namespace" {
   description = "The project namespace to use for unique resource naming"
 }
 
+variable "vpc_id" {
+  type        = string
+  description = "Reference to the VPC module outputs"
+}
+
+variable "vpc_public_subnets" {
+  type        = list(string)
+  description = "Reference to the VPC module outputs"
+}
+
+variable "vpc_private_subnets" {
+  type        = list(string)
+  description = "Reference to the VPC module outputs"
+}
+
+variable "alb_security_group" {
+  type        = string
+  description = "Security group IDs for the Application Load Balancer, web server, and database"
+}
+
+variable "web_server_security_group" {
+  type        = string
+  description = "Security group IDs for the Application Load Balancer, web server, and database"
+}
+
 variable "db_config" {
   type = object({
     hostname = string
