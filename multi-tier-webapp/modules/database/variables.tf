@@ -35,3 +35,13 @@ variable "db_username" {
   type        = string
   description = "Username for the master DB user"
 }
+
+variable "db_subnet_group_name" {
+  type        = string
+  description = "The name of the database subnet group to use for the RDS instance"
+}
+
+variable "db_security_group" {
+  type        = string
+  description = "The ID of the security group allowing acces to the database"
+}
