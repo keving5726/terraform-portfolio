@@ -53,9 +53,9 @@ module "alb" {
 
   name                       = "webapp-alb"
   load_balancer_type         = "application"
-  vpc_id                     = var.vpc.vpc_id
-  subnets                    = var.vpc.public_subnets
-  security_groups            = [var.sg.alb]
+  vpc_id                     = var.vpc_id
+  subnets                    = var.vpc_public_subnets
+  security_groups            = [var.alb_security_group]
   enable_deletion_protection = false
 
   listeners = {
@@ -105,7 +105,7 @@ resource "aws_launch_template" "ubuntu_webapp" {
   description            = "Ubuntu template used for the multi tier webapp"
   image_id               = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
-  vpc_security_group_ids = [var.sg.web_server]
+  vpc_security_group_ids = [var.web_server_security_group]
   key_name               = var.ssh_keypair
   user_data              = data.cloudinit_config.config.rendered
 
@@ -130,7 +130,7 @@ module "autoscaling" {
   wait_for_capacity_timeout = 0
   default_instance_warmup   = 300
   health_check_type         = "EC2"
-  vpc_zone_identifier       = var.vpc.private_subnets
+  vpc_zone_identifier       = var.vpc_private_subnets
 
   create_launch_template = false
   launch_template_id     = aws_launch_template.ubuntu_webapp.id
