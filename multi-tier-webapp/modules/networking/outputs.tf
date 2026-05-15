@@ -3,8 +3,8 @@ output "vpc" {
   value       = module.vpc
 }
 
-output "sg" {
-  description = "Security group IDs for the Application Load Balancer, web server, and database"
+output "security_group_ids" {
+  description = "Security group IDs for the ALB, web server, and database"
   value = {
     alb        = module.alb_sg.security_group_id
     web_server = module.web_server_sg.security_group_id
