@@ -1,4 +1,10 @@
 locals {
+  common_tags = {
+    Project     = var.namespace
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+  }
+
   deployment = {
     "blue" = {
       app_version = "v1.0"
