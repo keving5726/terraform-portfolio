@@ -1,20 +1,20 @@
 variable "label" {
-  description = "The label for the Blue-Green deployment"
   type        = string
+  description = "The label for the Blue-Green deployment"
 }
 
 variable "app_version" {
-  description = "The app's version number"
   type        = string
+  description = "The app's version number"
 }
 
 variable "base" {
-  description = "Reference to the base module outputs"
   type        = any
+  description = "Reference to the base module outputs"
 }
 
 variable "instance_type" {
-  description = "EC2 instance type"
   type        = string
+  description = "EC2 instance type"
   default     = "t4g.micro"
 }
