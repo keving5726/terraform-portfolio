@@ -95,7 +95,7 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
 
-- Terraform installed (version v1.14.8 or higher recommended).
+- Terraform installed (version v1.15.3 or higher recommended).
 - AWS CLI configured with your credentials and default region.
 - An AWS account with permissions to create VPCs and all its components, resources groups, IAM roles, Application Load Balancing, Auto Scaling groups and EC2 instances.
 
