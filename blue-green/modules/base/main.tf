@@ -45,11 +45,6 @@ module "vpc" {
 
   enable_nat_gateway = true
   single_nat_gateway = true
-
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
 }
 
 module "alb_sg" {
@@ -198,10 +193,5 @@ module "iam_role_instance_profile" {
 
   policies = {
     CloudWatchLogsFullAccess = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
-  }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
   }
 }
