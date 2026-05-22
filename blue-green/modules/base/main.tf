@@ -34,7 +34,7 @@ resource "aws_resourcegroups_group" "blue_green_rg" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "6.6.0"
+  version = "6.6.1"
 
   name = "${local.namespace}-vpc"
   cidr = var.private_network_cidr
