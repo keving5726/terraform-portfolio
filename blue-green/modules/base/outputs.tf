@@ -8,7 +8,7 @@ output "vpc" {
   value       = module.vpc
 }
 
-output "sg" {
+output "security_group_ids" {
   description = "Security group IDs for the Application Load Balancer (ALB) and Blue-Green deployment"
   value = {
     alb        = module.alb_sg.security_group_id
