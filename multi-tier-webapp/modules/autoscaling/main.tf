@@ -79,11 +79,12 @@ module "alb" {
 
   target_groups = {
     ex_asg = {
-      name              = "webapp-tg"
-      protocol          = "HTTP"
-      port              = 8080
-      target_type       = "instance"
-      create_attachment = false
+      name                 = "webapp-tg"
+      protocol             = "HTTP"
+      port                 = 8080
+      target_type          = "instance"
+      deregistration_delay = 30
+      create_attachment    = false
 
       health_check = {
         enabled             = true
