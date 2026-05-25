@@ -21,23 +21,23 @@ resource "aws_launch_template" "ubuntu_blue_green" {
   user_data     = base64encode(local.startup)
 
   iam_instance_profile {
-    name = var.base.iam_role
+    name = var.iam_role
   }
 
   network_interfaces {
-    security_groups             = [var.base.sg.blue_green]
+    security_groups             = [var.blue_green_security_group]
     associate_public_ip_address = false
   }
 
   tags = {
-    ResourceGroup = var.base.namespace
+    ResourceGroup = var.namespace
   }
 }
 
 resource "aws_autoscaling_group" "blue_green_asg" {
   name                = "${var.label}-asg"
-  vpc_zone_identifier = var.base.vpc.private_subnets
-  target_group_arns   = var.label == "blue" ? [var.base.target_group_arns.ex_blue.arn] : [var.base.target_group_arns.ex_green.arn]
+  vpc_zone_identifier = var.vpc_private_subnets
+  target_group_arns   = var.label == "blue" ? [var.blue_target_group_arn] : [var.green_target_group_arn]
   health_check_type   = "EC2"
   desired_capacity    = 1
   min_size            = 1
@@ -50,7 +50,7 @@ resource "aws_autoscaling_group" "blue_green_asg" {
 
   tag {
     key                 = "ResourceGroup"
-    value               = var.base.namespace
+    value               = var.namespace
     propagate_at_launch = true
   }
 
