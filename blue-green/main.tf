@@ -26,5 +26,14 @@ module "blue_green" {
   for_each    = local.deployment
   label       = each.key
   app_version = each.value.app_version
-  base        = module.base
+
+  namespace           = module.base.namespace
+  vpc_private_subnets = module.base.vpc.private_subnets
+  iam_role            = module.base.iam_role
+
+  alb_security_group        = module.base.security_group_ids.alb
+  blue_green_security_group = module.base.security_group_ids.blue_green
+
+  blue_target_group_arn  = module.base.target_group_arns.ex_blue.arn
+  green_target_group_arn = module.base.target_group_arns.ex_green.arn
 }
