@@ -5,17 +5,17 @@ variable "namespace" {
 
 variable "vpc_id" {
   type        = string
-  description = "Reference to the VPC module outputs"
+  description = "The ID of the VPC where the resources will be deployed"
 }
 
 variable "vpc_public_subnets" {
   type        = list(string)
-  description = "Reference to the VPC module outputs"
+  description = "A list of public subnet IDs associated with the VPC"
 }
 
 variable "vpc_private_subnets" {
   type        = list(string)
-  description = "Reference to the VPC module outputs"
+  description = "A list of private subnet IDs associated with the VPC"
 }
 
 variable "alb_security_group" {
