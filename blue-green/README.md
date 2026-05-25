@@ -106,24 +106,31 @@ Remember to delete created resources to avoid charges on your AWS account.
    terraform init
    ```
 
-2. Preview the infrastructure changes Terraform will apply:
+2. Configure environment variables:
+   - First, copy the example template:
+     ```bash
+     cp terraform.tfvars.example terraform.tfvars
+     ```
+   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+
+3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
    ```
 
-3. Apply the configuration to deploy the **Blue** application:
+4. Apply the configuration to deploy the **Blue** application:
    ```bash
    terraform apply
    ```
 
-4. Check the **Outputs** in the terminal, for example:
+5. Check the **Outputs** in the terminal, for example:
    ```bash
    Outputs:
 
    alb_dns_name = "blue-green-alb-1874018011.us-east-1.elb.amazonaws.com"
    ```
 
-5. From your browser, enter the DNS name:
+6. From your browser, enter the DNS name:
    ```bash
    http://blue-green-alb-1874018011.us-east-1.elb.amazonaws.com
    ```
@@ -134,7 +141,7 @@ Remember to delete created resources to avoid charges on your AWS account.
      <img width="1920" height="1006" alt="blue-app" src="https://github.com/user-attachments/assets/a041833d-0fb9-4966-8f46-9db23bb2b79e" />
    </div>
 
-6. Deploy the **Green** application:
+7. Deploy the **Green** application:
 
    - Update the **terraform.tfvars** file to deploy the **Green** application:
      ```bash
@@ -153,14 +160,14 @@ Remember to delete created resources to avoid charges on your AWS account.
      terraform apply
      ```
 
-7. Check the **Outputs** in the terminal, for example:
+8. Check the **Outputs** in the terminal, for example:
    ```bash
    Outputs:
 
    alb_dns_name = "blue-green-alb-1874018011.us-east-1.elb.amazonaws.com"
    ```
 
-8. From your browser, enter the DNS name:
+9. From your browser, enter the DNS name:
    ```bash
    http://blue-green-alb-1874018011.us-east-1.elb.amazonaws.com
    ```
@@ -173,7 +180,7 @@ Remember to delete created resources to avoid charges on your AWS account.
 
    You can take a look at all the resources created using the **AWS Management Console**.
 
-9. Clean up when you're done:
+10. Clean up when you're done:
    ```bash
    terraform destroy
    ```
