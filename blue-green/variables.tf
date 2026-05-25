@@ -18,3 +18,18 @@ variable "deployment" {
     error_message = "The deployment variable must be either 'blue' or 'green'"
   }
 }
+
+variable "environment" {
+  type        = string
+  description = "Deployment environment (dev, staging, prod)"
+
+  validation {
+    condition     = contains(["dev", "staging", "prod"], var.environment)
+    error_message = "The environment variables must be one of: dev, staging, or prod"
+  }
+}
+
+variable "owner" {
+  type        = string
+  description = "Owner or team responsible for these resources"
+}
