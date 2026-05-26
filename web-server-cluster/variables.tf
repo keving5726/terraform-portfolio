@@ -27,6 +27,12 @@ variable "environment" {
   }
 }
 
+variable "owner" {
+  type        = string
+  description = "Owner or team responsible for these resources"
+  default     = "platform-team"
+}
+
 variable "web_server_port" {
   type        = number
   description = "The port the web server will use for HTTP requests"

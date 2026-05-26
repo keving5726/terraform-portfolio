@@ -2,6 +2,7 @@ locals {
   common_tags = {
     Project     = var.namespace
     Environment = var.environment
+    Owner       = var.owner
     ManagedBy   = "Terraform"
   }
 
