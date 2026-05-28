@@ -1,10 +1,10 @@
 variable "aws_region" {
-  description = "AWS Region where the instance will be deployed"
   type        = string
+  description = "AWS Region where the instance will be deployed"
 }
 
 variable "instance_type" {
-  description = "EC2 instance type"
   type        = string
+  description = "EC2 instance type"
   default     = "t4g.micro"
 }
