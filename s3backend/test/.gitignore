@@ -1,2 +1,2 @@
 # Partial configuration for the S3 backend
-*.config
+backend.config
