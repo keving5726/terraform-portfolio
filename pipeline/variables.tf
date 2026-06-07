@@ -1,10 +1,10 @@
 variable "aws_region" {
-  description = "AWS Region where the instance will be deployed"
   type        = string
+  description = "AWS Region where the instance will be deployed"
   default     = "us-east-1"
 }
 
 variable "namespace" {
-  description = "The project namespace to use for unique resource naming"
   type        = string
+  description = "The project namespace to use for unique resource naming"
 }
