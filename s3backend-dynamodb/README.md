@@ -64,7 +64,7 @@ The infrastructure consists of the following key components:
 
 ### Pre-requisites
 
-- Terraform installed (version v1.14.7 or higher recommended).
+- Terraform installed (version v1.15.3 or higher recommended).
 - AWS CLI configured with your credentials and default region.
 - An AWS account with permissions to create KMS keys, S3 buckets, DynamoDB tables, IAM roles, IAM policies and EC2 instances.
 
