@@ -14,3 +14,13 @@ environment = "dev"
 
 # Owner or team responsible for these resources
 owner = "platform-team"
+
+# ==========================================
+# Compute & Instance Configuration
+# ==========================================
+
+# The AWS EC2 instance type (size) to determine CPU and Memory allocation.
+instance_type = "t4g.micro"
+
+# The total number of EC2 instances to provision.
+instance_count = 1
