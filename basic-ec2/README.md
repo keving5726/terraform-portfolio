@@ -58,24 +58,20 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-
 2. Configure environment variables:
    - First, copy the example template:
      ```bash
      cp terraform.tfvars.example terraform.tfvars
      ```
    - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
-
 3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
    ```
-
 4. Apply the configuration to create the EC2 instance:
    ```bash
    terraform apply
    ```
-
 5. Clean up when you're done:
    ```bash
    terraform destroy
