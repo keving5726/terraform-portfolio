@@ -45,6 +45,15 @@ data "aws_ami" "amazon_linux" {
   }
 }
 
+locals {
+  common_tags = {
+    Project     = var.namespace
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "Terraform"
+  }
+}
+
 resource "aws_instance" "basic_ec2" {
   count         = var.instance_count
   ami           = data.aws_ami.amazon_linux.id
