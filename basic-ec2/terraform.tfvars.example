@@ -19,8 +19,8 @@ owner = "platform-team"
 # Compute & Instance Configuration
 # ==========================================
 
-# The AWS EC2 instance type (size) to determine CPU and Memory allocation.
+# The AWS EC2 instance type (size) to determine CPU and Memory allocation
 instance_type = "t4g.micro"
 
-# The total number of EC2 instances to provision.
+# The total number of EC2 instances to provision
 instance_count = 1
