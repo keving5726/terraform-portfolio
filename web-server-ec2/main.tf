@@ -15,6 +15,15 @@ data "aws_ami" "ubuntu" {
   }
 }
 
+locals {
+  common_tags = {
+    Project     = var.namespace
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "Terraform"
+  }
+}
+
 resource "aws_security_group" "web_server_ec2" {
   name        = var.security_group_name
   description = "Security group to allow traffic to the web server on port ${var.server_port}"
