@@ -1,0 +1,38 @@
+# ==========================================
+# Global & Provider Configuration
+# ==========================================
+
+# The 'namespace' is used as a prefix for resource naming and tagging
+namespace = "web-server-ec2"
+
+# The AWS region where all infrastructure will be deployed
+# Ensure your provider configuration is compatible with this region
+region = "us-east-1"
+
+# Environment name for tagging purposes
+environment = "dev"
+
+# Owner or team responsible for these resources
+owner = "platform-team"
+
+# ==========================================
+# Compute & Instance Configuration
+# ==========================================
+
+# The AWS EC2 instance type (size) to determine CPU and Memory allocation
+instance_type = "t4g.micro"
+
+# The total number of EC2 instances to provision
+instance_count = 1
+
+# The port the server will use for HTTP requests
+server_port = 8080
+
+# The name of the security group
+security_group_name = "web-server-ec2-sg"
+
+# The IP protocol name of the security group
+security_group_protocol = "tcp"
+
+# The source IPv4 CIDR range of the security group
+security_group_cidr_ipv4 = "0.0.0.0/0"
