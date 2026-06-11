@@ -195,7 +195,7 @@ resource "aws_autoscaling_group" "web_server" {
 
   tag {
     key                 = "Name"
-    value               = "Web Server ${count.index + 1}"
+    value               = "Web Server"
     propagate_at_launch = true
   }
 
