@@ -40,8 +40,8 @@ locals {
   }
 }
 
-resource "aws_security_group" "web_server_sg" {
-  name        = var.instance_sg_name
+resource "aws_security_group" "web_server" {
+  name        = var.instance_security_group_name
   description = "Security group to allow traffic to the web server on port ${var.web_server_port}"
 
   tags = {
@@ -49,9 +49,9 @@ resource "aws_security_group" "web_server_sg" {
   }
 }
 
-resource "aws_security_group" "alb_sg" {
-  name        = var.alb_sg_name
-  description = "Security group to allow traffic to the ALB on port ${var.alb_port}"
+resource "aws_security_group" "alb" {
+  name        = var.alb_security_group_name
+  description = "Security group to allow traffic to the ALB on port ${var.alb_listener_port}"
 
   tags = {
     Name = "Application Load Balancer SG"
@@ -59,28 +59,28 @@ resource "aws_security_group" "alb_sg" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "web_server_allow_ipv4" {
-  security_group_id = aws_security_group.web_server_sg.id
+  security_group_id = aws_security_group.web_server.id
   description       = "Allows inbound TCP traffic on port ${var.web_server_port} to enable access to the web server"
-  ip_protocol       = var.ip_protocol
+  ip_protocol       = var.security_group_protocol
   from_port         = var.web_server_port
   to_port           = var.web_server_port
-  cidr_ipv4         = var.cidr_ipv4
+  cidr_ipv4         = var.security_group_cidr_ipv4
 }
 
 resource "aws_vpc_security_group_ingress_rule" "alb_allow_ipv4" {
-  security_group_id = aws_security_group.alb_sg.id
-  description       = "Allows inbound TCP traffic on port ${var.alb_port} to enable access to the Application Load Balancer"
-  ip_protocol       = var.ip_protocol
-  from_port         = var.alb_port
-  to_port           = var.alb_port
-  cidr_ipv4         = var.cidr_ipv4
+  security_group_id = aws_security_group.alb.id
+  description       = "Allows inbound TCP traffic on port ${var.alb_listener_port} to enable access to the Application Load Balancer"
+  ip_protocol       = var.security_group_protocol
+  from_port         = var.alb_listener_port
+  to_port           = var.alb_listener_port
+  cidr_ipv4         = var.security_group_cidr_ipv4
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
-  security_group_id = aws_security_group.alb_sg.id
+  security_group_id = aws_security_group.alb.id
   description       = "Allows all outbound IPv4 traffic to any destination, enabling unrestricted egress connectivity"
   ip_protocol       = "-1"
-  cidr_ipv4         = var.cidr_ipv4
+  cidr_ipv4         = var.security_group_cidr_ipv4
 }
 
 resource "aws_launch_template" "ubuntu" {
@@ -94,7 +94,7 @@ resource "aws_launch_template" "ubuntu" {
   }
 
   network_interfaces {
-    security_groups             = [aws_security_group.web_server_sg.id]
+    security_groups             = [aws_security_group.web_server.id]
     associate_public_ip_address = false
   }
 
@@ -106,10 +106,10 @@ resource "aws_launch_template" "ubuntu" {
   )
 }
 
-resource "aws_lb" "web_server_lb" {
+resource "aws_lb" "web_server" {
   name               = "web-server-lb"
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]
+  security_groups    = [aws_security_group.alb.id]
   subnets            = local.selected_subnet_ids
   internal           = false
   ip_address_type    = "ipv4"
@@ -127,9 +127,9 @@ resource "aws_lb" "web_server_lb" {
 }
 
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.web_server_lb.arn
-  port              = var.alb_port
-  protocol          = var.protocol
+  load_balancer_arn = aws_lb.web_server.arn
+  port              = var.alb_listener_port
+  protocol          = var.alb_listener_protocol
 
   default_action {
     type = "fixed-response"
@@ -142,10 +142,10 @@ resource "aws_lb_listener" "http" {
   }
 }
 
-resource "aws_lb_target_group" "web_server_tg" {
+resource "aws_lb_target_group" "web_server" {
   name                 = "web-server-tg"
   port                 = var.web_server_port
-  protocol             = var.protocol
+  protocol             = var.alb_listener_protocol
   target_type          = "instance"
   vpc_id               = data.aws_vpc.default.id
   deregistration_delay = 30
@@ -153,7 +153,7 @@ resource "aws_lb_target_group" "web_server_tg" {
   health_check {
     path                = "/"
     port                = "traffic-port"
-    protocol            = var.protocol
+    protocol            = var.alb_listener_protocol
     matcher             = "200"
     interval            = 30
     timeout             = 5
@@ -168,7 +168,7 @@ resource "aws_lb_listener_rule" "asg" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.web_server_tg.arn
+    target_group_arn = aws_lb_target_group.web_server.arn
   }
 
   condition {
@@ -178,10 +178,10 @@ resource "aws_lb_listener_rule" "asg" {
   }
 }
 
-resource "aws_autoscaling_group" "web_server_asg" {
+resource "aws_autoscaling_group" "web_server" {
   name                = "WebServerASG"
   vpc_zone_identifier = local.selected_subnet_ids
-  target_group_arns   = [aws_lb_target_group.web_server_tg.arn]
+  target_group_arns   = [aws_lb_target_group.web_server.arn]
   health_check_type   = "ELB"
   desired_capacity    = 3
   min_size            = 2
@@ -195,7 +195,7 @@ resource "aws_autoscaling_group" "web_server_asg" {
 
   tag {
     key                 = "Name"
-    value               = "Web Server"
+    value               = "Web Server ${count.index + 1}"
     propagate_at_launch = true
   }
 
