@@ -22,17 +22,19 @@ owner = "platform-team"
 # The AWS EC2 instance type (size) to determine CPU and Memory allocation
 instance_type = "t4g.micro"
 
-# The port the server will use for HTTP requests
+# Web server port that for HTTP requests
 web_server_port = 8080
 
+# ALB port for HTTP requests
 alb_listener_port = 80
 
+# ALB protocol to use for routing traffic
 alb_listener_protocol = "HTTP"
 
-# The name of the security group
+# The name of the security group for the web server
 instance_security_group_name = "web-server-sg"
 
-# The name of the security group
+# The name of the security group for the ALB
 alb_security_group_name = "alb-sg"
 
 # The IP protocol name of the security group
