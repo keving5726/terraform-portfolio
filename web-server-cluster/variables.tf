@@ -1,25 +1,17 @@
-variable "aws_region" {
-  type        = string
-  description = "AWS Region where the instance will be deployed"
-  default     = "us-east-1"
-}
-
-variable "instance_type" {
-  type        = string
-  description = "EC2 instance type"
-  default     = "t4g.micro"
-}
-
 variable "namespace" {
   type        = string
   description = "The project namespace to use for unique resource naming"
   default     = "web-server-cluster"
 }
 
+variable "region" {
+  type        = string
+  description = "AWS Region where the instance will be deployed"
+}
+
 variable "environment" {
   type        = string
   description = "Deployment environment (dev, staging, prod)"
-  default     = "dev"
 
   validation {
     condition     = contains(["dev", "staging", "prod"], var.environment)
@@ -30,47 +22,46 @@ variable "environment" {
 variable "owner" {
   type        = string
   description = "Owner or team responsible for these resources"
-  default     = "platform-team"
+}
+
+variable "instance_type" {
+  type        = string
+  description = "EC2 instance type"
 }
 
 variable "web_server_port" {
   type        = number
   description = "The port the web server will use for HTTP requests"
-  default     = 8080
 }
 
-variable "alb_port" {
+variable "alb_listener_port" {
   type        = number
   description = "The port the ALB will use for HTTP requests"
-  default     = 80
 }
 
-variable "protocol" {
+variable "alb_listener_protocol" {
   type        = string
   description = "Protocol to use for routing traffic"
   default     = "HTTP"
 }
 
-variable "instance_sg_name" {
+variable "instance_security_group_name" {
   type        = string
   description = "The name of the security group of the instances"
-  default     = "web-server-sg"
 }
 
-variable "alb_sg_name" {
+variable "alb_security_group_name" {
   type        = string
   description = "The name of the security group of the Application Load Balancer"
-  default     = "alb-sg"
 }
 
-variable "ip_protocol" {
+variable "security_group_protocol" {
   type        = string
   description = "The IP protocol name of the security group"
   default     = "tcp"
 }
 
-variable "cidr_ipv4" {
+variable "security_group_cidr_ipv4" {
   type        = string
   description = "The source IPv4 CIDR range of the security group"
-  default     = "0.0.0.0/0"
 }
