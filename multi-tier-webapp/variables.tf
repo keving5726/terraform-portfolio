@@ -8,7 +8,7 @@ variable "namespace" {
   }
 }
 
-variable "aws_region" {
+variable "region" {
   type        = string
   description = "AWS Region where the instance will be deployed"
 }
