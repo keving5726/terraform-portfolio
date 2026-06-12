@@ -75,44 +75,35 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-
 2. Configure environment variables:
    - First, copy the example template:
      ```bash
      cp terraform.tfvars.example terraform.tfvars
      ```
    - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
-
 3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
    ```
-
 4. Apply the configuration to create the multi-tiered web application:
    ```bash
    terraform apply
    ```
-
 5. Check the **Outputs** in the terminal, for example:
    ```bash
    Outputs:
 
    alb_dns_name = "http://webapp-alb-792144198.us-east-1.elb.amazonaws.com"
    ```
-
 6. From your browser, enter the DNS name:
    ```bash
    http://webapp-alb-792144198.us-east-1.elb.amazonaws.com
    ```
-
    You should see the multi-tiered web application for a social media site geared toward pet owners:
-
    <div align="center">
      <img width="1914" height="1007" alt="pets" src="https://github.com/user-attachments/assets/b22a46f9-4649-4602-a913-8bb0ef46956b" />
    </div>
-
    You can take a look at all the resources created using the **AWS Management Console**.
-
 7. Clean up when you're done:
    ```bash
    terraform destroy
