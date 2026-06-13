@@ -1,22 +1,16 @@
-variable "aws_region" {
-  type        = string
-  description = "AWS Region where the instance will be deployed"
-  default     = "us-east-1"
-}
-
 variable "namespace" {
   type        = string
   description = "The project namespace to use for unique resource naming"
-}
-
-variable "deployment" {
-  type        = string
-  description = "The current deployment version or environment"
 
   validation {
-    condition     = contains(["blue", "green"], var.deployment)
-    error_message = "The deployment variable must be either 'blue' or 'green'"
+    condition     = length(var.namespace) <= 20 && can(regex("^[a-z0-9-]+$", var.namespace))
+    error_message = "The namespace must be 20 characters or less and contain only lowercase letters, numbers, and hyphens"
   }
+}
+
+variable "region" {
+  type        = string
+  description = "AWS Region where the instance will be deployed"
 }
 
 variable "environment" {
@@ -32,4 +26,14 @@ variable "environment" {
 variable "owner" {
   type        = string
   description = "Owner or team responsible for these resources"
+}
+
+variable "deployment" {
+  type        = string
+  description = "The current deployment version or environment"
+
+  validation {
+    condition     = contains(["blue", "green"], var.deployment)
+    error_message = "The deployment variable must be either 'blue' or 'green'"
+  }
 }
