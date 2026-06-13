@@ -34,7 +34,7 @@ resource "aws_launch_template" "ubuntu_blue_green" {
   }
 }
 
-resource "aws_autoscaling_group" "blue_green_asg" {
+resource "aws_autoscaling_group" "blue_green" {
   name                = "${var.label}-asg"
   vpc_zone_identifier = var.vpc_private_subnets
   target_group_arns   = var.label == "blue" ? [var.blue_target_group_arn] : [var.green_target_group_arn]
