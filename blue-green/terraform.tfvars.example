@@ -7,7 +7,7 @@ namespace = "blue-green"
 
 # The AWS region where all infrastructure will be deployed
 # Ensure your provider configuration is compatible with this region
-aws_region = "us-east-1"
+region = "us-east-1"
 
 # Environment name for tagging purposes
 environment = "dev"
