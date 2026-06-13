@@ -11,7 +11,7 @@ locals {
   azs       = formatlist("${data.aws_region.current.region}%s", ["a", "b"])
 }
 
-resource "aws_resourcegroups_group" "blue_green_rg" {
+resource "aws_resourcegroups_group" "blue_green" {
   name        = "${local.namespace}-rg"
   description = "Terraform resource group for the Blue-Green deployment"
 
