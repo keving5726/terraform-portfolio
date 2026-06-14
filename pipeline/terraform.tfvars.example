@@ -1,0 +1,16 @@
+# ==========================================
+# Global & Provider Configuration
+# ==========================================
+
+# The 'namespace' is used as a prefix for resource naming and tagging
+namespace = "pipeline"
+
+# The AWS region where all infrastructure will be deployed
+# Ensure your provider configuration is compatible with this region
+region = "us-east-1"
+
+# Environment name for tagging purposes
+environment = "dev"
+
+# Owner or team responsible for these resources
+owner = "platform-team"
