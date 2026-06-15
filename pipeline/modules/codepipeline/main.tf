@@ -22,21 +22,11 @@ locals {
 resource "aws_kms_key" "tf_project" {
   description             = "Terraform KMS key for the AWS CodeCommit repository"
   deletion_window_in_days = 7
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 resource "aws_s3_bucket" "tf_project" {
   bucket        = local.namespace
   force_destroy = true
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 resource "aws_s3_bucket_versioning" "enabled" {
@@ -49,22 +39,12 @@ resource "aws_s3_bucket_versioning" "enabled" {
 
 resource "aws_sns_topic" "tf_project" {
   name = local.namespace
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 resource "aws_codecommit_repository" "tf_project" {
   repository_name = local.namespace
   description     = "Terraform sample repository"
   kms_key_id      = aws_kms_key.tf_project.arn
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 resource "aws_codebuild_project" "tf_project" {
@@ -100,11 +80,6 @@ resource "aws_codebuild_project" "tf_project" {
   source {
     type      = "NO_SOURCE"
     buildspec = file("${path.module}/templates/buildspec_${local.projects[count.index]}.yaml")
-  }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
   }
 }
 
@@ -197,10 +172,5 @@ resource "aws_codepipeline" "codepipeline" {
         EnvironmentVariables = local.environment
       }
     }
-  }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
   }
 }

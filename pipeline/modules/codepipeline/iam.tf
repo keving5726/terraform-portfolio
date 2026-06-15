@@ -138,22 +138,12 @@ resource "aws_iam_role" "codebuild" {
   name               = "${local.namespace}-CodeBuild"
   description        = "Terraform role for CodeBuild"
   assume_role_policy = data.aws_iam_policy_document.assume_role_codebuild.json
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 resource "aws_iam_role" "codepipeline" {
   name               = "${local.namespace}-CodePipeline"
   description        = "Terraform role for CodePipeline"
   assume_role_policy = data.aws_iam_policy_document.assume_role_codepipeline.json
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 resource "aws_iam_role_policy" "codebuild" {
