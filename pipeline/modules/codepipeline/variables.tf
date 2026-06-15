@@ -1,30 +1,30 @@
 variable "namespace" {
-  description = "A project name to use for resource mapping"
   type        = string
+  description = "A project name to use for resource mapping"
   default     = "terraform"
 }
 
 variable "terraform_version" {
-  description = "The version of Terraform to use for this workspace. Defaults to the latest available version"
   type        = string
+  description = "The version of Terraform to use for this workspace. Defaults to the latest available version"
   default     = "latest"
 }
 
 variable "working_directory" {
-  description = "A relative path that Terraform will execute within. Defaults to the root of your repository"
   type        = string
+  description = "A relative path that Terraform will execute within. Defaults to the root of your repository"
   default     = "."
 }
 
 variable "auto_apply" {
-  description = "Whether to automatically apply changes when a Terraform plan is successful. Defaults to false"
   type        = bool
+  description = "Whether to automatically apply changes when a Terraform plan is successful. Defaults to false"
   default     = false
 }
 
 variable "environment" {
-  description = "A map of environment variables to pass into pipeline"
   type        = map(string)
+  description = "A map of environment variables to pass into pipeline"
   default = {
     TF_IN_AUTOMATION = "1"
     TF_INPUT         = "0"
@@ -33,16 +33,16 @@ variable "environment" {
 }
 
 variable "deployment_policy" {
-  description = "An optional IAM deployment policy"
   type        = string
+  description = "An optional IAM deployment policy"
   default     = null
 }
 
 variable "s3backend_config" {
-  description = "Settings for configuring the S3 remote backend"
   type = object({
     bucket   = string
     region   = string
     role_arn = string
   })
+  description = "Settings for configuring the S3 remote backend"
 }
