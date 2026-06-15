@@ -1,3 +1,12 @@
+locals {
+  common_tags = {
+    Project     = var.namespace
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "Terraform"
+  }
+}
+
 module "s3backend" {
   source         = "github.com/keving5726/terraform-practice-portfolio/s3backend/deploy?ref=develop"
   namespace      = var.namespace
