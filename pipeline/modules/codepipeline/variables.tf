@@ -1,7 +1,6 @@
 variable "namespace" {
   type        = string
   description = "A project name to use for resource mapping"
-  default     = "terraform"
 }
 
 variable "terraform_version" {
@@ -18,7 +17,7 @@ variable "working_directory" {
 
 variable "auto_apply" {
   type        = bool
-  description = "Whether to automatically apply changes when a Terraform plan is successful. Defaults to false"
+  description = "Automatically apply changes when a Terraform plan runs successfully. Defaults to false"
   default     = false
 }
 
@@ -34,7 +33,7 @@ variable "environment" {
 
 variable "deployment_policy" {
   type        = string
-  description = "An optional IAM deployment policy"
+  description = "An optional IAM deployment policy. Defaults to null"
   default     = null
 }
 
