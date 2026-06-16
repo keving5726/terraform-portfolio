@@ -14,3 +14,24 @@ environment = "dev"
 
 # Owner or team responsible for these resources
 owner = "platform-team"
+
+# ==========================================
+# CodePipeline Module Configuration
+# ==========================================
+
+# The version of Terraform to use for this workspace
+terraform_version = "latest"
+
+# A relative path that Terraform will execute within
+working_directory = "."
+
+# An optional IAM deployment policy
+deployment_policy = file("./policies/helloworld.json")
+
+# Automatically apply changes when a Terraform plan runs successfully
+auto_apply = true
+
+# A map of environment variables to pass into pipeline
+environment = {
+  CONFIRM_DESTROY = 1
+}
