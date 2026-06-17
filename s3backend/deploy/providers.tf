@@ -1,5 +1,5 @@
 provider "aws" {
-  region = var.aws_region
+  region = var.region
 
   # Tags to apply to all AWS resources by default
   default_tags {
