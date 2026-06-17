@@ -28,7 +28,7 @@ module "blue_green" {
   label       = each.key
   app_version = each.value.app_version
 
-  namespace           = module.base.namespace
+  namespace           = var.namespace
   vpc_private_subnets = module.base.vpc.private_subnets
   iam_role            = module.base.iam_role
 
