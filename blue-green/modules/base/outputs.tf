@@ -1,8 +1,3 @@
-output "namespace" {
-  description = "The project namespace to use for unique resource naming"
-  value       = local.namespace
-}
-
 output "vpc" {
   description = "Complete information from the VPC module, including the VPC ID, subnets, route tables, and other created resources"
   value       = module.vpc
