@@ -1,3 +1,7 @@
+# ==========================================
+# Global & Provider Configuration
+# ==========================================
+
 # The 'namespace' is used as a prefix for resource naming and tagging
 namespace = "s3backend"
 
