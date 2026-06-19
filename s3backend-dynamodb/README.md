@@ -97,10 +97,10 @@ The infrastructure consists of the following key components:
      Outputs:
 
      s3backend_config = {
-       "bucket" = "s3backend-dynamodb-ge5af-tf-backend"
-       "dynamodb_table" = "s3backend-dynamodb-ge5af-tf-lock"
+       "bucket" = "s3backend-dynamodb-ge5af-backend"
+       "dynamodb_table" = "s3backend-dynamodb-ge5af-lock"
        "region" = "us-east-1"
-       "role_arn" = "arn:aws:iam::081276790814:role/s3backend-dynamodb-ge5af-tf-backend"
+       "role_arn" = "arn:aws:iam::081276790814:role/s3backend-dynamodb-ge5af-backend"
      }
      ```
 2. The second step is to run tests to confirm that the S3 backend with DynamoDB is working correctly:
@@ -110,17 +110,17 @@ The infrastructure consists of the following key components:
      ```
    - Create the **backend.config** file to configure the backend using the **output** from step **1**, for example:
      ```bash
-     bucket = "s3backend-dynamodb-ge5af-tf-backend"
+     bucket = "s3backend-dynamodb-ge5af-backend"
      key = "test"
      encrypt = true
      use_lockfile = false
 
      region = "us-east-1"
 
-     dynamodb_table = "s3backend-dynamodb-ge5af-tf-lock"
+     dynamodb_table = "s3backend-dynamodb-ge5af-lock"
 
      assume_role = {
-       role_arn = "arn:aws:iam::081276790814:role/s3backend-dynamodb-nr1ye-tf-backend"
+       role_arn = "arn:aws:iam::081276790814:role/s3backend-dynamodb-nr1ye-backend"
      }
      ```
    - Initialize Terraform (downloads provider plugins):
@@ -148,17 +148,17 @@ The infrastructure consists of the following key components:
      ```
    - Create the **backend.config** file to configure the backend using the **output** from step **1**, for example:
      ```bash
-     bucket = "s3backend-dynamodb-ge5af-tf-backend"
+     bucket = "s3backend-dynamodb-ge5af-backend"
      key = "test"
      encrypt = true
      use_lockfile = false
 
      region = "us-east-1"
 
-     dynamodb_table = "s3backend-dynamodb-ge5af-tf-lock"
+     dynamodb_table = "s3backend-dynamodb-ge5af-lock"
 
      assume_role = {
-       role_arn = "arn:aws:iam::081276790814:role/s3backend-dynamodb-nr1ye-tf-backend"
+       role_arn = "arn:aws:iam::081276790814:role/s3backend-dynamodb-nr1ye-backend"
      }
      ```
    - Initialize Terraform (downloads provider plugins):
