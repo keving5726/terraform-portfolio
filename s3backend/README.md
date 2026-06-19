@@ -94,9 +94,9 @@ The infrastructure consists of the following key components:
      Outputs:
 
      s3backend_config = {
-       "bucket" = "s3backend-ol8nsf25mw0x4c-tf-backend"
+       "bucket" = "s3backend-ol8nsf25mw0x4c-backend"
        "region" = "us-east-1"
-       "role_arn" = "arn:aws:iam::081276790814:role/s3backend-ol8nsf25mw0x4c-tf-backend"
+       "role_arn" = "arn:aws:iam::081276790814:role/s3backend-ol8nsf25mw0x4c-backend"
      }
      ```
 2. The second step is to run tests to confirm that the S3 backend is working correctly:
@@ -106,7 +106,7 @@ The infrastructure consists of the following key components:
      ```
    - Create the **backend.config** file to configure the backend using the **output** from step **1**, for example:
      ```bash
-     bucket = "s3backend-ol8nsf25mw0x4c-tf-backend"
+     bucket = "s3backend-ol8nsf25mw0x4c-backend"
      key = "test"
      encrypt = true
      use_lockfile = true
@@ -114,7 +114,7 @@ The infrastructure consists of the following key components:
      region = "us-east-1"
 
      assume_role = {
-       role_arn = "arn:aws:iam::081276790814:role/s3backend-ol8nsf25mw0x4c-tf-backend"
+       role_arn = "arn:aws:iam::081276790814:role/s3backend-ol8nsf25mw0x4c-backend"
      }
      ```
    - Initialize Terraform (downloads provider plugins):
@@ -142,7 +142,7 @@ The infrastructure consists of the following key components:
      ```
    - Create the **backend.config** file to configure the backend using the **output** from step **1**, for example:
      ```bash
-     bucket = "s3backend-ol8nsf25mw0x4c-tf-backend"
+     bucket = "s3backend-ol8nsf25mw0x4c-backend"
      key = "test"
      encrypt = true
      use_lockfile = true
@@ -150,7 +150,7 @@ The infrastructure consists of the following key components:
      region = "us-east-1"
 
      assume_role = {
-       role_arn = "arn:aws:iam::081276790814:role/s3backend-ol8nsf25mw0x4c-tf-backend"
+       role_arn = "arn:aws:iam::081276790814:role/s3backend-ol8nsf25mw0x4c-backend"
      }
      ```
    - Initialize Terraform (downloads provider plugins):
