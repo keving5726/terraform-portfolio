@@ -4,12 +4,21 @@ data "aws_ami" "amazon_linux" {
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023.10.20260120.4-kernel-6.12*"]
+    values = ["al2023-ami-*-arm64"]
   }
 
   filter {
     name   = "architecture"
     values = ["arm64"]
+  }
+}
+
+locals {
+  common_tags = {
+    Project     = var.namespace
+    Environment = var.environment
+    Owner       = var.owner
+    ManagedBy   = "Terraform"
   }
 }
 
