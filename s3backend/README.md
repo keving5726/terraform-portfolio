@@ -68,7 +68,6 @@ The infrastructure consists of the following key components:
 ### Steps
 
 1. The first step is to deploy the S3 backend:
-
    - Navigate to the **deploy** folder to run Terraform commands:
      ```bash
      cd deploy
@@ -77,6 +76,11 @@ The infrastructure consists of the following key components:
      ```bash
      terraform init
      ```
+   - Copy the example template:
+     ```bash
+     cp terraform.tfvars.example terraform.tfvars
+     ```
+   - Open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan
@@ -95,9 +99,7 @@ The infrastructure consists of the following key components:
        "role_arn" = "arn:aws:iam::081276790814:role/s3backend-ol8nsf25mw0x4c-tf-backend"
      }
      ```
-
 2. The second step is to run tests to confirm that the S3 backend is working correctly:
-
    - Navigate to the **test** folder to run Terraform commands:
      ```bash
      cd test
@@ -119,6 +121,11 @@ The infrastructure consists of the following key components:
      ```bash
      terraform init -backend-config="./backend.config"
      ```
+   - Copy the example template:
+     ```bash
+     cp terraform.tfvars.example terraform.tfvars
+     ```
+   - Open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan
@@ -128,9 +135,7 @@ The infrastructure consists of the following key components:
      terraform apply
      ```
    - You can now check from the **AWS Management Console** that Terraform states are being saved in the S3 bucket and that locks are performed correctly.
-
 3. The third step involves using Terraform workspaces to manage multiple environments (dev and prod):
-
    - Navigate to the **workspaces** folder to run Terraform commands:
      ```bash
      cd workspaces
@@ -156,6 +161,11 @@ The infrastructure consists of the following key components:
      ```bash
      terraform workspace new prod
      ```
+   - Copy the example template:
+     ```bash
+     cp environments/prod.tfvars.example environments/prod.tfvars
+     ```
+   - Open the newly created **environments/prod.tfvars** file in your editor and customize the values for your environment
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan -var-file="./environments/prod.tfvars"
@@ -168,6 +178,11 @@ The infrastructure consists of the following key components:
      ```bash
      terraform workspace new dev
      ```
+   - Copy the example template:
+     ```bash
+     cp environments/dev.tfvars.example environments/dev.tfvars
+     ```
+   - Open the newly created **environments/dev.tfvars** file in your editor and customize the values for your environment
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan -var-file="./environments/dev.tfvars"
@@ -177,17 +192,15 @@ The infrastructure consists of the following key components:
      terraform apply -var-file="./environments/dev.tfvars"
      ```
    - You can now check from the **AWS Management Console** that Terraform states are being saved in the S3 bucket and that locks are performed correctly.
-
 4. The fourth step is to clean up:
-
    - Delete the **prod** deployment:
      ```bash
-     terraform select prod
+     terraform workspace select prod
      terraform destroy -var-file="./environments/prod.tfvars"
      ```
    - Delete the **dev** deployment:
      ```bash
-     terraform select dev
+     terraform workspace select dev
      terraform destroy -var-file="./environments/dev.tfvars"
      ```
    - Finally, switch back into the **deploy** directory from which you deployed the S3 backend, and run terraform destroy:
