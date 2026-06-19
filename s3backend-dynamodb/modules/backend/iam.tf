@@ -1,13 +1,13 @@
 data "aws_caller_identity" "current" {}
 
-data "aws_iam_policy_document" "tf_backend" {
+data "aws_iam_policy_document" "backend" {
   statement {
     actions = [
       "s3:ListBucket",
     ]
 
     resources = [
-      aws_s3_bucket.tf_backend.arn,
+      aws_s3_bucket.backend.arn,
     ]
   }
 
@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "tf_backend" {
     ]
 
     resources = [
-      "${aws_s3_bucket.tf_backend.arn}/*",
+      "${aws_s3_bucket.backend.arn}/*",
     ]
   }
 
@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "tf_backend" {
     ]
 
     resources = [
-      aws_dynamodb_table.tf_backend.arn,
+      aws_dynamodb_table.backend.arn,
     ]
   }
 }
@@ -40,8 +40,8 @@ locals {
   principal_arns = var.principal_arns != null ? var.principal_arns : [data.aws_caller_identity.current.arn]
 }
 
-resource "aws_iam_role" "tf_backend" {
-  name        = "${local.namespace}-tf-backend"
+resource "aws_iam_role" "backend" {
+  name        = "${local.namespace}-backend"
   description = "Terraform role for S3 backend"
 
   assume_role_policy = jsonencode({
@@ -63,14 +63,14 @@ resource "aws_iam_role" "tf_backend" {
   }
 }
 
-resource "aws_iam_policy" "tf_backend" {
-  name        = "${local.namespace}-tf-policy"
+resource "aws_iam_policy" "backend" {
+  name        = "${local.namespace}-policy"
   description = "Terraform policy for S3 backend"
   path        = "/"
-  policy      = data.aws_iam_policy_document.tf_backend.json
+  policy      = data.aws_iam_policy_document.backend.json
 }
 
-resource "aws_iam_role_policy_attachment" "tf_backend" {
-  role       = aws_iam_role.tf_backend.name
-  policy_arn = aws_iam_policy.tf_backend.arn
+resource "aws_iam_role_policy_attachment" "backend" {
+  role       = aws_iam_role.backend.name
+  policy_arn = aws_iam_policy.backend.arn
 }

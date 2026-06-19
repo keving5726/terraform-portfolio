@@ -10,7 +10,7 @@ locals {
   namespace = substr(join("-", [var.namespace, random_string.rand.result]), 0, 24)
 }
 
-resource "aws_resourcegroups_group" "tf_backend" {
+resource "aws_resourcegroups_group" "backend" {
   name        = "${local.namespace}-group"
   description = "Terraform resource group for S3 backend"
 
@@ -31,7 +31,7 @@ resource "aws_resourcegroups_group" "tf_backend" {
   }
 }
 
-resource "aws_kms_key" "tf_backend" {
+resource "aws_kms_key" "backend" {
   description = "Terraform KMS key for S3 backend"
 
   tags = {
@@ -39,8 +39,8 @@ resource "aws_kms_key" "tf_backend" {
   }
 }
 
-resource "aws_s3_bucket" "tf_backend" {
-  bucket        = "${local.namespace}-tf-backend"
+resource "aws_s3_bucket" "backend" {
+  bucket        = "${local.namespace}-backend"
   force_destroy = var.force_destroy_state
 
   tags = {
@@ -48,19 +48,19 @@ resource "aws_s3_bucket" "tf_backend" {
   }
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "tf_backend" {
-  bucket = aws_s3_bucket.tf_backend.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "backend" {
+  bucket = aws_s3_bucket.backend.id
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.tf_backend.arn
+      kms_master_key_id = aws_kms_key.backend.arn
       sse_algorithm     = "aws:kms"
     }
   }
 }
 
 resource "aws_s3_bucket_versioning" "enabled" {
-  bucket = aws_s3_bucket.tf_backend.id
+  bucket = aws_s3_bucket.backend.id
 
   versioning_configuration {
     status = "Enabled"
@@ -68,7 +68,7 @@ resource "aws_s3_bucket_versioning" "enabled" {
 }
 
 resource "aws_s3_bucket_public_access_block" "block" {
-  bucket = aws_s3_bucket.tf_backend.id
+  bucket = aws_s3_bucket.backend.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -76,8 +76,8 @@ resource "aws_s3_bucket_public_access_block" "block" {
   restrict_public_buckets = true
 }
 
-resource "aws_dynamodb_table" "tf_backend" {
-  name         = "${local.namespace}-tf-lock"
+resource "aws_dynamodb_table" "backend" {
+  name         = "${local.namespace}-lock"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
 
