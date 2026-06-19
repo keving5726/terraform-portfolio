@@ -1,0 +1,19 @@
+# ==========================================
+# Global & Provider Configuration
+# ==========================================
+
+# The 'namespace' is used as a prefix for resource naming and tagging
+namespace = "s3backend-dynamodb"
+
+# The AWS region where all infrastructure will be deployed
+# Ensure your provider configuration is compatible with this region
+region = "us-east-1"
+
+# Environment name for tagging purposes
+environment = "dev"
+
+# Owner or team responsible for these resources
+owner = "platform-team"
+
+# The message string to be printed by the local-exec provisioner
+message = "Gotta Catch Em All"
