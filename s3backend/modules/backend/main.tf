@@ -1,17 +1,7 @@
 data "aws_region" "current" {}
 
-resource "random_string" "rand" {
-  length  = 24
-  special = false
-  upper   = false
-}
-
-locals {
-  namespace = substr(join("-", [var.namespace, random_string.rand.result]), 0, 24)
-}
-
 resource "aws_resourcegroups_group" "backend" {
-  name        = "${local.namespace}-group"
+  name        = "${var.namespace}-group"
   description = "Terraform resource group for S3 backend"
 
   resource_query {
@@ -23,7 +13,7 @@ resource "aws_resourcegroups_group" "backend" {
   "TagFilters": [
     {
       "Key": "ResourceGroup",
-      "Values": ["${local.namespace}"]
+      "Values": ["${var.namespace}"]
     }
   ]
 }
@@ -35,16 +25,16 @@ resource "aws_kms_key" "backend" {
   description = "Terraform KMS key for S3 backend"
 
   tags = {
-    ResourceGroup = local.namespace
+    ResourceGroup = var.namespace
   }
 }
 
 resource "aws_s3_bucket" "backend" {
-  bucket        = "${local.namespace}-backend"
+  bucket        = "${var.namespace}-backend"
   force_destroy = var.force_destroy_state
 
   tags = {
-    ResourceGroup = local.namespace
+    ResourceGroup = var.namespace
   }
 }
 
