@@ -10,13 +10,16 @@ locals {
 module "s3backend" {
   source         = "github.com/keving5726/terraform-practice-portfolio/s3backend/deploy?ref=develop"
   namespace      = var.namespace
+  region         = var.region
+  environment    = var.environment
+  owner          = var.environment
   principal_arns = [module.codepipeline.deployment_role_arn]
 }
 
 module "codepipeline" {
   source            = "./modules/codepipeline"
   namespace         = var.namespace
-  deployment_policy = var.deployment_policy
+  deployment_policy = file(var.deployment_policy)
   s3backend_config  = module.s3backend.s3backend_config
   auto_apply        = var.auto_apply
 
