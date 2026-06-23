@@ -21,7 +21,7 @@ variable "auto_apply" {
   default     = false
 }
 
-variable "environment" {
+variable "pipeline_environment" {
   type        = map(string)
   description = "A map of environment variables to pass into pipeline"
   default = {
