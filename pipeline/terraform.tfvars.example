@@ -32,6 +32,6 @@ deployment_policy = file("./policies/helloworld.json")
 auto_apply = true
 
 # A map of environment variables to pass into pipeline
-environment = {
-  CONFIRM_DESTROY = 1
+pipeline_environment = {
+  CONFIRM_DESTROY = 0
 }
