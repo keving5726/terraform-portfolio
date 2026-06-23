@@ -16,11 +16,9 @@ module "s3backend" {
 module "codepipeline" {
   source            = "./modules/codepipeline"
   namespace         = var.namespace
-  deployment_policy = file("./policies/helloworld.json")
+  deployment_policy = var.deployment_policy
   s3backend_config  = module.s3backend.s3backend_config
-  auto_apply        = true
+  auto_apply        = var.auto_apply
 
-  environment = {
-    CONFIRM_DESTROY = "0"
-  }
+  pipeline_environment = var.pipeline_environment
 }
