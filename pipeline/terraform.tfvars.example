@@ -26,7 +26,7 @@ terraform_version = "latest"
 working_directory = "."
 
 # An optional IAM deployment policy
-deployment_policy = file("./policies/helloworld.json")
+deployment_policy = "./policies/helloworld.json"
 
 # Automatically apply changes when a Terraform plan runs successfully
 auto_apply = true
