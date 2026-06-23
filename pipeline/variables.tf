@@ -28,3 +28,36 @@ variable "owner" {
   description = "Owner or team responsible for these resources"
 }
 
+variable "terraform_version" {
+  type        = string
+  description = "The version of Terraform to use for this workspace"
+}
+
+variable "working_directory" {
+  type        = string
+  description = "A relative path that Terraform will execute within"
+}
+
+variable "auto_apply" {
+  type        = bool
+  description = "Automatically apply changes when a Terraform plan runs successfully"
+}
+
+variable "pipeline_environment" {
+  type        = map(string)
+  description = "A map of environment variables to pass into pipeline"
+}
+
+variable "deployment_policy" {
+  type        = string
+  description = "An optional IAM deployment policy"
+}
+
+variable "s3backend_config" {
+  type = object({
+    bucket   = string
+    region   = string
+    role_arn = string
+  })
+  description = "Settings for configuring the S3 remote backend"
+}
