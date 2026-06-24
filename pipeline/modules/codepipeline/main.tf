@@ -1,55 +1,47 @@
-resource "random_string" "rand" {
-  length  = 24
-  special = false
-  upper   = false
-}
-
 locals {
-  namespace = var.namespace != "" ? substr(join("-", [var.namespace, random_string.rand.result]), 0, 24) : random_string.rand.result
-
   projects = ["plan", "apply"]
 
-  backend = templatefile("${path.module}/templates/backend.json", { config : var.s3backend_config, name : local.namespace })
+  backend = templatefile("${path.module}/templates/backend.json", { config : var.s3backend_config, name : var.namespace })
 
   pipeline_default_env = {
     WORKING_DIRECTORY = var.working_directory
     BACKEND           = local.backend
   }
 
-  environment = jsonencode([for k, v in merge(var.environment, local.pipeline_default_env) : { name : k, value : v, type : "PLAINTEXT" }])
+  environment = jsonencode([for k, v in merge(var.pipeline_environment, local.pipeline_default_env) : { name : k, value : v, type : "PLAINTEXT" }])
 }
 
-resource "aws_kms_key" "tf_project" {
+resource "aws_kms_key" "project" {
   description             = "Terraform KMS key for the AWS CodeCommit repository"
   deletion_window_in_days = 7
 }
 
-resource "aws_s3_bucket" "tf_project" {
-  bucket        = local.namespace
+resource "aws_s3_bucket" "project" {
+  bucket        = var.namespace
   force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "enabled" {
-  bucket = aws_s3_bucket.tf_project.id
+  bucket = aws_s3_bucket.project.id
 
   versioning_configuration {
     status = "Enabled"
   }
 }
 
-resource "aws_sns_topic" "tf_project" {
-  name = local.namespace
+resource "aws_sns_topic" "project" {
+  name = var.namespace
 }
 
-resource "aws_codecommit_repository" "tf_project" {
-  repository_name = local.namespace
+resource "aws_codecommit_repository" "project" {
+  repository_name = var.namespace
   description     = "Terraform sample repository"
-  kms_key_id      = aws_kms_key.tf_project.arn
+  kms_key_id      = aws_kms_key.project.arn
 }
 
-resource "aws_codebuild_project" "tf_project" {
+resource "aws_codebuild_project" "project" {
   count         = length(local.projects)
-  name          = "${local.namespace}-${local.projects[count.index]}"
+  name          = "${var.namespace}-${local.projects[count.index]}"
   description   = "CodeBuild project to run 'terraform ${local.projects[count.index]}'"
   service_role  = aws_iam_role.codebuild.arn
   build_timeout = 5
@@ -73,7 +65,7 @@ resource "aws_codebuild_project" "tf_project" {
   logs_config {
     s3_logs {
       status   = "ENABLED"
-      location = "${aws_s3_bucket.tf_project.id}/codebuild-logs/${local.projects[count.index]}"
+      location = "${aws_s3_bucket.project.id}/codebuild-logs/${local.projects[count.index]}"
     }
   }
 
@@ -84,15 +76,15 @@ resource "aws_codebuild_project" "tf_project" {
 }
 
 resource "aws_codepipeline" "codepipeline" {
-  name     = local.namespace
+  name     = var.namespace
   role_arn = aws_iam_role.codepipeline.arn
 
   artifact_store {
-    location = aws_s3_bucket.tf_project.bucket
+    location = aws_s3_bucket.project.bucket
     type     = "S3"
 
     encryption_key {
-      id   = aws_kms_key.tf_project.arn
+      id   = aws_kms_key.project.arn
       type = "KMS"
     }
   }
@@ -109,7 +101,7 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["source_output"]
 
       configuration = {
-        RepositoryName       = local.namespace
+        RepositoryName       = var.namespace
         BranchName           = "main"
         PollForSourceChanges = true
         OutputArtifactFormat = "CODE_ZIP"
@@ -129,7 +121,7 @@ resource "aws_codepipeline" "codepipeline" {
       version         = "1"
 
       configuration = {
-        ProjectName          = aws_codebuild_project.tf_project[0].name
+        ProjectName          = aws_codebuild_project.project[0].name
         EnvironmentVariables = local.environment
       }
     }
@@ -149,7 +141,7 @@ resource "aws_codepipeline" "codepipeline" {
         version  = "1"
 
         configuration = {
-          NotificationArn = aws_sns_topic.tf_project.arn
+          NotificationArn = aws_sns_topic.project.arn
           CustomData      = "Please review output of plan and approve"
         }
       }
@@ -168,7 +160,7 @@ resource "aws_codepipeline" "codepipeline" {
       version         = "1"
 
       configuration = {
-        ProjectName          = aws_codebuild_project.tf_project[1].name
+        ProjectName          = aws_codebuild_project.project[1].name
         EnvironmentVariables = local.environment
       }
     }

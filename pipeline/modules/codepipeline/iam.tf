@@ -48,8 +48,8 @@ data "aws_iam_policy_document" "codebuild" {
     ]
 
     resources = [
-      aws_s3_bucket.tf_project.arn,
-      "${aws_s3_bucket.tf_project.arn}/*"
+      aws_s3_bucket.project.arn,
+      "${aws_s3_bucket.project.arn}/*"
     ]
   }
 
@@ -80,8 +80,8 @@ data "aws_iam_policy_document" "codepipeline" {
     ]
 
     resources = [
-      aws_s3_bucket.tf_project.arn,
-      "${aws_s3_bucket.tf_project.arn}/*"
+      aws_s3_bucket.project.arn,
+      "${aws_s3_bucket.project.arn}/*"
     ]
   }
 
@@ -104,7 +104,7 @@ data "aws_iam_policy_document" "codepipeline" {
 
     actions = ["sns:Publish"]
 
-    resources = [aws_sns_topic.tf_project.arn]
+    resources = [aws_sns_topic.project.arn]
   }
 
   statement {
@@ -119,7 +119,7 @@ data "aws_iam_policy_document" "codepipeline" {
       "codecommit:UploadArchive"
     ]
 
-    resources = [aws_codecommit_repository.tf_project.arn]
+    resources = [aws_codecommit_repository.project.arn]
   }
 
   statement {
@@ -135,13 +135,13 @@ data "aws_iam_policy_document" "codepipeline" {
 }
 
 resource "aws_iam_role" "codebuild" {
-  name               = "${local.namespace}-CodeBuild"
+  name               = "${var.namespace}-CodeBuild"
   description        = "Terraform role for CodeBuild"
   assume_role_policy = data.aws_iam_policy_document.assume_role_codebuild.json
 }
 
 resource "aws_iam_role" "codepipeline" {
-  name               = "${local.namespace}-CodePipeline"
+  name               = "${var.namespace}-CodePipeline"
   description        = "Terraform role for CodePipeline"
   assume_role_policy = data.aws_iam_policy_document.assume_role_codepipeline.json
 }
