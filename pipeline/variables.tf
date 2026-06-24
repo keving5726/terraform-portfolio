@@ -52,12 +52,3 @@ variable "deployment_policy" {
   type        = string
   description = "An optional IAM deployment policy"
 }
-
-variable "s3backend_config" {
-  type = object({
-    bucket   = string
-    region   = string
-    role_arn = string
-  })
-  description = "Settings for configuring the S3 remote backend"
-}
