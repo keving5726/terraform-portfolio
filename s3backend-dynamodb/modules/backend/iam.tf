@@ -41,7 +41,7 @@ locals {
 }
 
 resource "aws_iam_role" "backend" {
-  name        = "${local.namespace}-backend"
+  name        = "${var.namespace}-backend"
   description = "Terraform role for S3 backend"
 
   assume_role_policy = jsonencode({
@@ -59,12 +59,12 @@ resource "aws_iam_role" "backend" {
   })
 
   tags = {
-    ResourceGroup = local.namespace
+    ResourceGroup = var.namespace
   }
 }
 
 resource "aws_iam_policy" "backend" {
-  name        = "${local.namespace}-policy"
+  name        = "${var.namespace}-policy"
   description = "Terraform policy for S3 backend"
   path        = "/"
   policy      = data.aws_iam_policy_document.backend.json
