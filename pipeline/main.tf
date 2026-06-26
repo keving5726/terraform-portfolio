@@ -15,9 +15,8 @@ locals {
   }
 }
 
-
 module "s3backend" {
-  source         = "github.com/keving5726/terraform-practice-portfolio/s3backend/modules/backend?ref=master"
+  source         = "github.com/keving5726/terraform-practice-portfolio/s3backend/deploy?ref=master"
   namespace      = local.namespace
   principal_arns = [module.codepipeline.deployment_role_arn]
 }
