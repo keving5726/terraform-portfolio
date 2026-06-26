@@ -1,53 +1,71 @@
-variable "aws_region" {
-  description = "AWS Region where the instance will be deployed"
+variable "namespace" {
   type        = string
-  default     = "us-east-1"
+  description = "The project namespace to use for unique resource naming"
+
+  validation {
+    condition     = length(var.namespace) <= 20 && can(regex("^[a-z0-9-]+$", var.namespace))
+    error_message = "The namespace must be 20 characters or less and contain only lowercase letters, numbers, and hyphens"
+  }
+}
+
+variable "region" {
+  type        = string
+  description = "AWS Region where the instance will be deployed"
+}
+
+variable "environment" {
+  type        = string
+  description = "Deployment environment (dev, staging, prod)"
+
+  validation {
+    condition     = contains(["dev", "staging", "prod"], var.environment)
+    error_message = "The environment variables must be one of: dev, staging, or prod"
+  }
+}
+
+variable "owner" {
+  type        = string
+  description = "Owner or team responsible for these resources"
 }
 
 variable "instance_type" {
-  description = "EC2 instance type"
   type        = string
-  default     = "t4g.micro"
+  description = "EC2 instance type"
 }
 
 variable "web_server_port" {
+  type        = number
   description = "The port the web server will use for HTTP requests"
-  type        = number
-  default     = 8080
 }
 
-variable "alb_port" {
+variable "alb_listener_port" {
+  type        = number
   description = "The port the ALB will use for HTTP requests"
-  type        = number
-  default     = 80
 }
 
-variable "protocol" {
-  description = "Protocol to use for routing traffic"
+variable "alb_listener_protocol" {
   type        = string
+  description = "Protocol to use for routing traffic"
   default     = "HTTP"
 }
 
-variable "instance_sg_name" {
+variable "instance_security_group_name" {
+  type        = string
   description = "The name of the security group of the instances"
-  type        = string
-  default     = "web-server-sg"
 }
 
-variable "alb_sg_name" {
+variable "alb_security_group_name" {
+  type        = string
   description = "The name of the security group of the Application Load Balancer"
-  type        = string
-  default     = "alb-sg"
 }
 
-variable "ip_protocol" {
-  description = "The IP protocol name of the security group"
+variable "security_group_protocol" {
   type        = string
+  description = "The IP protocol name of the security group"
   default     = "tcp"
 }
 
-variable "cidr_ipv4" {
-  description = "The source IPv4 CIDR range of the security group"
+variable "security_group_cidr_ipv4" {
   type        = string
-  default     = "0.0.0.0/0"
+  description = "The source IPv4 CIDR range of the security group"
 }

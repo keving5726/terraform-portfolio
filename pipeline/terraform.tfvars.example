@@ -1,0 +1,37 @@
+# ==========================================
+# Global & Provider Configuration
+# ==========================================
+
+# The 'namespace' is used as a prefix for resource naming and tagging
+namespace = "pipeline"
+
+# The AWS region where all infrastructure will be deployed
+# Ensure your provider configuration is compatible with this region
+region = "us-east-1"
+
+# Environment name for tagging purposes
+environment = "dev"
+
+# Owner or team responsible for these resources
+owner = "platform-team"
+
+# ==========================================
+# CodePipeline Module Configuration
+# ==========================================
+
+# The version of Terraform to use for this workspace
+terraform_version = "latest"
+
+# A relative path that Terraform will execute within
+working_directory = "."
+
+# An optional IAM deployment policy
+deployment_policy = "./policies/helloworld.json"
+
+# Automatically apply changes when a Terraform plan runs successfully
+auto_apply = true
+
+# A map of environment variables to pass into pipeline
+pipeline_environment = {
+  CONFIRM_DESTROY = 0
+}

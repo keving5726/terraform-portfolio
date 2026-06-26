@@ -6,7 +6,7 @@ locals {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "6.6.0"
+  version = "6.6.1"
 
   name = "${var.namespace}-vpc"
   cidr = var.private_network_cidr
@@ -19,11 +19,6 @@ module "vpc" {
   create_database_subnet_group = true
   enable_nat_gateway           = true
   single_nat_gateway           = true
-
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
 }
 
 module "alb_sg" {

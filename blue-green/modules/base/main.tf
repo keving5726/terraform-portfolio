@@ -1,18 +1,11 @@
 data "aws_region" "current" {}
 
-resource "random_string" "rand" {
-  length  = 24
-  special = false
-  upper   = false
-}
-
 locals {
-  namespace = var.namespace != "" ? substr(join("-", [var.namespace, random_string.rand.result]), 0, 24) : random_string.rand.result
-  azs       = formatlist("${data.aws_region.current.region}%s", ["a", "b"])
+  azs = formatlist("${data.aws_region.current.region}%s", ["a", "b"])
 }
 
-resource "aws_resourcegroups_group" "blue_green_rg" {
-  name        = "${local.namespace}-rg"
+resource "aws_resourcegroups_group" "blue_green" {
+  name        = "${var.namespace}-rg"
   description = "Terraform resource group for the Blue-Green deployment"
 
   resource_query {
@@ -24,7 +17,7 @@ resource "aws_resourcegroups_group" "blue_green_rg" {
   "TagFilters": [
     {
       "Key": "ResourceGroup",
-      "Values": ["${local.namespace}"]
+      "Values": ["${var.namespace}"]
     }
   ]
 }
@@ -34,9 +27,9 @@ resource "aws_resourcegroups_group" "blue_green_rg" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "6.6.0"
+  version = "6.6.1"
 
-  name = "${local.namespace}-vpc"
+  name = "${var.namespace}-vpc"
   cidr = var.private_network_cidr
 
   azs             = local.azs
@@ -45,11 +38,6 @@ module "vpc" {
 
   enable_nat_gateway = true
   single_nat_gateway = true
-
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
 }
 
 module "alb_sg" {
@@ -170,15 +158,15 @@ module "alb" {
   }
 
   tags = {
-    ResourceGroup = local.namespace
+    ResourceGroup = var.namespace
   }
 }
 
 module "iam_role_instance_profile" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role"
-  version = "6.4.0"
+  version = "6.6.0"
 
-  name                    = "${local.namespace}-instance-profile"
+  name                    = "${var.namespace}-instance-profile"
   use_name_prefix         = false
   description             = "Allows CloudWatch to manage EC2 instances on your behalf"
   create_instance_profile = true
@@ -198,10 +186,5 @@ module "iam_role_instance_profile" {
 
   policies = {
     CloudWatchLogsFullAccess = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
-  }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
   }
 }

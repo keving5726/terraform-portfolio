@@ -41,7 +41,7 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
 
-- Terraform installed (version v1.14.4 or higher recommended).
+- Terraform installed (version v1.15.3 or higher recommended).
 - AWS CLI configured with your credentials and default region.
 - An AWS account with permissions to create EC2 instances, Auto Scaling Group and Application Load Balancing.
 
@@ -51,37 +51,36 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-
-2. Preview the infrastructure changes Terraform will apply:
+2. Configure environment variables:
+   - First, copy the example template:
+     ```bash
+     cp terraform.tfvars.example terraform.tfvars
+     ```
+   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
    ```
-
-3. Apply the configuration to create the EC2 instance:
+4. Apply the configuration to create the EC2 instance:
    ```bash
    terraform apply
    ```
-
-4. Check the **Outputs** in the terminal, for example:
+5. Check the **Outputs** in the terminal, for example:
    ```bash
    Outputs:
 
    alb_dns_name = "web-server-lb-908363196.us-east-1.elb.amazonaws.com"
    ```
-
-5. From your browser, enter the DNS name:
+6. From your browser, enter the DNS name:
    ```bash
    http://web-server-lb-908363196.us-east-1.elb.amazonaws.com
    ```
-
    You should see the following message:
    ```bash
    Congratulations, the web server is working successfully
    ```
-
    You can take a look at all the resources created using the **AWS Management Console**.
-
-6. Clean up when you're done:
+7. Clean up when you're done:
    ```bash
    terraform destroy
    ```

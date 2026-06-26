@@ -1,10 +1,54 @@
-variable "aws_region" {
-  description = "AWS Region where the instance will be deployed"
+variable "namespace" {
   type        = string
-  default     = "us-east-1"
+  description = "The project namespace to use for unique resource naming"
+
+  validation {
+    condition     = length(var.namespace) <= 20 && can(regex("^[a-z0-9-]+$", var.namespace))
+    error_message = "The namespace must be 20 characters or less and contain only lowercase letters, numbers, and hyphens"
+  }
 }
 
-variable "namespace" {
-  description = "The project namespace to use for unique resource naming"
+variable "region" {
   type        = string
+  description = "AWS Region where the instance will be deployed"
+}
+
+variable "environment" {
+  type        = string
+  description = "Deployment environment (dev, staging, prod)"
+
+  validation {
+    condition     = contains(["dev", "staging", "prod"], var.environment)
+    error_message = "The environment variables must be one of: dev, staging, or prod"
+  }
+}
+
+variable "owner" {
+  type        = string
+  description = "Owner or team responsible for these resources"
+}
+
+variable "terraform_version" {
+  type        = string
+  description = "The version of Terraform to use for this workspace"
+}
+
+variable "working_directory" {
+  type        = string
+  description = "A relative path that Terraform will execute within"
+}
+
+variable "auto_apply" {
+  type        = bool
+  description = "Automatically apply changes when a Terraform plan runs successfully"
+}
+
+variable "pipeline_environment" {
+  type        = map(string)
+  description = "A map of environment variables to pass into pipeline"
+}
+
+variable "deployment_policy" {
+  type        = string
+  description = "An optional IAM deployment policy"
 }

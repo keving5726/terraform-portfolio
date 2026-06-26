@@ -21,7 +21,7 @@ data "aws_ami" "ubuntu" {
 
 module "iam_role_instance_profile" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role"
-  version = "6.4.0"
+  version = "6.6.0"
 
   name                    = "${var.namespace}-instance-profile"
   use_name_prefix         = false
@@ -45,11 +45,6 @@ module "iam_role_instance_profile" {
     CloudWatchLogsFullAccess = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
     AmazonRDSFullAccess      = "arn:aws:iam::aws:policy/AmazonRDSFullAccess"
   }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 module "alb" {
@@ -58,9 +53,9 @@ module "alb" {
 
   name                       = "webapp-alb"
   load_balancer_type         = "application"
-  vpc_id                     = var.vpc.vpc_id
-  subnets                    = var.vpc.public_subnets
-  security_groups            = [var.sg.alb]
+  vpc_id                     = var.vpc_id
+  subnets                    = var.vpc_public_subnets
+  security_groups            = [var.alb_security_group]
   enable_deletion_protection = false
 
   listeners = {
@@ -84,11 +79,12 @@ module "alb" {
 
   target_groups = {
     ex_asg = {
-      name              = "webapp-tg"
-      protocol          = "HTTP"
-      port              = 8080
-      target_type       = "instance"
-      create_attachment = false
+      name                 = "webapp-tg"
+      protocol             = "HTTP"
+      port                 = 8080
+      target_type          = "instance"
+      deregistration_delay = 30
+      create_attachment    = false
 
       health_check = {
         enabled             = true
@@ -103,11 +99,6 @@ module "alb" {
       }
     }
   }
-
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
 }
 
 resource "aws_launch_template" "ubuntu_webapp" {
@@ -115,7 +106,7 @@ resource "aws_launch_template" "ubuntu_webapp" {
   description            = "Ubuntu template used for the multi tier webapp"
   image_id               = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
-  vpc_security_group_ids = [var.sg.web_server]
+  vpc_security_group_ids = [var.web_server_security_group]
   key_name               = var.ssh_keypair
   user_data              = data.cloudinit_config.config.rendered
 
@@ -126,7 +117,7 @@ resource "aws_launch_template" "ubuntu_webapp" {
 
 module "autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "9.2.0"
+  version = "9.2.1"
 
   name            = "WebAppASG"
   use_name_prefix = false
@@ -140,7 +131,7 @@ module "autoscaling" {
   wait_for_capacity_timeout = 0
   default_instance_warmup   = 300
   health_check_type         = "EC2"
-  vpc_zone_identifier       = var.vpc.private_subnets
+  vpc_zone_identifier       = var.vpc_private_subnets
 
   create_launch_template = false
   launch_template_id     = aws_launch_template.ubuntu_webapp.id

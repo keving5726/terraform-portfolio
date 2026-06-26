@@ -1,20 +1,34 @@
 variable "namespace" {
-  description = "The project namespace to use for unique resource naming"
   type        = string
+  description = "The project namespace to use for unique resource naming"
 }
 
-variable "vpc" {
-  description = "Reference to the VPC module outputs"
-  type        = any
+variable "vpc_id" {
+  type        = string
+  description = "The ID of the VPC where the resources will be deployed"
 }
 
-variable "sg" {
+variable "vpc_public_subnets" {
+  type        = list(string)
+  description = "A list of public subnet IDs associated with the VPC"
+}
+
+variable "vpc_private_subnets" {
+  type        = list(string)
+  description = "A list of private subnet IDs associated with the VPC"
+}
+
+variable "alb_security_group" {
+  type        = string
   description = "Security group IDs for the Application Load Balancer, web server, and database"
-  type        = any
+}
+
+variable "web_server_security_group" {
+  type        = string
+  description = "Security group IDs for the Application Load Balancer, web server, and database"
 }
 
 variable "db_config" {
-  description = "Connection details for the database configuration"
   type = object({
     hostname = string
     port     = number
@@ -22,16 +36,17 @@ variable "db_config" {
     user     = string
     password = string
   })
+  description = "Connection details for the database configuration"
 }
 
 variable "instance_type" {
-  description = "EC2 instance type"
   type        = string
+  description = "EC2 instance type"
   default     = "t3.micro"
 }
 
 variable "ssh_keypair" {
+  type        = string
   description = "SSH keypair to use for EC2 instance"
   default     = null
-  type        = string
 }

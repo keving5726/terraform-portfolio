@@ -39,7 +39,6 @@ The infrastructure consists of the following key components:
   - 1 IAM role.
   - 1 IAM policy.
   - 1 resource group.
-
 - CodePipeline Module:
   - 1 KMS key.
   - 1 S3 bucket.
@@ -76,7 +75,7 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
 
-- Terraform installed (version v1.14.8 or higher recommended).
+- Terraform installed (version v1.15.3 or higher recommended).
 - AWS CLI configured with your credentials and default region.
 - An AWS account with permissions to create IAM roles, IAM policies, S3 buckets, KMS keys.
 
@@ -86,18 +85,21 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-
-2. Preview the infrastructure changes Terraform will apply:
+2. Configure environment variables:
+   - First, copy the example template:
+     ```bash
+     cp terraform.tfvars.example terraform.tfvars
+     ```
+   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
    ```
-
-3. Apply the configuration to create the CI/CD pipeline:
+4. Apply the configuration to create the CI/CD pipeline:
    ```bash
    terraform apply
    ```
-
-4. Create a file in the **AWS CodeCommit** repository, for example:
+5. Create a file in the **AWS CodeCommit** repository, for example:
    ```bash
    provider "aws" {
      region = "us-east-1"
@@ -109,7 +111,7 @@ Remember to delete created resources to avoid charges on your AWS account.
 
      filter {
        name   = "name"
-       values = ["al2023-ami-2023.10.20260120.4-kernel-6.12*"]
+       values = ["al2023-ami-*-arm64"]
      }
 
      filter {
@@ -127,40 +129,31 @@ Remember to delete created resources to avoid charges on your AWS account.
      }
    }
    ```
-
    You can use the **AWS Management Console** to create the file:
-   
    <div align="center">
      <img width="1543" height="665" alt="Screenshot_2026-04-14_14-22-09" src="https://github.com/user-attachments/assets/9e849260-d84d-47d5-aee8-3bc57b5d2fd1" />
    </div>
-
    Click on the **Commit changes** button:
-
    <div align="center">
      <img width="1538" height="565" alt="Screenshot_2026-04-14_14-22-22" src="https://github.com/user-attachments/assets/496eb790-6326-4454-af81-b5e46e8f8c4d" />
    </div>
-
-5. Check the pipeline progress from **AWS CodePipeline**:
-
+6. Check the pipeline progress from **AWS CodePipeline**:
    <div align="center">
      <img width="1917" height="444" alt="Screenshot_2026-04-14_12-52-57" src="https://github.com/user-attachments/assets/d959f9d9-29b7-41de-8980-8efcfd67aa9d" />
    </div>
-
-6. Once the pipeline has successfully completed, you can verify that the resources were created correctly.
-   
-7. Clean up when you're done:
+7. Once the pipeline has successfully completed, you can verify that the resources were created correctly.
+8. Clean up when you're done:
    - Update the **CONFIRM_DESTROY** environment variable in the **main.tf** file:
      ```bash
      environment = {
        CONFIRM_DESTROY = "1"
      }
      ```
-     
    - Apply the configuration to delete the created resources:
      ```bash
      terraform apply
      ```
-     
+   - Click on the **Release change** button.
    - Now you can now delete the pipeline:
      ```bash
      terraform destroy

@@ -1,0 +1,26 @@
+# ==========================================
+# Global & Provider Configuration
+# ==========================================
+
+# The 'namespace' is used as a prefix for resource naming and tagging
+namespace = "multi-tier-webapp"
+
+# The AWS region where all infrastructure will be deployed
+# Ensure your provider configuration is compatible with this region
+region = "us-east-1"
+
+# Environment name for tagging purposes
+environment = "dev"
+
+# Owner or team responsible for these resources
+owner = "platform-team"
+
+# ==========================================
+# Database Module Configuration
+# ==========================================
+
+# The name of the database to create when the DB instance is created
+db_name = "pets"
+
+# Username for the master DB user
+db_username = "admin"

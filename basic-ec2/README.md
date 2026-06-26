@@ -14,7 +14,7 @@ It is designed as a starting point for learning Infrastructure as Code (IaC) wit
 The infrastructure consists of the following key components:
 
 - 1 EC2 instance:
-  - **AMI**: Amazon Linux 2023 kernel-6.12 AMI.
+  - **AMI**: Amazon Linux 2023 kernel-6.1 AMI.
   - **Instance type**: t4g.micro (eligible for AWS free tier).
   - **Architecture**: 64-bit (Arm).
 
@@ -48,7 +48,7 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
 
-- Terraform installed (version v1.14.4 or higher recommended).
+- Terraform installed (version v1.15.3 or higher recommended).
 - AWS CLI configured with your credentials and default region.
 - An AWS account with permissions to create EC2 instances.
 
@@ -58,18 +58,21 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-
-2. Preview the infrastructure changes Terraform will apply:
+2. Configure environment variables:
+   - First, copy the example template:
+     ```bash
+     cp terraform.tfvars.example terraform.tfvars
+     ```
+   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
    ```
-
-3. Apply the configuration to create the EC2 instance:
+4. Apply the configuration to create the EC2 instance:
    ```bash
    terraform apply
    ```
-
-4. Clean up when you're done:
+5. Clean up when you're done:
    ```bash
    terraform destroy
    ```
