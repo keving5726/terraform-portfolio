@@ -39,7 +39,6 @@ The infrastructure consists of the following key components:
   - 1 IAM role.
   - 1 IAM policy.
   - 1 resource group.
-
 - CodePipeline Module:
   - 1 KMS key.
   - 1 S3 bucket.
@@ -112,7 +111,7 @@ Remember to delete created resources to avoid charges on your AWS account.
 
      filter {
        name   = "name"
-       values = ["al2023-ami-2023.10.20260120.4-kernel-6.12*"]
+       values = ["al2023-ami-*-arm64"]
      }
 
      filter {
@@ -154,6 +153,7 @@ Remember to delete created resources to avoid charges on your AWS account.
      ```bash
      terraform apply
      ```
+   - Click on the **Release change** button.
    - Now you can now delete the pipeline:
      ```bash
      terraform destroy
