@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./images/Terraform_onDark.svg">
     <source media="(prefers-color-scheme: light)" srcset="./images/Terraform_onLight.svg">
-    <img alt="Logo de mi proyecto" src="./images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="./images/Terraform_onLight.svg" width="850">
   </picture>
 </div>
 
