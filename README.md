@@ -2,15 +2,15 @@
   <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
 </div>
 
-# Terraform Practice Portfolio
+# Terraform Portfolio
 
-Welcome to my Terraform Practice Portfolio!
+Welcome to my Terraform Portfolio!
 
-This repository contains a collection of hands-on Terraform practices designed to help you master Infrastructure as Code (IaC) by deploying various AWS resources and architectures.
+This repository is a curated collection of Infrastructure as Code (IaC) projects, demonstrating a journey from cloud infrastructure fundamentals to complex AWS architectures. The goal of this repository is to showcase scalable, modular, and secure cloud deployments using Terraform best practices.
 
-## :file_folder: Practice Structure
+## :file_folder: Portfolio Structure
 
-Each folder represents an independent Terraform practice with its own focus and learning objectives:
+Every directory inside this repository represents an independent, self-contained project.
 
 - [basic-ec2](basic-ec2): Deploy a simple AWS EC2 instance. Perfect for beginners to get familiar with Terraform basics and AWS resource provisioning.
 - [web-server-ec2](web-server-ec2): Deploy a web server on a single EC2 instance with custom configuration. Great for understanding server provisioning and configuration management.
@@ -21,53 +21,17 @@ Each folder represents an independent Terraform practice with its own focus and 
 - [blue-green](blue-green): Implement a blue-green deployment strategy using Terraform. This practice demonstrates how to deploy two identical environments (blue and green) to enable zero-downtime updates, safe rollbacks, and high availability during production deployments. It covers managing infrastructure versions, switching traffic between environments, and minimizing risks during updates.
 - [pipeline](pipeline): Configure a continuous integration and continuous deployment (CI/CD) pipeline to automate the provisioning and updating of infrastructure with Terraform. Ideal for learning how to integrate Terraform with AWS CodeCommit, AWS CodeBuild and AWS CodePipeline.
 
-## :rocket: Getting Started
+## :gear: Operational Guidelines & Best Practices
 
-**NOTE**: These practices will deploy real resources into your AWS account. Remember to delete created resources to avoid charges on your AWS account.
-
-Follow these steps to run any practice:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/keving5726/terraform-practice-portfolio.git
-   ```
-
-2. Navigate to the practice folder you want to try, for example:
-   ```bash
-   cd terraform-practice-portfolio/basic-ec2
-   ```
-
-3. Initialize Terraform (downloads providers and configures backend):
-   ```bash
-   terraform init
-   ```
-
-4. Preview the changes Terraform will make:
-   ```bash
-   terraform plan
-   ```
-
-5. Apply the configuration to create resources:
-   ```bash
-   terraform apply
-   ```
-
-6. When done, clean up resources to avoid costs:
-   ```bash
-   terraform destroy
-   ```
-
-## :bulb: Tips & Best Practices
-
-- Each practice is self-contained, feel free to experiment without affecting others.
-- Always run `terraform plan` before `terraform apply` to review changes.
-- Check for any **README.md** file inside each practice folder for specific instructions.
-- Remember to run `terraform destroy` at the end of the practice to avoid charges.
+- :package: **Isolated Environments:** Every project is fully self-contained. You can experiment, modify, and deploy within any specific directory without risking cross-project interference.
+- :shield: **Execution Safety:** Always run `terraform plan` prior to `terraform apply`. Reviewing the execution graph is non-negotiable to prevent unintended infrastructure drift.
+- :notebook: **Granular Documentation:** Each project folder contains its own local **README.md**. Refer to it for specific architecture diagrams, variables, and deployment steps.
+- :money_with_wings: **Cost Optimization:** Avoid unnecessary cloud expenditures. Always execute `terraform destroy` immediately after testing to ensure proper resource cleanup.
 
 ## :scroll: License
 
 This repository is Unlicensed.\
-Feel free to use and modify the code as you wish — no restrictions!
+Feel free to use and modify the code as you wish!
 
 ## :mailbox_with_mail: Contact
 
