@@ -71,4 +71,4 @@ Feel free to use and modify the code as you wish — no restrictions!
 
 ## :mailbox_with_mail: Contact
 
-Questions, suggestions, or feedback? Open an issue or reach out! Happy Terraforming! 🌍✨
+Questions, suggestions, or feedback? Open an issue or reach out! Happy Terraforming! :earth_americas::sparkles:
