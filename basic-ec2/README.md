@@ -1,12 +1,16 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="./images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: AWS EC2 Instance
+# AWS EC2 Instance
 
 ## :dart: Objective
 
-This practice aims to demonstrate the basics of using Terraform to provision infrastructure on AWS by creating a simple EC2 instance.\
+This project aims to demonstrate the basics of using Terraform to provision infrastructure on AWS by creating a simple EC2 instance.\
 It is designed as a starting point for learning Infrastructure as Code (IaC) with Terraform.
 
 ## :building_construction: Infrastructure Overview
@@ -15,8 +19,11 @@ The infrastructure consists of the following key components:
 
 - 1 EC2 instance:
   - **AMI**: Amazon Linux 2023 kernel-6.1 AMI.
-  - **Instance type**: t4g.micro (eligible for AWS free tier).
-  - **Architecture**: 64-bit (Arm).
+  - **Instance type**: t4g.micro.
+  - **Free Tier Eligible**: true.
+  - **Architecture**: arm64.
+  - **vCPUs**: 2.
+  - **Memory (GiB)**: 1.
 
 ## :world_map: Architecture Diagram
 
@@ -58,12 +65,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-2. Configure environment variables:
-   - First, copy the example template:
-     ```bash
-     cp terraform.tfvars.example terraform.tfvars
-     ```
-   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+2. Copy the example template to configure your input variables:
+   ```bash
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+   Open `terraform.tfvars` and customize the values for your setup.
 3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
@@ -79,5 +85,5 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
+This project is a foundational step to understand Terraform workflow and AWS resource provisioning.\
 You can extend this by adding variables, outputs, and more complex resources in future practices.
