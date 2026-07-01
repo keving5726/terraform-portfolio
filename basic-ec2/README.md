@@ -33,9 +33,14 @@ The infrastructure consists of the following key components:
 
 ## :twisted_rightwards_arrows: Flowchart
 
-<div align="center">
-  <img width="549" height="181" alt="basic-ec2-flow drawio" src="https://github.com/user-attachments/assets/08576754-0291-42e7-a9ef-73c23dac7a2d" />
-</div>
+```mermaid
+flowchart TD
+    Start([Start]) --> Write[/"Write configuration files"\]
+    Write --> Init[terraform init]
+    Init --> Apply[terraform apply]
+    Apply --> Destroy[terraform destroy]
+    Destroy --> Stop([Stop])
+```
 
 1. Write Terraform configuration files.
 2. Initialize Terraform with `terraform init`.
