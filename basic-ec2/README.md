@@ -49,9 +49,15 @@ flowchart TD
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="815" height="539" alt="graphviz" src="https://github.com/user-attachments/assets/1b685485-a6de-4049-bd05-d3d12d18a7f8" />  
-</div>
+```mermaid
+graph TD
+    ami["data.aws_ami.amazon_linux"]
+    types["data.aws_ec2_instance_types.free_tier"]
+    ec2["aws_instance.basic_ec2"]
+
+    ec2 --> ami
+    ec2 --> types
+```
 
 ## :arrow_forward: How to Run
 
