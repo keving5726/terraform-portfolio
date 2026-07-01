@@ -28,7 +28,7 @@ The infrastructure consists of the following key components:
 ## :world_map: Architecture Diagram
 
 <div align="center">
-  <img width="891" height="321" alt="basic-ec2 drawio" src="https://github.com/user-attachments/assets/b4291472-bb00-4ab9-90a0-e947d6b993ea" />
+  <img alt="basic-ec2 drawio" src="./images/basic-ec2.drawio.svg" />
 </div>
 
 ## :twisted_rightwards_arrows: Flowchart
