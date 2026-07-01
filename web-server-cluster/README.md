@@ -37,9 +37,12 @@ The infrastructure consists of the following key components:
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="2265" height="1019" alt="graphviz" src="https://github.com/user-attachments/assets/d0df6496-7fc8-4dbe-b0d9-0c0e46d22571" />
-</div>
+```mermaid
+graph TD
+    VPC[VPC] --> ALB[Application Load Balancer]
+    ALB --> ASG[Auto Scaling Group]
+    ASG --> EC2[EC2 Instances]
+```
 
 ## :arrow_forward: How to Run
 
