@@ -51,12 +51,12 @@ flowchart TD
 
 ```mermaid
 graph TD
-    ami["data.aws_ami.amazon_linux"]
-    types["data.aws_ec2_instance_types.free_tier"]
-    ec2["aws_instance.basic_ec2"]
+    ami["AWS Data: AMI Amazon Linux"]
+    types["AWS Data: Instance types (free tier)"]
+    ec2["EC2 Instance"]
 
-    ec2 --> ami
-    ec2 --> types
+    ami --> ec2
+    types --> ec2
 ```
 
 ## :arrow_forward: How to Run
