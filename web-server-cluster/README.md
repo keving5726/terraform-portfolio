@@ -1,15 +1,19 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: Web Server Cluster using AWS
+# Web Server Cluster using AWS
 
 ## :dart: Objective
 
 Automate the provisioning and management of a scalable and highly available infrastructure on AWS to host a web server cluster.
 Using Terraform, the project deploys EC2 instances managed by Auto Scaling Groups (ASG) to ensure dynamic scalability, alongside an Application Load Balancer (ALB) that efficiently distributes traffic and enhances service availability.
 
-This practice aims to enable Infrastructure as Code (IaC) using Terraform, allowing reproducible deployments, version control, and simplified maintenance of the web architecture on AWS.
+This project aims to enable Infrastructure as Code (IaC) using Terraform, allowing reproducible deployments, version control, and simplified maintenance of the web architecture on AWS.
 
 ## :building_construction: Infrastructure Overview
 
@@ -17,8 +21,11 @@ The infrastructure consists of the following key components:
 
 - 3 EC2 instances:
   - **AMI**: Ubuntu Server 24.04 LTS (HVM), SSD Volume Type.
-  - **Instance type**: t4g.micro (eligible for AWS free tier).
-  - **Architecture**: 64-bit (Arm).
+  - **Instance type**: t4g.micro.
+  - **Free Tier Eligible**: true.
+  - **Architecture**: arm64.
+  - **vCPUs**: 2.
+  - **Memory (GiB)**: 1.
 - 1 Application Load Balancing (ALB).
 - 1 Auto Scaling Group (ASG).
 
@@ -51,17 +58,16 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-2. Configure environment variables:
-   - First, copy the example template:
-     ```bash
-     cp terraform.tfvars.example terraform.tfvars
-     ```
-   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+2. Copy the example template to configure your input variables:
+   ```bash
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+   Open `terraform.tfvars` and customize the values for your setup.
 3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
    ```
-4. Apply the configuration to create the EC2 instance:
+4. Apply the configuration to create the cluster:
    ```bash
    terraform apply
    ```
@@ -87,5 +93,5 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
+This project is a foundational step to understand Terraform workflow and AWS resource provisioning.\
 You can extend this by adding variables, outputs, and more complex resources in future practices.
