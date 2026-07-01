@@ -32,9 +32,19 @@ The infrastructure consists of the following key components:
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="1423" height="539" alt="graphviz" src="https://github.com/user-attachments/assets/d1680de7-e002-4da8-a26d-44b28cfd867b" />
-</div>
+```mermaid
+graph TD
+    data.aws_ami.ubuntu["data.aws_ami.ubuntu"]
+    data.aws_ec2_instance_types.free_tier["data.aws_ec2_instance_types.free_tier"]
+    aws_instance.web_server_ec2["aws_instance.web_server_ec2"]
+    aws_security_group.web_server_ec2["aws_security_group.web_server_ec2"]
+    aws_vpc_security_group_ingress_rule.allow_ipv4["aws_vpc_security_group_ingress_rule.allow_ipv4"]
+
+    aws_instance.web_server_ec2 --> data.aws_ami.ubuntu
+    aws_instance.web_server_ec2 --> data.aws_ec2_instance_types.free_tier
+    aws_instance.web_server_ec2 --> aws_security_group.web_server_ec2
+    aws_vpc_security_group_ingress_rule.allow_ipv4 --> aws_security_group.web_server_ec2
+```
 
 ## :arrow_forward: How to Run
 
