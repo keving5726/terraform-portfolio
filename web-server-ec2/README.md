@@ -27,7 +27,7 @@ The infrastructure consists of the following key components:
 ## :world_map: Architecture Diagram
 
 <div align="center">
-  <img width="681" height="373" alt="web-server-ec2 drawio" src="https://github.com/user-attachments/assets/dc037ddf-0c65-4649-93e2-ad2eb48c9e94" />
+  <img alt="web-server-ec2 drawio" src="./images/web-server-ec2.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
