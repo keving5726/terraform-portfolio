@@ -61,7 +61,7 @@ graph TD
 
 ## :arrow_forward: How to Run
 
-**NOTE**: This example will deploy real resources into your AWS account.
+**NOTE**: This project will deploy real resources into your AWS account.
 Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
