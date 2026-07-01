@@ -72,7 +72,7 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform plan
    ```
-4. Apply the configuration to create the EC2 instance:
+4. Apply the configuration to create the web server:
    ```bash
    terraform apply
    ```
