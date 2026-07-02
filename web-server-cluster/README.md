@@ -32,7 +32,7 @@ The infrastructure consists of the following key components:
 ## :world_map: Architecture Diagram
 
 <div align="center">
-  <img width="711" height="721" alt="web-server-cluster drawio" src="https://github.com/user-attachments/assets/a525efcb-95fc-458f-8617-a4ac45943ac2" />
+  <img alt="web-server-cluster drawio" src="./images/web-server-cluster.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
