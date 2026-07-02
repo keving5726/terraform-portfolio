@@ -34,16 +34,14 @@ The infrastructure consists of the following key components:
 
 ```mermaid
 graph TD
-    data.aws_ami.ubuntu["data.aws_ami.ubuntu"]
-    data.aws_ec2_instance_types.free_tier["data.aws_ec2_instance_types.free_tier"]
-    aws_instance.web_server_ec2["aws_instance.web_server_ec2"]
-    aws_security_group.web_server_ec2["aws_security_group.web_server_ec2"]
-    aws_vpc_security_group_ingress_rule.allow_ipv4["aws_vpc_security_group_ingress_rule.allow_ipv4"]
+    ami["AWS Data: AMI Ubuntu"]
+    types["AWS Data: Instance types (free tier)"]
+    sg["Security Group: Web server"]
+    ec2["EC2 Instance"]
 
-    aws_instance.web_server_ec2 --> data.aws_ami.ubuntu
-    aws_instance.web_server_ec2 --> data.aws_ec2_instance_types.free_tier
-    aws_instance.web_server_ec2 --> aws_security_group.web_server_ec2
-    aws_vpc_security_group_ingress_rule.allow_ipv4 --> aws_security_group.web_server_ec2
+    ami --> ec2
+    types --> ec2
+    sg --> ec2
 ```
 
 ## :arrow_forward: How to Run
