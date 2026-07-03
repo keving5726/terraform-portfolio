@@ -58,9 +58,18 @@ The infrastructure consists of the following key components:
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="711" height="241" alt="multi-tiered-web-app-dependencies drawio" src="https://github.com/user-attachments/assets/861e0dd7-0a4a-4fe4-bba7-bed3c4a1d3c0" />
-</div>
+```mermaid
+graph TD
+    Root --> Networking
+    Root --> Database
+    Root --> Autoscaling
+
+    Networking --> VPC
+    Networking --> SG[Security Group]
+
+    Autoscaling --> IAM[IAM Instance Profile]
+    Autoscaling --> ALB[Application Load Balancer]
+```
 
 ## :arrow_forward: How to Run
 
