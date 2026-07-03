@@ -1,14 +1,18 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: S3 Backend with DynamoDB
+# S3 Backend with DynamoDB
 
-**NOTE**: This practice using DynamoDB for state locking is intended **only for testing or legacy purposes**. The DynamoDB locking mechanism is now **deprecated** in favor of the **native S3 locking feature**, which provides a simpler and more efficient way to manage Terraform state locks directly within S3. It is recommended to migrate to native S3 locking for production environments to benefit from improved reliability and reduced operational overhead. If you want to check out a practice that uses the native S3 locking feature, click on the following link: [s3backend](../s3backend).
+**NOTE**: This project using DynamoDB for state locking is intended **only for testing or legacy purposes**. The DynamoDB locking mechanism is now **deprecated** in favor of the **native S4 locking feature**, which provides a simpler and more efficient way to manage Terraform state locks directly within S3. It is recommended to migrate to native S3 locking for production environments to benefit from improved reliability and reduced operational overhead. If you want to check out a project that uses the native S3 locking feature, click on the following link: [s3backend](../s3backend).
 
 ## :dart: Objective
 
-The objective of this practice is to:
+The objective of this project is to:
 
 - Understand how to configure and test a remote backend using S3 and DynamoDB in Terraform.
 - Validate state locking functionality to prevent concurrent state modifications.
@@ -24,7 +28,7 @@ How the S3 backend with DynamoDB works:
   <img width="669" height="319" alt="s3backend-dynamodb-module drawio" src="https://github.com/user-attachments/assets/97b65821-6ddb-43c6-ae44-264147f096b7" />
 </div>
 
-This practice is focused on testing the S3 backend configuration with DynamoDB for state locking, in order to help you begin testing Terraform S3 backends effectively.
+This project is focused on testing the S3 backend configuration with DynamoDB for state locking, in order to help you begin testing Terraform S3 backends effectively.
 
 ## :building_construction: Infrastructure Overview
 
@@ -60,7 +64,7 @@ The infrastructure consists of the following key components:
 
 ## :arrow_forward: How to Run
 
-**NOTE**: This practice will deploy real resources into your AWS account. Remember to delete created resources to avoid charges on your AWS account.
+**NOTE**: This project will deploy real resources into your AWS account. Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
 
@@ -219,5 +223,6 @@ The infrastructure consists of the following key components:
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
-You can extend this by adding variables, outputs, and more complex resources in future practices.
+This project stands as a concrete demonstration of my proficiency with **Infrastructure as Code (IaC)**, specifically focusing on the **Terraform workflow** and **AWS resource provisioning**.
+
+The architecture was designed following clean-code principles, ensuring a modular and highly adaptable foundation that can be seamlessly integrated into larger, enterprise-scale deployments.
