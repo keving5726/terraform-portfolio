@@ -14,7 +14,7 @@ To design and deploy a highly available, scalable multi-tiered web application i
 Multi-tier simply refers to a software system that is divided into logical layers, like a cake, for example:
 
 <div align="center">
-  <img width="400" height="246" alt="multi-tiered-web-app-flow drawio" src="https://github.com/user-attachments/assets/6983c425-3524-4725-90ca-172431ad068d" />
+  <img alt="multi-tiered-web-app-flow drawio" src="./images/multi-tiered-web-app-flow.drawio.svg" />
 </div>
 
 This project aims to demonstrate proficiency in Infrastructure as Code (IaC) by automating the provisioning of network components, load balancers, auto scaling groups, and backend services to ensure fault tolerance, scalability, and efficient resource management in a cloud environment.
@@ -53,7 +53,7 @@ The infrastructure consists of the following key components:
 ## :world_map: Architecture Diagram
 
 <div align="center">
-  <img width="1052" height="821" alt="Multi-tiered-web-app drawio" src="https://github.com/user-attachments/assets/f81fb293-5506-476c-b01e-7031d5710cdf" />
+  <img alt="multi-tiered-web-app drawio" src="./images/multi-tiered-web-app.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
@@ -104,7 +104,7 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```
    You should see the multi-tiered web application for a social media site geared toward pet owners:
    <div align="center">
-     <img width="1914" height="1007" alt="pets" src="https://github.com/user-attachments/assets/b22a46f9-4649-4602-a913-8bb0ef46956b" />
+     <img alt="pets" src="./images/pets.png" />
    </div>
    You can take a look at all the resources created using the **AWS Management Console**.
 7. Clean up when you're done:
