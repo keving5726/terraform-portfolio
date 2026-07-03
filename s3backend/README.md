@@ -61,9 +61,13 @@ The infrastructure consists of the following key components:
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="411" height="381" alt="s3backend-dependencies drawio" src="https://github.com/user-attachments/assets/90214943-8c4f-4eac-9638-7bdf0a2d78a2" />
-</div>
+```mermaid
+graph TD
+    Root --> Backend
+    Backend --> Deploy
+    Deploy --> Test
+    Deploy --> Workspaces
+```
 
 ## :arrow_forward: How to Run
 
