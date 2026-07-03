@@ -34,18 +34,23 @@ The infrastructure consists of the following key components:
   - 3 private subnets for the EC2 instances.
   - 3 private subnets for the RDS instances.
   - 3 security groups (ALB, Web Server and Database).
-
 - Database Module:
   - 1 RDS instance:
-    - **Instance type**: db.t4g.micro (eligible for AWS free tier).
+    - **Instance type**: db.t4g.micro
+    - **Free Tier Eligible**: true.
+    - **Architecture**: arm64.
+    - **vCPUs**: 2.
+    - **Memory (GiB)**: 1.
     - **Engine version**: MySQL 8.4.7.
-    - Single-AZ DB instance deployment (1 instance).
-
+    - **Deployment**: Single-AZ DB instance deployment (1 instance).
 - Autoscaling Module:
   - 1 Launch template:
     - **AMI**: Ubuntu Server 24.04 LTS (HVM), SSD Volume Type.
-    - **Instance type**: t3.micro (eligible for AWS free tier).
-    - **Architecture**: 64-bit (x86).
+    - **Instance type**: t3.micro.
+    - **Free Tier Eligible**: true.
+    - **Architecture**: x86_64.
+    - **vCPUs**: 2.
+    - **Memory (GiB)**: 1.
     - **User data**: Cloud-init configuration.
   - 1 Application Load Balancer (ALB).
   - 1 Auto Scaling Group (ASG).
