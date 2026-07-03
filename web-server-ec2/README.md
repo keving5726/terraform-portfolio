@@ -95,5 +95,6 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ## :rocket: Looking Ahead
 
-This project is a foundational step to understand Terraform workflow and AWS resource provisioning.\
-You can extend this by adding variables, outputs, and more complex resources in future practices.
+This project stands as a concrete demonstration of my proficiency with Infrastructure as Code (IaC), specifically focusing on the Terraform workflow and AWS resource provisioning.
+
+The architecture was designed following clean-code principles, ensuring a modular and highly adaptable foundation that can be seamlessly integrated into larger, enterprise-scale deployments.
