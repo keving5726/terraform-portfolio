@@ -93,11 +93,11 @@ graph TD
      ```bash
      terraform init
      ```
-   - Copy the example template:
+   - Copy the example template to configure your input variables:
      ```bash
      cp terraform.tfvars.example terraform.tfvars
      ```
-   - Open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+     Open `terraform.tfvars` and customize the values for your setup.
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan
@@ -141,11 +141,11 @@ graph TD
      ```bash
      terraform init -backend-config="./backend.config"
      ```
-   - Copy the example template:
+   - Copy the example template to configure your input variables:
      ```bash
      cp terraform.tfvars.example terraform.tfvars
      ```
-   - Open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+     Open `terraform.tfvars` and customize the values for your setup.
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan
@@ -183,11 +183,11 @@ graph TD
      ```bash
      terraform workspace new prod
      ```
-   - Copy the example template:
+   - Copy the example template to configure your input variables:
      ```bash
      cp environments/prod.tfvars.example environments/prod.tfvars
      ```
-   - Open the newly created **environments/prod.tfvars** file in your editor and customize the values for your environment
+     Open `environments/prod.tfvars` and customize the values for your setup.
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan -var-file="./environments/prod.tfvars"
@@ -200,11 +200,11 @@ graph TD
      ```bash
      terraform workspace new dev
      ```
-   - Copy the example template:
+   - Copy the example template to configure your input variables:
      ```bash
      cp environments/dev.tfvars.example environments/dev.tfvars
      ```
-   - Open the newly created **environments/dev.tfvars** file in your editor and customize the values for your environment
+     Open `environments/dev.tfvars` and customize the values for your setup.
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan -var-file="./environments/dev.tfvars"
