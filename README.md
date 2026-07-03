@@ -35,7 +35,7 @@ Every directory inside this repository represents an independent, self-contained
 ## :scroll: License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.\
-:free: Feel free to use, modify, and distribute this Terraform code for personal or commercial projects!
+Feel free to use, modify, and distribute this Terraform code for personal or commercial projects!
 
 ## :mailbox_with_mail: Contact
 
