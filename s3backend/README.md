@@ -37,7 +37,13 @@ The infrastructure consists of the following key components:
 - 1 IAM role.
 - 1 IAM policy.
 - 1 resource group.
-- 2 EC2 instances: **t4g.micro** (eligible for AWS free tier).
+- 2 EC2 instances:
+  - **AMI**: Amazon Linux 2023 kernel-6.1 AMI.
+  - **Instance type**: t4g.micro.
+  - **Free Tier Eligible**: true.
+  - **Architecture**: arm64.
+  - **vCPUs**: 2.
+  - **Memory (GiB)**: 1.
 
 ## :world_map: Architecture Diagrams
 
