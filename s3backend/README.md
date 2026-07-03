@@ -36,7 +36,7 @@ The infrastructure consists of the following key components:
 - 1 S3 bucket.
 - 1 IAM role.
 - 1 IAM policy.
-- 1 resource group.
+- 1 Resource group.
 - 2 EC2 instances:
   - **AMI**: Amazon Linux 2023 kernel-6.1 AMI.
   - **Instance type**: t4g.micro.
