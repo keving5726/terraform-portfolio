@@ -23,7 +23,7 @@ How the S3 backend works:
 3. Your Terraform state files are securely stored in an S3 bucket with server-side encryption using AWS KMS, ensuring data confidentiality at rest.
 
 <div align="center">
-  <img width="669" height="332" alt="s3backend-module drawio" src="https://github.com/user-attachments/assets/27b0208d-4b5f-40ee-821c-df6dae1fbe07" />
+  <img alt="s3backend-module drawio" src="./images/s3backend-module.drawio.svg" />
 </div>
 
 This project is focused on testing the S3 backend configuration for state locking, in order to help you begin testing Terraform S3 backends effectively.
@@ -50,13 +50,13 @@ The infrastructure consists of the following key components:
 ### Deploy
 
 <div align="center">
-  <img width="751" height="451" alt="s3backend-deploy drawio" src="https://github.com/user-attachments/assets/63692961-9a25-407f-96bd-28847850377e" />
+  <img alt="s3backend-deploy drawio" src="./images/s3backend-deploy.drawio.svg" />
 </div>
 
 ### Workspaces
 
 <div align="center">
-  <img width="641" height="551" alt="s3backend-workspaces drawio" src="https://github.com/user-attachments/assets/4b0748bb-27a8-447b-b6e9-1530093eb355" />
+  <img alt="s3backend-workspaces drawio" src="./images/s3backend-workspaces.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
