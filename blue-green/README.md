@@ -43,12 +43,14 @@ The infrastructure consists of the following key components:
     - 1 Listener.
     - 2 Target groups.
   - 1 Resource group.
-
 - Autoscaling Module:
   - 2 Launch template (Blue and Green):
     - **AMI**: Ubuntu Server 24.04 LTS (HVM), SSD Volume Type.
-    - **Instance type**: t4g.micro (eligible for AWS free tier).
-    - **Architecture**: 64-bit (Arm).
+    - **Instance type**: t4g.micro.
+    - **Free Tier Eligible**: true.
+    - **Architecture**: arm64.
+    - **vCPUs**: 2.
+    - **Memory (GiB)**: 1.
     - **User data**: startup.sh.
   - 2 Auto Scaling Group (ASG):
     - Blue:
