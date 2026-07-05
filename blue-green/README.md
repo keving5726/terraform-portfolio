@@ -90,9 +90,13 @@ The end result is that the customer experiences an instantaneous software update
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="361" height="391" alt="blue-gree-deployment-dependencies drawio" src="https://github.com/user-attachments/assets/367af6f0-6012-4d24-bde3-ac3fd3303104" />
-</div>
+```mermaid
+graph TD
+    Root --> Base
+    Base --> Autoscaling
+    Autoscaling --> Blue
+    Autoscaling --> Green
+```
 
 ## :arrow_forward: How to Run
 
