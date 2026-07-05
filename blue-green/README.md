@@ -20,9 +20,30 @@ The deployment process includes:
 - Switching traffic from the **Blue** environment to the **Green** environment using a router, ensuring a seamless transition with zero downtime.
 - Retaining the **Blue** environment as a fallback for quick rollbacks in case of issues with the new version.
 
-<div align="center">
-  <img width="711" height="392" alt="blue-green-deployment drawio" src="https://github.com/user-attachments/assets/161fe077-cbcd-4c2a-ab4a-af31f74d1ee3" />
-</div>
+```mermaid
+graph TB
+    subgraph After
+        direction TB
+        Internet2@{ shape: cloud, label: "Internet"} --> Router2[Router]
+        Router2 -. Idle traffic .-> Blue2[Blue]
+        Router2 -- Live traffic --> Green2[Green]
+    end
+
+    subgraph Before
+        direction TB
+        Internet1@{ shape: cloud, label: "Internet"} --> Router1[Router]
+        Router1 -- Live traffic --> Blue1[Blue]
+        Router1 -. Idle traffic .-> Green1[Green]
+    end
+
+    classDef Router fill:#6E8B6E,stroke:#333,stroke-width:1px,color:#fff
+    classDef Blue fill:#0052CC,stroke:#333,stroke-width:1px,color:#fff
+    classDef Green fill:#008700,stroke:#333,stroke-width:1px,color:#fff
+
+    class Router1,Router2 Router
+    class Blue1,Blue2 Blue
+    class Green1,Green2 Green
+```
 
 This project demonstrates how to achieve safe, efficient, and reversible deployments while maintaining high availability and minimizing risks during production updates. Additionally, it shows how to use Terraform module expansions to create reusable, modular infrastructure components.
 
