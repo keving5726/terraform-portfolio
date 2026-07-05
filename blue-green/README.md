@@ -1,12 +1,16 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: Blue-Green Deployment in AWS
+# Blue-Green Deployment in AWS
 
 ## :dart: Objective
 
-The objective of this practice is to implement and understand the Blue-Green Deployment strategy, a release methodology designed to minimize downtime and reduce deployment risks.
+The objective of this project is to implement and understand the Blue-Green Deployment strategy, a release methodology designed to minimize downtime and reduce deployment risks.
 
 This approach involves maintaining two identical production environments: Blue (current live environment) and Green (idle environment for the new version).
 
@@ -20,7 +24,7 @@ The deployment process includes:
   <img width="711" height="392" alt="blue-green-deployment drawio" src="https://github.com/user-attachments/assets/161fe077-cbcd-4c2a-ab4a-af31f74d1ee3" />
 </div>
 
-This practice demonstrates how to achieve safe, efficient, and reversible deployments while maintaining high availability and minimizing risks during production updates. Additionally, it shows how to use Terraform module expansions to create reusable, modular infrastructure components.
+This project demonstrates how to achieve safe, efficient, and reversible deployments while maintaining high availability and minimizing risks during production updates. Additionally, it shows how to use Terraform module expansions to create reusable, modular infrastructure components.
 
 ## :building_construction: Infrastructure Overview
 
@@ -28,17 +32,17 @@ The infrastructure consists of the following key components:
 
 - Base Module:
   - 1 VPC.
-  - 1 route table.
+  - 1 Route table.
   - 1 Internet gateway.
   - 1 NAT gateway.
-  - 2 public subnets for the Application Load Balancer.
-  - 2 private subnets for the EC2 instances.
-  - 2 security groups (ALB and Blue-Green app).
+  - 2 Public subnets for the Application Load Balancer.
+  - 2 Private subnets for the EC2 instances.
+  - 2 Security groups (ALB and Blue-Green app).
   - 1 IAM role instance profile.
   - 1 Application Load Balancer (ALB):
-    - 1 listener.
-    - 2 target groups.
-  - 1 resource group.
+    - 1 Listener.
+    - 2 Target groups.
+  - 1 Resource group.
 
 - Autoscaling Module:
   - 2 Launch template (Blue and Green):
@@ -90,7 +94,7 @@ The end result is that the customer experiences an instantaneous software update
 
 ## :arrow_forward: How to Run
 
-**NOTE**: This practice will deploy real resources into your AWS account.
+**NOTE**: This project will deploy real resources into your AWS account.
 Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
@@ -105,12 +109,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-2. Configure environment variables:
-   - First, copy the example template:
-     ```bash
-     cp terraform.tfvars.example terraform.tfvars
-     ```
-   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+2. Copy the example template to configure your input variables:
+   ```bash
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+   Open `terraform.tfvars` and customize the values for your setup.
 3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
@@ -170,5 +173,6 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
-You can extend this by adding variables, outputs, and more complex resources in future practices.
+This project stands as a concrete demonstration of my proficiency with **Infrastructure as Code (IaC)**, specifically focusing on the **Terraform workflow** and **AWS resource provisioning**.
+
+The architecture was designed following clean-code principles, ensuring a modular and highly adaptable foundation that can be seamlessly integrated into larger, enterprise-scale deployments.
