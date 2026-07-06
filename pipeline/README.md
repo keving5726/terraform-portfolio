@@ -16,9 +16,18 @@ The objective of this project is to create and deploy a four-stage CI/CD pipelin
 3. **Approve**: If the `terraform plan` succeeds without errors, the pipeline pauses and requires manual approval before proceeding. This step ensures that changes are reviewed before applying.
 4. **Apply**: Once approved, the pipeline runs `terraform apply` to apply the planned changes to the production environment, updating the infrastructure accordingly.
 
-<div align="center">
-  <img width="736" height="100" alt="pipeline-stages drawio" src="https://github.com/user-attachments/assets/15b06f53-3a79-4fe4-bd24-900a2176e924" />
-</div>
+```mermaid
+graph LR
+    subgraph CI[Continuous Integration]
+        direction LR
+        Source --> Plan
+    end
+    subgraph CD[Continuous Deployment]
+        direction LR
+        Approve --> Apply
+    end
+    CI --> CD
+```
 
 How the CI/CD pipeline works:
 
