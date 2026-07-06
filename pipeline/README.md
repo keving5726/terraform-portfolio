@@ -1,12 +1,16 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: CI/CD Pipeline in AWS
+# CI/CD Pipeline in AWS
 
 ## :dart: Objective
 
-The objective of this practice is to create and deploy a four-stage CI/CD pipeline for Terraform deployments:
+The objective of this project is to create and deploy a four-stage CI/CD pipeline for Terraform deployments:
 1. **Source**: Changes to the Terraform configuration code stored in a version-controlled source (VCS) repository are detected. This triggers the pipeline to start running.
 2. **Plan**: The pipeline runs `terraform plan` to create an execution plan, showing what changes will be made to the infrastructure based on the new code.
 3. **Approve**: If the `terraform plan` succeeds without errors, the pipeline pauses and requires manual approval before proceeding. This step ensures that changes are reviewed before applying.
@@ -47,7 +51,13 @@ The infrastructure consists of the following key components:
   - 1 CodeCommit repository.
   - 2 CodeBuild projects.
   - 1 CodePipeline pipeline.
-  - 1 EC2 instance: **t4g.micro** (eligible for AWS free tier).
+  - 1 EC2 instance:
+    - **AMI**: Amazon Linux 2023 kernel-6.1 AMI.
+    - **Instance type**: t4g.micro.
+    - **Free Tier Eligible**: true.
+    - **Architecture**: arm64.
+    - **vCPUs**: 2.
+    - **Memory (GiB)**: 1.
 
 ## :twisted_rightwards_arrows: Flowchart
 
@@ -70,7 +80,7 @@ The infrastructure consists of the following key components:
 
 ## :arrow_forward: How to Run
 
-**NOTE**: This practice will deploy real resources into your AWS account.
+**NOTE**: This project will deploy real resources into your AWS account.
 Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
@@ -161,5 +171,6 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
-You can extend this by adding variables, outputs, and more complex resources in future practices.
+This project stands as a concrete demonstration of my proficiency with **Infrastructure as Code (IaC)**, specifically focusing on the **Terraform workflow** and **AWS resource provisioning**.
+
+The architecture was designed following clean-code principles, ensuring a modular and highly adaptable foundation that can be seamlessly integrated into larger, enterprise-scale deployments.
