@@ -123,13 +123,13 @@ The end result is that the customer experiences an instantaneous software update
 ### Blue
 
 <div align="center">
-  <img width="811" height="631" alt="blue-green-deployment-a drawio" src="https://github.com/user-attachments/assets/17d09a94-9b1d-4dc0-afa7-1276d0a04916" />
+  <img alt="blue-green-deployment-a drawio" src="./images/blue-green-deployment-a.drawio.svg" />
 </div>
 
 ### Green
 
 <div align="center">
-  <img width="811" height="631" alt="blue-green-deployment-b drawio" src="https://github.com/user-attachments/assets/304d1959-82a2-404c-989c-ec84ffa8aa82" />
+  <img alt="blue-green-deployment-b drawio" src="./images/blue-green-deployment-b.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
@@ -184,7 +184,7 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```
    You should see the **Blue** application:
    <div align="center">
-     <img width="1920" height="1006" alt="blue-app" src="https://github.com/user-attachments/assets/a041833d-0fb9-4966-8f46-9db23bb2b79e" />
+     <img alt="blue-app" src="./images/blue-app.png" />
    </div>
 7. Deploy the **Green** application:
    - Update the **terraform.tfvars** file to deploy the **Green** application:
@@ -213,7 +213,7 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```
    You should see the **Green** application:
    <div align="center">
-     <img width="1918" height="1006" alt="green-app" src="https://github.com/user-attachments/assets/4ca1902b-a9f8-4011-93b0-edf4b12af7ac" />
+     <img alt="green-app" src="./images/green-app.png" />
    </div>
    You can take a look at all the resources created using the **AWS Management Console**.
 10. Clean up when you're done:
