@@ -74,9 +74,11 @@ The infrastructure consists of the following key components:
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="401" height="181" alt="pipeline-dependencies drawio" src="https://github.com/user-attachments/assets/35a58fc7-53d5-4f6c-8414-09530087fef3" />
-</div>
+```mermaid
+graph TD
+    Root --> S3[S3 Backend]
+    Root --> CP[CodePipeline]
+```
 
 ## :arrow_forward: How to Run
 
