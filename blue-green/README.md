@@ -91,9 +91,32 @@ The **Base** infrastructure is deployed first. \
 Initially, **Blue** will be the live server, while **Green** is idle. \
 Then a manual cutover will take place so that **Green** becomes the new live server.
 
-<div align="center">
-  <img width="601" height="141" alt="blue-green-deployment-strategy drawio" src="https://github.com/user-attachments/assets/40f7f3d5-708f-40e5-ac41-e7d20de3fc4e" />
-</div>
+```mermaid
+graph LR
+    classDef base fill:#6E8B6E,stroke:#333,stroke-width:1px,color:#fff;
+    classDef blue fill:#0052FF,stroke:#333,stroke-width:1px,color:#fff;
+    classDef green fill:#008F00,stroke:#333,stroke-width:1px,color:#fff;
+    classDef idle style stroke-dasharray: 5 5, opacity: 0.7;
+
+    subgraph Initial_state [ ]
+        direction BT
+        Base1[Base] --> B1[Blue v1.0 <br/><b>LIVE</b>]
+        Base1 --> G1[Green v2.0 <br/><i>IDLE</i>]
+    end
+
+    Initial_state --> |"Manual cutover"| Final_state
+
+    subgraph Final_state [ ]
+        direction BT
+        Base2[Base] --> B2[Blue v1.0 <br/><i>IDLE</i>]
+        Base2 --> G2[Green v2.0 <br/><b>LIVE</b>]
+    end
+
+    class Base1,Base2 base
+    class B1,B2 blue
+    class G1,G2 green
+    class G1,B2 idle
+```
 
 The end result is that the customer experiences an instantaneous software update from version **1.0** to **2.0**.
 
