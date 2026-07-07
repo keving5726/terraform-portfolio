@@ -11,7 +11,7 @@
 ## :dart: Objective
 
 This project aims to demonstrate the basics of using Terraform to provision infrastructure on AWS by creating a simple EC2 instance.\
-It is designed as a starting point for learning Infrastructure as Code (IaC) with Terraform.
+It is designed as a starting point for learning **Infrastructure as Code (IaC)** with Terraform.
 
 ## :building_construction: Infrastructure Overview
 

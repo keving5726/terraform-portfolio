@@ -17,7 +17,7 @@ Multi-tier simply refers to a software system that is divided into logical layer
   <img alt="multi-tiered-web-app-flow drawio" src="./images/multi-tiered-web-app-flow.drawio.svg" />
 </div>
 
-This project aims to demonstrate proficiency in Infrastructure as Code (IaC) by automating the provisioning of network components, load balancers, auto scaling groups, and backend services to ensure fault tolerance, scalability, and efficient resource management in a cloud environment.
+This project aims to demonstrate proficiency in **Infrastructure as Code (IaC)** by automating the provisioning of network components, load balancers, auto scaling groups, and backend services to ensure fault tolerance, scalability, and efficient resource management in a cloud environment.
 
 The project will incorporate the use of official AWS Terraform modules as well as external community modules to learn how to effectively integrate and manage reusable modules. Additionally, it will include the use of nested modules to enhance code modularity, promote better organization, and improve maintainability across complex infrastructure deployments.
 

@@ -12,7 +12,7 @@
 
 The objective of this project is to implement and understand the Blue-Green Deployment strategy, a release methodology designed to minimize downtime and reduce deployment risks.
 
-This approach involves maintaining two identical production environments: Blue (current live environment) and Green (idle environment for the new version).
+This approach involves maintaining two identical production environments: **Blue** (current live environment) and **Green** (idle environment for the new version).
 
 The deployment process includes:
 - Deploying the new version of the application to the **Green** environment.
