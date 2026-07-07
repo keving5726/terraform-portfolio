@@ -1,14 +1,18 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: Blue-Green Deployment in AWS
+# Blue-Green Deployment in AWS
 
 ## :dart: Objective
 
-The objective of this practice is to implement and understand the Blue-Green Deployment strategy, a release methodology designed to minimize downtime and reduce deployment risks.
+The objective of this project is to implement and understand the Blue-Green Deployment strategy, a release methodology designed to minimize downtime and reduce deployment risks.
 
-This approach involves maintaining two identical production environments: Blue (current live environment) and Green (idle environment for the new version).
+This approach involves maintaining two identical production environments: **Blue** (current live environment) and **Green** (idle environment for the new version).
 
 The deployment process includes:
 - Deploying the new version of the application to the **Green** environment.
@@ -16,11 +20,32 @@ The deployment process includes:
 - Switching traffic from the **Blue** environment to the **Green** environment using a router, ensuring a seamless transition with zero downtime.
 - Retaining the **Blue** environment as a fallback for quick rollbacks in case of issues with the new version.
 
-<div align="center">
-  <img width="711" height="392" alt="blue-green-deployment drawio" src="https://github.com/user-attachments/assets/161fe077-cbcd-4c2a-ab4a-af31f74d1ee3" />
-</div>
+```mermaid
+graph TB
+    subgraph After
+        direction TB
+        Internet2@{ shape: cloud, label: "Internet"} --> Router2[Router]
+        Router2 -. Idle traffic .-> Blue2[Blue]
+        Router2 -- Live traffic --> Green2[Green]
+    end
 
-This practice demonstrates how to achieve safe, efficient, and reversible deployments while maintaining high availability and minimizing risks during production updates. Additionally, it shows how to use Terraform module expansions to create reusable, modular infrastructure components.
+    subgraph Before
+        direction TB
+        Internet1@{ shape: cloud, label: "Internet"} --> Router1[Router]
+        Router1 -- Live traffic --> Blue1[Blue]
+        Router1 -. Idle traffic .-> Green1[Green]
+    end
+
+    classDef Router fill:#6E8B6E,stroke:#333,stroke-width:1px,color:#fff
+    classDef Blue fill:#0052CC,stroke:#333,stroke-width:1px,color:#fff
+    classDef Green fill:#008700,stroke:#333,stroke-width:1px,color:#fff
+
+    class Router1,Router2 Router
+    class Blue1,Blue2 Blue
+    class Green1,Green2 Green
+```
+
+This project demonstrates how to achieve safe, efficient, and reversible deployments while maintaining high availability and minimizing risks during production updates. Additionally, it shows how to use Terraform module expansions to create reusable, modular infrastructure components.
 
 ## :building_construction: Infrastructure Overview
 
@@ -28,23 +53,25 @@ The infrastructure consists of the following key components:
 
 - Base Module:
   - 1 VPC.
-  - 1 route table.
+  - 1 Route table.
   - 1 Internet gateway.
   - 1 NAT gateway.
-  - 2 public subnets for the Application Load Balancer.
-  - 2 private subnets for the EC2 instances.
-  - 2 security groups (ALB and Blue-Green app).
+  - 2 Public subnets for the Application Load Balancer.
+  - 2 Private subnets for the EC2 instances.
+  - 2 Security groups (ALB and Blue-Green app).
   - 1 IAM role instance profile.
   - 1 Application Load Balancer (ALB):
-    - 1 listener.
-    - 2 target groups.
-  - 1 resource group.
-
+    - 1 Listener.
+    - 2 Target groups.
+  - 1 Resource group.
 - Autoscaling Module:
   - 2 Launch template (Blue and Green):
     - **AMI**: Ubuntu Server 24.04 LTS (HVM), SSD Volume Type.
-    - **Instance type**: t4g.micro (eligible for AWS free tier).
-    - **Architecture**: 64-bit (Arm).
+    - **Instance type**: t4g.micro.
+    - **Free Tier Eligible**: true.
+    - **Architecture**: arm64.
+    - **vCPUs**: 2.
+    - **Memory (GiB)**: 1.
     - **User data**: startup.sh.
   - 2 Auto Scaling Group (ASG):
     - Blue:
@@ -64,33 +91,60 @@ The **Base** infrastructure is deployed first. \
 Initially, **Blue** will be the live server, while **Green** is idle. \
 Then a manual cutover will take place so that **Green** becomes the new live server.
 
-<div align="center">
-  <img width="601" height="141" alt="blue-green-deployment-strategy drawio" src="https://github.com/user-attachments/assets/40f7f3d5-708f-40e5-ac41-e7d20de3fc4e" />
-</div>
+```mermaid
+graph LR
+    classDef base fill:#6E8B6E,stroke:#333,stroke-width:1px,color:#fff;
+    classDef blue fill:#0052FF,stroke:#333,stroke-width:1px,color:#fff;
+    classDef green fill:#008F00,stroke:#333,stroke-width:1px,color:#fff;
+    classDef idle style stroke-dasharray: 5 5, opacity: 0.7;
+
+    subgraph Initial_state [ ]
+        direction BT
+        Base1[Base] --> B1[Blue v1.0 <br/><b>LIVE</b>]
+        Base1 --> G1[Green v2.0 <br/><i>IDLE</i>]
+    end
+
+    Initial_state --> |"Manual cutover"| Final_state
+
+    subgraph Final_state [ ]
+        direction BT
+        Base2[Base] --> B2[Blue v1.0 <br/><i>IDLE</i>]
+        Base2 --> G2[Green v2.0 <br/><b>LIVE</b>]
+    end
+
+    class Base1,Base2 base
+    class B1,B2 blue
+    class G1,G2 green
+    class G1,B2 idle
+```
 
 The end result is that the customer experiences an instantaneous software update from version **1.0** to **2.0**.
 
 ### Blue
 
 <div align="center">
-  <img width="811" height="631" alt="blue-green-deployment-a drawio" src="https://github.com/user-attachments/assets/17d09a94-9b1d-4dc0-afa7-1276d0a04916" />
+  <img alt="blue-green-deployment-a drawio" src="./images/blue-green-deployment-a.drawio.svg" />
 </div>
 
 ### Green
 
 <div align="center">
-  <img width="811" height="631" alt="blue-green-deployment-b drawio" src="https://github.com/user-attachments/assets/304d1959-82a2-404c-989c-ec84ffa8aa82" />
+  <img alt="blue-green-deployment-b drawio" src="./images/blue-green-deployment-b.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="361" height="391" alt="blue-gree-deployment-dependencies drawio" src="https://github.com/user-attachments/assets/367af6f0-6012-4d24-bde3-ac3fd3303104" />
-</div>
+```mermaid
+graph TD
+    Root --> Base
+    Base --> Autoscaling
+    Autoscaling --> Blue
+    Autoscaling --> Green
+```
 
 ## :arrow_forward: How to Run
 
-**NOTE**: This practice will deploy real resources into your AWS account.
+**NOTE**: This project will deploy real resources into your AWS account.
 Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
@@ -105,12 +159,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-2. Configure environment variables:
-   - First, copy the example template:
-     ```bash
-     cp terraform.tfvars.example terraform.tfvars
-     ```
-   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+2. Copy the example template to configure your input variables:
+   ```bash
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+   Open `terraform.tfvars` and customize the values for your setup.
 3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
@@ -130,9 +183,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    http://blue-green-alb-1874018011.us-east-1.elb.amazonaws.com
    ```
    You should see the **Blue** application:
+
    <div align="center">
-     <img width="1920" height="1006" alt="blue-app" src="https://github.com/user-attachments/assets/a041833d-0fb9-4966-8f46-9db23bb2b79e" />
+     <img alt="blue-app" src="./images/blue-app.png" />
    </div>
+
 7. Deploy the **Green** application:
    - Update the **terraform.tfvars** file to deploy the **Green** application:
      ```bash
@@ -159,9 +214,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    http://blue-green-alb-1874018011.us-east-1.elb.amazonaws.com
    ```
    You should see the **Green** application:
+
    <div align="center">
-     <img width="1918" height="1006" alt="green-app" src="https://github.com/user-attachments/assets/4ca1902b-a9f8-4011-93b0-edf4b12af7ac" />
+     <img alt="green-app" src="./images/green-app.png" />
    </div>
+
    You can take a look at all the resources created using the **AWS Management Console**.
 10. Clean up when you're done:
    ```bash
@@ -170,5 +227,6 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
-You can extend this by adding variables, outputs, and more complex resources in future practices.
+This project stands as a concrete demonstration of my proficiency with **Infrastructure as Code (IaC)**, specifically focusing on the **Terraform workflow** and **AWS resource provisioning**.
+
+The architecture was designed following clean-code principles, ensuring a modular and highly adaptable foundation that can be seamlessly integrated into larger, enterprise-scale deployments.

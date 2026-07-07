@@ -1,15 +1,19 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: Web Server Cluster using AWS
+# Web Server Cluster using AWS
 
 ## :dart: Objective
 
 Automate the provisioning and management of a scalable and highly available infrastructure on AWS to host a web server cluster.
 Using Terraform, the project deploys EC2 instances managed by Auto Scaling Groups (ASG) to ensure dynamic scalability, alongside an Application Load Balancer (ALB) that efficiently distributes traffic and enhances service availability.
 
-This practice aims to enable Infrastructure as Code (IaC) using Terraform, allowing reproducible deployments, version control, and simplified maintenance of the web architecture on AWS.
+This project aims to enable **Infrastructure as Code (IaC)** using Terraform, allowing reproducible deployments, version control, and simplified maintenance of the web architecture on AWS.
 
 ## :building_construction: Infrastructure Overview
 
@@ -17,22 +21,28 @@ The infrastructure consists of the following key components:
 
 - 3 EC2 instances:
   - **AMI**: Ubuntu Server 24.04 LTS (HVM), SSD Volume Type.
-  - **Instance type**: t4g.micro (eligible for AWS free tier).
-  - **Architecture**: 64-bit (Arm).
+  - **Instance type**: t4g.micro.
+  - **Free Tier Eligible**: true.
+  - **Architecture**: arm64.
+  - **vCPUs**: 2.
+  - **Memory (GiB)**: 1.
 - 1 Application Load Balancing (ALB).
 - 1 Auto Scaling Group (ASG).
 
 ## :world_map: Architecture Diagram
 
 <div align="center">
-  <img width="711" height="721" alt="web-server-cluster drawio" src="https://github.com/user-attachments/assets/a525efcb-95fc-458f-8617-a4ac45943ac2" />
+  <img alt="web-server-cluster drawio" src="./images/web-server-cluster.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="2265" height="1019" alt="graphviz" src="https://github.com/user-attachments/assets/d0df6496-7fc8-4dbe-b0d9-0c0e46d22571" />
-</div>
+```mermaid
+graph TD
+    VPC[VPC] --> ALB[Application Load Balancer]
+    ALB --> ASG[Auto Scaling Group]
+    ASG --> EC2[EC2 Instances]
+```
 
 ## :arrow_forward: How to Run
 
@@ -51,17 +61,16 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-2. Configure environment variables:
-   - First, copy the example template:
-     ```bash
-     cp terraform.tfvars.example terraform.tfvars
-     ```
-   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+2. Copy the example template to configure your input variables:
+   ```bash
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+   Open `terraform.tfvars` and customize the values for your setup.
 3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
    ```
-4. Apply the configuration to create the EC2 instance:
+4. Apply the configuration to create the cluster:
    ```bash
    terraform apply
    ```
@@ -87,5 +96,6 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
-You can extend this by adding variables, outputs, and more complex resources in future practices.
+This project stands as a concrete demonstration of my proficiency with **Infrastructure as Code (IaC)**, specifically focusing on the **Terraform workflow** and **AWS resource provisioning**.
+
+The architecture was designed following clean-code principles, ensuring a modular and highly adaptable foundation that can be seamlessly integrated into larger, enterprise-scale deployments.

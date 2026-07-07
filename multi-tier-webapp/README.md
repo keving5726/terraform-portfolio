@@ -1,8 +1,12 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: Multi Tier Web Application in AWS
+# Multi Tier Web Application in AWS
 
 ## :dart: Objective
 
@@ -10,12 +14,12 @@ To design and deploy a highly available, scalable multi-tiered web application i
 Multi-tier simply refers to a software system that is divided into logical layers, like a cake, for example:
 
 <div align="center">
-  <img width="400" height="246" alt="multi-tiered-web-app-flow drawio" src="https://github.com/user-attachments/assets/6983c425-3524-4725-90ca-172431ad068d" />
+  <img alt="multi-tiered-web-app-flow drawio" src="./images/multi-tiered-web-app-flow.drawio.svg" />
 </div>
 
-This practice aims to demonstrate proficiency in Infrastructure as Code (IaC) by automating the provisioning of network components, load balancers, auto scaling groups, and backend services to ensure fault tolerance, scalability, and efficient resource management in a cloud environment.
+This project aims to demonstrate proficiency in **Infrastructure as Code (IaC)** by automating the provisioning of network components, load balancers, auto scaling groups, and backend services to ensure fault tolerance, scalability, and efficient resource management in a cloud environment.
 
-The practice will incorporate the use of official AWS Terraform modules as well as external community modules to learn how to effectively integrate and manage reusable modules. Additionally, it will include the use of nested modules to enhance code modularity, promote better organization, and improve maintainability across complex infrastructure deployments.
+The project will incorporate the use of official AWS Terraform modules as well as external community modules to learn how to effectively integrate and manage reusable modules. Additionally, it will include the use of nested modules to enhance code modularity, promote better organization, and improve maintainability across complex infrastructure deployments.
 
 ## :building_construction: Infrastructure Overview
 
@@ -30,18 +34,23 @@ The infrastructure consists of the following key components:
   - 3 private subnets for the EC2 instances.
   - 3 private subnets for the RDS instances.
   - 3 security groups (ALB, Web Server and Database).
-
 - Database Module:
   - 1 RDS instance:
-    - **Instance type**: db.t4g.micro (eligible for AWS free tier).
+    - **Instance type**: db.t4g.micro
+    - **Free Tier Eligible**: true.
+    - **Architecture**: arm64.
+    - **vCPUs**: 2.
+    - **Memory (GiB)**: 1.
     - **Engine version**: MySQL 8.4.7.
-    - Single-AZ DB instance deployment (1 instance).
-
+    - **Deployment**: Single-AZ DB instance deployment (1 instance).
 - Autoscaling Module:
   - 1 Launch template:
     - **AMI**: Ubuntu Server 24.04 LTS (HVM), SSD Volume Type.
-    - **Instance type**: t3.micro (eligible for AWS free tier).
-    - **Architecture**: 64-bit (x86).
+    - **Instance type**: t3.micro.
+    - **Free Tier Eligible**: true.
+    - **Architecture**: x86_64.
+    - **vCPUs**: 2.
+    - **Memory (GiB)**: 1.
     - **User data**: Cloud-init configuration.
   - 1 Application Load Balancer (ALB).
   - 1 Auto Scaling Group (ASG).
@@ -49,18 +58,27 @@ The infrastructure consists of the following key components:
 ## :world_map: Architecture Diagram
 
 <div align="center">
-  <img width="1052" height="821" alt="Multi-tiered-web-app drawio" src="https://github.com/user-attachments/assets/f81fb293-5506-476c-b01e-7031d5710cdf" />
+  <img alt="multi-tiered-web-app drawio" src="./images/multi-tiered-web-app.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="711" height="241" alt="multi-tiered-web-app-dependencies drawio" src="https://github.com/user-attachments/assets/861e0dd7-0a4a-4fe4-bba7-bed3c4a1d3c0" />
-</div>
+```mermaid
+graph TD
+    Root --> Networking
+    Root --> Database
+    Root --> Autoscaling
+
+    Networking --> VPC
+    Networking --> SG[Security Group]
+
+    Autoscaling --> IAM[IAM Instance Profile]
+    Autoscaling --> ALB[Application Load Balancer]
+```
 
 ## :arrow_forward: How to Run
 
-**NOTE**: This practice will deploy real resources into your AWS account.
+**NOTE**: This project will deploy real resources into your AWS account.
 Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
@@ -75,12 +93,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    ```bash
    terraform init
    ```
-2. Configure environment variables:
-   - First, copy the example template:
-     ```bash
-     cp terraform.tfvars.example terraform.tfvars
-     ```
-   - Next, open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+2. Copy the example template to configure your input variables:
+   ```bash
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+   Open `terraform.tfvars` and customize the values for your setup.
 3. Preview the infrastructure changes Terraform will apply:
    ```bash
    terraform plan
@@ -100,9 +117,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    http://webapp-alb-792144198.us-east-1.elb.amazonaws.com
    ```
    You should see the multi-tiered web application for a social media site geared toward pet owners:
+
    <div align="center">
-     <img width="1914" height="1007" alt="pets" src="https://github.com/user-attachments/assets/b22a46f9-4649-4602-a913-8bb0ef46956b" />
+     <img alt="pets" src="./images/pets.png" />
    </div>
+
    You can take a look at all the resources created using the **AWS Management Console**.
 7. Clean up when you're done:
    ```bash
@@ -111,5 +130,6 @@ Remember to delete created resources to avoid charges on your AWS account.
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
-You can extend this by adding variables, outputs, and more complex resources in future practices.
+This project stands as a concrete demonstration of my proficiency with **Infrastructure as Code (IaC)**, specifically focusing on the **Terraform workflow** and **AWS resource provisioning**.
+
+The architecture was designed following clean-code principles, ensuring a modular and highly adaptable foundation that can be seamlessly integrated into larger, enterprise-scale deployments.

@@ -1,12 +1,16 @@
 <div align="center">
-  <img width="1657" height="433" alt="Terraform_onLight" src="https://github.com/user-attachments/assets/ca0307a8-831c-4a1f-bf48-3460b5552ae2" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+  </picture>
 </div>
 
-# Terraform Practice: S3 Backend
+# S3 Backend
 
 ## :dart: Objective
 
-The objective of this practice is to:
+The objective of this project is to:
 
 - Understand how to configure and test a remote backend using S3 in Terraform.
 - Validate state locking functionality to prevent concurrent state modifications.
@@ -19,10 +23,10 @@ How the S3 backend works:
 3. Your Terraform state files are securely stored in an S3 bucket with server-side encryption using AWS KMS, ensuring data confidentiality at rest.
 
 <div align="center">
-  <img width="669" height="332" alt="s3backend-module drawio" src="https://github.com/user-attachments/assets/27b0208d-4b5f-40ee-821c-df6dae1fbe07" />
+  <img alt="s3backend-module drawio" src="./images/s3backend-module.drawio.svg" />
 </div>
 
-This practice is focused on testing the S3 backend configuration for state locking, in order to help you begin testing Terraform S3 backends effectively.
+This project is focused on testing the S3 backend configuration for state locking, in order to help you begin testing Terraform S3 backends effectively.
 
 ## :building_construction: Infrastructure Overview
 
@@ -32,32 +36,43 @@ The infrastructure consists of the following key components:
 - 1 S3 bucket.
 - 1 IAM role.
 - 1 IAM policy.
-- 1 resource group.
-- 2 EC2 instances: **t4g.micro** (eligible for AWS free tier).
+- 1 Resource group.
+- 2 EC2 instances:
+  - **AMI**: Amazon Linux 2023 kernel-6.1 AMI.
+  - **Instance type**: t4g.micro.
+  - **Free Tier Eligible**: true.
+  - **Architecture**: arm64.
+  - **vCPUs**: 2.
+  - **Memory (GiB)**: 1.
 
 ## :world_map: Architecture Diagrams
 
 ### Deploy
 
 <div align="center">
-  <img width="751" height="451" alt="s3backend-deploy drawio" src="https://github.com/user-attachments/assets/63692961-9a25-407f-96bd-28847850377e" />
+  <img alt="s3backend-deploy drawio" src="./images/s3backend-deploy.drawio.svg" />
 </div>
 
 ### Workspaces
 
 <div align="center">
-  <img width="641" height="551" alt="s3backend-workspaces drawio" src="https://github.com/user-attachments/assets/4b0748bb-27a8-447b-b6e9-1530093eb355" />
+  <img alt="s3backend-workspaces drawio" src="./images/s3backend-workspaces.drawio.svg" />
 </div>
 
 ## :deciduous_tree: Terraform Dependency Graph
 
-<div align="center">
-  <img width="411" height="381" alt="s3backend-dependencies drawio" src="https://github.com/user-attachments/assets/90214943-8c4f-4eac-9638-7bdf0a2d78a2" />
-</div>
+```mermaid
+graph TD
+    Root --> Backend
+    Backend --> Deploy
+    Deploy --> Test
+    Deploy --> Workspaces
+```
 
 ## :arrow_forward: How to Run
 
-**NOTE**: This practice will deploy real resources into your AWS account. Remember to delete created resources to avoid charges on your AWS account.
+**NOTE**: This project will deploy real resources into your AWS account.
+Remember to delete created resources to avoid charges on your AWS account.
 
 ### Pre-requisites
 
@@ -76,11 +91,11 @@ The infrastructure consists of the following key components:
      ```bash
      terraform init
      ```
-   - Copy the example template:
+   - Copy the example template to configure your input variables:
      ```bash
      cp terraform.tfvars.example terraform.tfvars
      ```
-   - Open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+     Open `terraform.tfvars` and customize the values for your setup.
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan
@@ -121,11 +136,11 @@ The infrastructure consists of the following key components:
      ```bash
      terraform init -backend-config="./backend.config"
      ```
-   - Copy the example template:
+   - Copy the example template to configure your input variables:
      ```bash
      cp terraform.tfvars.example terraform.tfvars
      ```
-   - Open the newly created **terraform.tfvars** file in your editor and customize the values for your environment
+     Open `terraform.tfvars` and customize the values for your setup.
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan
@@ -161,11 +176,11 @@ The infrastructure consists of the following key components:
      ```bash
      terraform workspace new prod
      ```
-   - Copy the example template:
+   - Copy the example template to configure your input variables:
      ```bash
      cp environments/prod.tfvars.example environments/prod.tfvars
      ```
-   - Open the newly created **environments/prod.tfvars** file in your editor and customize the values for your environment
+     Open `environments/prod.tfvars` and customize the values for your setup.
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan -var-file="./environments/prod.tfvars"
@@ -178,11 +193,11 @@ The infrastructure consists of the following key components:
      ```bash
      terraform workspace new dev
      ```
-   - Copy the example template:
+   - Copy the example template to configure your input variables:
      ```bash
      cp environments/dev.tfvars.example environments/dev.tfvars
      ```
-   - Open the newly created **environments/dev.tfvars** file in your editor and customize the values for your environment
+     Open `environments/dev.tfvars` and customize the values for your setup.
    - Preview the infrastructure changes Terraform will apply:
      ```bash
      terraform plan -var-file="./environments/dev.tfvars"
@@ -211,5 +226,6 @@ The infrastructure consists of the following key components:
 
 ## :rocket: Looking Ahead
 
-This practice is a foundational step to understand Terraform workflow and AWS resource provisioning.\
-You can extend this by adding variables, outputs, and more complex resources in future practices.
+This project stands as a concrete demonstration of my proficiency with **Infrastructure as Code (IaC)**, specifically focusing on the **Terraform workflow** and **AWS resource provisioning**.
+
+The architecture was designed following clean-code principles, ensuring a modular and highly adaptable foundation that can be seamlessly integrated into larger, enterprise-scale deployments.
