@@ -183,9 +183,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    http://blue-green-alb-1874018011.us-east-1.elb.amazonaws.com
    ```
    You should see the **Blue** application:
+
    <div align="center">
      <img alt="blue-app" src="./images/blue-app.png" />
    </div>
+
 7. Deploy the **Green** application:
    - Update the **terraform.tfvars** file to deploy the **Green** application:
      ```bash
@@ -212,9 +214,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    http://blue-green-alb-1874018011.us-east-1.elb.amazonaws.com
    ```
    You should see the **Green** application:
+
    <div align="center">
      <img alt="green-app" src="./images/green-app.png" />
    </div>
+
    You can take a look at all the resources created using the **AWS Management Console**.
 10. Clean up when you're done:
    ```bash

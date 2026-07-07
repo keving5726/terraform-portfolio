@@ -151,17 +151,23 @@ Remember to delete created resources to avoid charges on your AWS account.
    }
    ```
    You can use the **AWS Management Console** to create the file:
+
    <div align="center">
      <img width="1543" height="665" alt="Screenshot_2026-04-14_14-22-09" src="https://github.com/user-attachments/assets/9e849260-d84d-47d5-aee8-3bc57b5d2fd1" />
    </div>
+
    Click on the **Commit changes** button:
+
    <div align="center">
      <img width="1538" height="565" alt="Screenshot_2026-04-14_14-22-22" src="https://github.com/user-attachments/assets/496eb790-6326-4454-af81-b5e46e8f8c4d" />
    </div>
+
 6. Check the pipeline progress from **AWS CodePipeline**:
+
    <div align="center">
      <img width="1917" height="444" alt="Screenshot_2026-04-14_12-52-57" src="https://github.com/user-attachments/assets/d959f9d9-29b7-41de-8980-8efcfd67aa9d" />
    </div>
+
 7. Once the pipeline has successfully completed, you can verify that the resources were created correctly.
 8. Clean up when you're done:
    - Update the **CONFIRM_DESTROY** environment variable in the **main.tf** file:

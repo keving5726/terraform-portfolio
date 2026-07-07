@@ -117,9 +117,11 @@ Remember to delete created resources to avoid charges on your AWS account.
    http://webapp-alb-792144198.us-east-1.elb.amazonaws.com
    ```
    You should see the multi-tiered web application for a social media site geared toward pet owners:
+
    <div align="center">
      <img alt="pets" src="./images/pets.png" />
    </div>
+
    You can take a look at all the resources created using the **AWS Management Console**.
 7. Clean up when you're done:
    ```bash
