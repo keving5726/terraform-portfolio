@@ -37,7 +37,7 @@ How the CI/CD pipeline works:
 * From there, CodePipeline takes control, coordinating and managing the progression through each stage of the pipeline automatically.
 
 <div align="center">
-  <img width="795" height="147" alt="pipeline-implementation drawio" src="https://github.com/user-attachments/assets/ff77cbd4-ca72-42e5-a8d8-eb603d775c60" />
+  <img alt="pipeline-implementation drawio" src="./images/pipeline-implementation.drawio.svg" />
 </div>
 
 This automation ensures consistent, repeatable infrastructure deployments and streamlines the management of Terraform code changes.
@@ -71,7 +71,7 @@ The infrastructure consists of the following key components:
 ## :twisted_rightwards_arrows: Flowchart
 
 <div align="center">
-  <img width="689" height="473" alt="pipeline-workflow drawio" src="https://github.com/user-attachments/assets/253b983b-5eec-44b0-b21f-1cf49f99ce34" />
+  <img alt="pipeline-workflow drawio" src="./images/pipeline-workflow.drawio.svg" />
 </div>
 
 1. Download source code from AWS CodeCommit repository.
@@ -153,19 +153,19 @@ Remember to delete created resources to avoid charges on your AWS account.
    You can use the **AWS Management Console** to create the file:
 
    <div align="center">
-     <img width="1543" height="665" alt="Screenshot_2026-04-14_14-22-09" src="https://github.com/user-attachments/assets/9e849260-d84d-47d5-aee8-3bc57b5d2fd1" />
+     <img alt="pipeline-file" src="./images/pipeline-file.png" />
    </div>
 
    Click on the **Commit changes** button:
 
    <div align="center">
-     <img width="1538" height="565" alt="Screenshot_2026-04-14_14-22-22" src="https://github.com/user-attachments/assets/496eb790-6326-4454-af81-b5e46e8f8c4d" />
+     <img alt="pipeline-commit" src="./images/pipeline-commit.png" />
    </div>
 
 6. Check the pipeline progress from **AWS CodePipeline**:
 
    <div align="center">
-     <img width="1917" height="444" alt="Screenshot_2026-04-14_12-52-57" src="https://github.com/user-attachments/assets/d959f9d9-29b7-41de-8980-8efcfd67aa9d" />
+     <img alt="pipeline-execution" src="./images/pipeline-execution.png" />
    </div>
 
 7. Once the pipeline has successfully completed, you can verify that the resources were created correctly.
@@ -181,6 +181,11 @@ Remember to delete created resources to avoid charges on your AWS account.
      terraform apply
      ```
    - Click on the **Release change** button.
+
+   <div align="center">
+     <img alt="pipeline-release" src="./images/pipeline-release.png" />
+   </div>
+
    - Now you can now delete the pipeline:
      ```bash
      terraform destroy
