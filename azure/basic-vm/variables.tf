@@ -22,3 +22,8 @@ variable "environment" {
     error_message = "The environment variables must be one of: dev, staging, or prod"
   }
 }
+
+variable "owner" {
+  type        = string
+  description = "Owner or team responsible for these resources"
+}
