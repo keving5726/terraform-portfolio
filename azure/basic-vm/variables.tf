@@ -7,3 +7,8 @@ variable "namespace" {
     error_message = "The namespace must be 20 characters or less and contain only lowercase letters, numbers, and hyphens"
   }
 }
+
+variable "location" {
+  type        = string
+  description = "Azure location where the virtual machine will be deployed"
+}
