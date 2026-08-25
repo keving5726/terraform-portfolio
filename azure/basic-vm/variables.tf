@@ -12,3 +12,13 @@ variable "location" {
   type        = string
   description = "Azure location where the virtual machine will be deployed"
 }
+
+variable "environment" {
+  type        = string
+  description = "Deployment environment (dev, staging, prod)"
+
+  validation {
+    condition     = contains(["dev", "staging", "prod"], var.environment)
+    error_message = "The environment variables must be one of: dev, staging, or prod"
+  }
+}
