@@ -27,3 +27,8 @@ variable "owner" {
   type        = string
   description = "Owner or team responsible for these resources"
 }
+
+variable "username" {
+  type        = string
+  description = "The username for which the Public SSH Key should be configured"
+}
