@@ -32,3 +32,8 @@ variable "username" {
   type        = string
   description = "The username for which the Public SSH Key should be configured"
 }
+
+variable "public_key" {
+  type        = string
+  description = "The Public Key which should be used for authentication"
+}

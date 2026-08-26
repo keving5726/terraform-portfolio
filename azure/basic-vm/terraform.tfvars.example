@@ -21,3 +21,6 @@ owner = "platform-team"
 
 # The username for which the Public SSH Key should be configured
 username = "azure"
+
+# The Public Key which should be used for authentication
+public_key = "~/.ssh/id_ed25519.pub"
