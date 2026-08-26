@@ -24,3 +24,6 @@ username = "azure"
 
 # The Public Key which should be used for authentication
 public_key = "~/.ssh/id_ed25519.pub"
+
+# The SKU which should be used for the Virtual Machine
+size = "Standard_B2ats_v2"

@@ -37,3 +37,8 @@ variable "public_key" {
   type        = string
   description = "The Public Key which should be used for authentication"
 }
+
+variable "size" {
+  type        = string
+  description = "The SKU which should be used for the Virtual Machine"
+}
