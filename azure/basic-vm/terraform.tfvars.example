@@ -1,0 +1,23 @@
+# ==========================================
+# Global & Provider Configuration
+# ==========================================
+
+# The 'namespace' is used as a prefix for resource naming and tagging purposes
+namespace = "linux"
+
+# The Azure location where all infrastructure will be deployed
+# Ensure your provider configuration is compatible with this region
+location = "australiasoutheast"
+
+# Environment name for resource naming purposes
+environment = "dev"
+
+# Owner or team responsible for these resources
+owner = "platform-team"
+
+# ==========================================
+# Compute & Instance Configuration
+# ==========================================
+
+# The username for which the Public SSH Key should be configured
+username = "azure"
