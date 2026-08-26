@@ -42,3 +42,8 @@ variable "size" {
   type        = string
   description = "The SKU which should be used for the Virtual Machine"
 }
+
+variable "disk_configuration" {
+  type        = map(string)
+  description = "A map of disk configuration defining the type of caching and storage account type"
+}

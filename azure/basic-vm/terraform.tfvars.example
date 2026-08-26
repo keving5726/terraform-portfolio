@@ -27,3 +27,9 @@ public_key = "~/.ssh/id_ed25519.pub"
 
 # The SKU which should be used for the Virtual Machine
 size = "Standard_B2ats_v2"
+
+# A map of disk configuration defining the type of caching and storage account type
+disk_configuration = {
+  caching              = "ReadWrite"
+  storage_account_type = "Standard_LRS"
+}
