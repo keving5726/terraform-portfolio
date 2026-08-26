@@ -47,3 +47,8 @@ variable "disk_configuration" {
   type        = map(string)
   description = "A map of disk configuration defining the type of caching and storage account type"
 }
+
+variable "os_image" {
+  type        = map(string)
+  description = "A map of OS image configuration defining the publisher, offer, sku, and version for the Virtual Machines"
+}

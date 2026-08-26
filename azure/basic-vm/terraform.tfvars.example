@@ -33,3 +33,11 @@ disk_configuration = {
   caching              = "ReadWrite"
   storage_account_type = "Standard_LRS"
 }
+
+# A map of OS image configuration defining the publisher, offer, sku, and version for the Virtual Machines
+os_image = {
+  publisher = "Debian"
+  offer     = "debian-13"
+  sku       = "13-gen2"
+  version   = "latest"
+}
