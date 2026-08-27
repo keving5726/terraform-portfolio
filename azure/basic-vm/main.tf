@@ -13,3 +13,10 @@ resource "azurerm_virtual_network" "main" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 }
+
+resource "azurerm_subnet" "internal" {
+  name                 = "snet-${local.prefix}-001"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = ["172.16.0.0/24"]
+}
