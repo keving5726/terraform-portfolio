@@ -33,3 +33,32 @@ resource "azurerm_network_interface" "main" {
     private_ip_address_allocation = "Dynamic"
   }
 }
+
+resource "azurerm_linux_virtual_machine" "linux" {
+  name                = "vm-${local.prefix}-001"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  size                = var.size
+  admin_username      = var.username
+
+  network_interface_ids = [
+    azurerm_network_interface.main.id,
+  ]
+
+  admin_ssh_key {
+    username   = var.username
+    public_key = file("${var.public_key}")
+  }
+
+  os_disk {
+    caching              = var.disk_configuration.caching
+    storage_account_type = var.disk_configuration.storage_account_type
+  }
+
+  source_image_reference {
+    publisher = var.os_image.publisher
+    offer     = var.os_image.offer
+    sku       = var.os_image.sku
+    version   = var.os_image.version
+  }
+}
