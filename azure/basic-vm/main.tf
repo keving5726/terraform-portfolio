@@ -28,6 +28,20 @@ resource "azurerm_public_ip" "main" {
   allocation_method   = "Static"
 }
 
+resource "azurerm_network_interface" "main" {
+  name                = "nic-${local.prefix}-001"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.internal.id
+    private_ip_address_version    = "IPv4"
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.main.id
+  }
+}
+
 resource "azurerm_network_security_group" "ssh" {
   name                = "nsg-${local.prefix}-001"
   location            = azurerm_resource_group.main.location
@@ -49,20 +63,6 @@ resource "azurerm_network_security_group" "ssh" {
 resource "azurerm_network_interface_security_group_association" "main" {
   network_interface_id      = azurerm_network_interface.main.id
   network_security_group_id = azurerm_network_security_group.ssh.id
-}
-
-resource "azurerm_network_interface" "main" {
-  name                = "nic-${local.prefix}-001"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
-
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.internal.id
-    private_ip_address_version    = "IPv4"
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.main.id
-  }
 }
 
 resource "azurerm_linux_virtual_machine" "linux" {
