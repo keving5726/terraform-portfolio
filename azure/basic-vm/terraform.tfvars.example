@@ -16,7 +16,7 @@ environment = "dev"
 owner = "platform-team"
 
 # ==========================================
-# Compute & Instance Configuration
+# Compute & Virtual Machine Configuration
 # ==========================================
 
 # The username for which the Public SSH Key should be configured
