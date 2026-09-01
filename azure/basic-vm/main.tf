@@ -46,6 +46,11 @@ resource "azurerm_network_security_group" "ssh" {
   }
 }
 
+resource "azurerm_network_interface_security_group_association" "main" {
+  network_interface_id      = azurerm_network_interface.main.id
+  network_security_group_id = azurerm_network_security_group.ssh.id
+}
+
 resource "azurerm_network_interface" "main" {
   name                = "nic-${local.prefix}-001"
   location            = azurerm_resource_group.main.location
