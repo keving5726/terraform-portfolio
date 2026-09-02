@@ -9,9 +9,9 @@ resource "azurerm_resource_group" "main" {
 
 resource "azurerm_virtual_network" "main" {
   name                = "vnet-${local.prefix}-001"
-  address_space       = ["172.16.0.0/16"]
-  location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  address_space       = ["172.16.0.0/16"]
 }
 
 resource "azurerm_subnet" "internal" {
@@ -30,8 +30,8 @@ resource "azurerm_public_ip" "main" {
 
 resource "azurerm_network_interface" "main" {
   name                = "nic-${local.prefix}-001"
-  location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
 
   ip_configuration {
     name                          = "internal"
@@ -44,8 +44,8 @@ resource "azurerm_network_interface" "main" {
 
 resource "azurerm_network_security_group" "ssh" {
   name                = "nsg-${local.prefix}-001"
-  location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
 
   security_rule {
     name                       = "default-allow-ssh"
@@ -67,8 +67,8 @@ resource "azurerm_network_interface_security_group_association" "main" {
 
 resource "azurerm_linux_virtual_machine" "linux" {
   name                = "vm-${local.prefix}-001"
-  location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
   size                = var.size
   admin_username      = var.username
 
