@@ -73,11 +73,12 @@ resource "azurerm_ssh_public_key" "admin" {
 }
 
 resource "azurerm_linux_virtual_machine" "linux" {
-  name                = "vm-${local.prefix}-001"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
-  size                = var.size
-  admin_username      = var.username
+  name                            = "vm-${local.prefix}-001"
+  resource_group_name             = azurerm_resource_group.main.name
+  location                        = azurerm_resource_group.main.location
+  size                            = var.size
+  admin_username                  = var.username
+  disable_password_authentication = true
 
   network_interface_ids = [
     azurerm_network_interface.main.id,
@@ -85,7 +86,7 @@ resource "azurerm_linux_virtual_machine" "linux" {
 
   admin_ssh_key {
     username   = var.username
-    public_key = file("${var.public_key}")
+    public_key = azurerm_ssh_public_key.admin.public_key
   }
 
   os_disk {
