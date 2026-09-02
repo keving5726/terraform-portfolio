@@ -1,10 +1,10 @@
-variable "namespace" {
+variable "project" {
   type        = string
-  description = "The project namespace to use for unique resource naming"
+  description = "The project name to use for unique resource naming"
 
   validation {
-    condition     = length(var.namespace) <= 20 && can(regex("^[a-z0-9-]+$", var.namespace))
-    error_message = "The namespace must be 20 characters or less and contain only lowercase letters, numbers, and hyphens"
+    condition     = length(var.project) <= 20 && can(regex("^[a-z0-9-]+$", var.project))
+    error_message = "The project name must be 20 characters or less and contain only lowercase letters, numbers, and hyphens"
   }
 }
 
