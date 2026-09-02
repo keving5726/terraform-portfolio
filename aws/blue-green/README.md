@@ -24,14 +24,14 @@ The deployment process includes:
 graph TB
     subgraph After
         direction TB
-        Internet2@{ shape: cloud, label: "Internet"} --> Router2[Router]
+        Internet2@{ shape: cloud, label: "Internet" } --> Router2[Router]
         Router2 -. Idle traffic .-> Blue2[Blue]
         Router2 -- Live traffic --> Green2[Green]
     end
 
     subgraph Before
         direction TB
-        Internet1@{ shape: cloud, label: "Internet"} --> Router1[Router]
+        Internet1@{ shape: cloud, label: "Internet" } --> Router1[Router]
         Router1 -- Live traffic --> Blue1[Blue]
         Router1 -. Idle traffic .-> Green1[Green]
     end
