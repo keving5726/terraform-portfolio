@@ -11,6 +11,7 @@
 Welcome to my Terraform Portfolio!
 
 This repository is a curated collection of Infrastructure as Code (IaC) projects, demonstrating a journey from cloud fundamentals to complex multi-cloud architectures across AWS and Azure.
+
 The goal is to showcase scalable, modular, and secure cloud deployments built using industry best practices and enterprise-grade patterns.
 
 ## :file_folder: Portfolio Structure
