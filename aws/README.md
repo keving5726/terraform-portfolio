@@ -6,11 +6,11 @@
   </picture>
 </div>
 
-# Terraform Portfolio
+# Amazon Web Services Projects
 
-Welcome to my Terraform Portfolio!
+This directory contains a curated collection of Amazon Web Services (AWS) Infrastructure as Code projects, ranging from foundational networking and security configurations to fully automated, production-grade architectures built with Terraform.
 
-This repository is a curated collection of **Infrastructure as Code (IaC)** projects, demonstrating a journey from cloud infrastructure fundamentals to complex AWS architectures. The goal of this repository is to showcase scalable, modular, and secure cloud deployments using Terraform best practices.
+Each project is designed to showcase modular design, scalability, and adherence to AWS well-architected best practices.
 
 ## :file_folder: Portfolio Structure
 
