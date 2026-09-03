@@ -11,6 +11,7 @@
 ## :dart: Objective
 
 To design and deploy a highly available, scalable multi-tiered web application in AWS using Terraform.
+
 Multi-tier simply refers to a software system that is divided into logical layers, like a cake, for example:
 
 <div align="center">
