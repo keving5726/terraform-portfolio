@@ -31,7 +31,3 @@ Every directory inside this repository represents an independent, self-contained
 - :shield: **Execution Safety**: Always run `terraform plan` prior to `terraform apply`. Reviewing the execution graph is non-negotiable to prevent unintended infrastructure drift.
 - :notebook: **Granular Documentation**: Each project folder contains its own local `README.md`. Refer to it for specific architecture diagrams, variables, and deployment steps.
 - :money_with_wings: **Cost Optimization**: Avoid unnecessary cloud expenditures. Always execute `terraform destroy` immediately after testing to ensure proper resource cleanup.
-
-## :mailbox_with_mail: Contact
-
-Questions, suggestions, or feedback? Open an issue or reach out! Happy Terraforming! :earth_americas::sparkles:
