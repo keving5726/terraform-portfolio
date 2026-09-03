@@ -32,11 +32,6 @@ Every directory inside this repository represents an independent, self-contained
 - :notebook: **Granular Documentation**: Each project folder contains its own local `README.md`. Refer to it for specific architecture diagrams, variables, and deployment steps.
 - :money_with_wings: **Cost Optimization**: Avoid unnecessary cloud expenditures. Always execute `terraform destroy` immediately after testing to ensure proper resource cleanup.
 
-## :scroll: License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.\
-Feel free to use, modify, and distribute this Terraform code for personal or commercial projects!
-
 ## :mailbox_with_mail: Contact
 
 Questions, suggestions, or feedback? Open an issue or reach out! Happy Terraforming! :earth_americas::sparkles:
