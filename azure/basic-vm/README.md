@@ -57,3 +57,32 @@ flowchart TD
 2. Initialize Terraform with `terraform init`.
 3. Deploy the EC2 instance with `terraform apply`.
 4. Clean up with `terraform destroy`.
+
+## :deciduous_tree: Terraform Dependency Graph
+
+```mermaid
+graph TD
+    rg["Resource Group"]
+
+    subgraph VNet ["Virtual Network"]
+        subnet["Subnet"]
+    end
+
+    nsg["Network Security Group"]
+    pip["Public IP Address"]
+    ssh_key["SSH Public Key"]
+    nic["Network Interface (NIC)"]
+    vm["Linux Virtual Machine"]
+
+    %% Relationships and dependencies
+    subnet --> nic
+    pip --> nic
+    nsg --> nic
+    nic --> vm
+    ssh_key --> vm
+
+    rg --- VNet
+    rg --- nsg
+    rg --- pip
+    rg --- ssh_key
+```
