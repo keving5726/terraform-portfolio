@@ -1,16 +1,16 @@
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./images/Terraform_onDark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="./images/Terraform_onLight.svg">
-    <img alt="Terraform logo" src="./images/Terraform_onLight.svg" width="850">
+    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
   </picture>
 </div>
 
-# Terraform Portfolio
+# Amazon Web Services Projects
 
-Welcome to my Terraform Portfolio!
+This directory contains a curated collection of Amazon Web Services (AWS) Infrastructure as Code projects, ranging from foundational networking and security configurations to fully automated, production-grade architectures built with Terraform.
 
-This repository is a curated collection of **Infrastructure as Code (IaC)** projects, demonstrating a journey from cloud infrastructure fundamentals to complex AWS architectures. The goal of this repository is to showcase scalable, modular, and secure cloud deployments using Terraform best practices.
+Each project is designed to showcase modular design, scalability, and adherence to AWS well-architected best practices.
 
 ## :file_folder: Portfolio Structure
 
@@ -31,12 +31,3 @@ Every directory inside this repository represents an independent, self-contained
 - :shield: **Execution Safety**: Always run `terraform plan` prior to `terraform apply`. Reviewing the execution graph is non-negotiable to prevent unintended infrastructure drift.
 - :notebook: **Granular Documentation**: Each project folder contains its own local `README.md`. Refer to it for specific architecture diagrams, variables, and deployment steps.
 - :money_with_wings: **Cost Optimization**: Avoid unnecessary cloud expenditures. Always execute `terraform destroy` immediately after testing to ensure proper resource cleanup.
-
-## :scroll: License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.\
-Feel free to use, modify, and distribute this Terraform code for personal or commercial projects!
-
-## :mailbox_with_mail: Contact
-
-Questions, suggestions, or feedback? Open an issue or reach out! Happy Terraforming! :earth_americas::sparkles:

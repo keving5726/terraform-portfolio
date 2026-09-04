@@ -1,8 +1,8 @@
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="../images/Terraform_onDark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="../images/Terraform_onLight.svg">
-    <img alt="Terraform logo" src="../images/Terraform_onLight.svg" width="850">
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/Terraform_onDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="../../images/Terraform_onLight.svg">
+    <img alt="Terraform logo" src="../../images/Terraform_onLight.svg" width="850">
   </picture>
 </div>
 
@@ -11,6 +11,7 @@
 ## :dart: Objective
 
 Automate the provisioning and management of a scalable and highly available infrastructure on AWS to host a web server cluster.
+
 Using Terraform, the project deploys EC2 instances managed by Auto Scaling Groups (ASG) to ensure dynamic scalability, alongside an Application Load Balancer (ALB) that efficiently distributes traffic and enhances service availability.
 
 This project aims to enable **Infrastructure as Code (IaC)** using Terraform, allowing reproducible deployments, version control, and simplified maintenance of the web architecture on AWS.
