@@ -41,3 +41,19 @@ The infrastructure consists of the following key components:
 <div align="center">
   <img alt="basic-vm drawio" src="./images/basic-vm.drawio.svg" />
 </div>
+
+## :twisted_rightwards_arrows: Flowchart
+
+```mermaid
+flowchart TD
+    Start([Start]) --> Write[/"Write configuration files"\]
+    Write --> Init[terraform init]
+    Init --> Apply[terraform apply]
+    Apply --> Destroy[terraform destroy]
+    Destroy --> Stop([Stop])
+```
+
+1. Write Terraform configuration files.
+2. Initialize Terraform with `terraform init`.
+3. Deploy the EC2 instance with `terraform apply`.
+4. Clean up with `terraform destroy`.
