@@ -35,3 +35,9 @@ The infrastructure consists of the following key components:
   - **Disk:**
     - **Storage type:** Standard HDD LRS.
     - **Size:** 30 GiB.
+
+## :world_map: Architecture Diagram
+
+<div align="center">
+  <img alt="basic-vm drawio" src="./images/basic-vm.drawio.svg" />
+</div>
