@@ -86,3 +86,42 @@ graph TD
     rg --- pip
     rg --- ssh_key
 ```
+
+## :arrow_forward: How to Run
+
+**NOTE**: This project will deploy real resources into your Azure account.
+Remember to delete created resources to avoid charges on your Azure account.
+
+### Pre-requisites
+
+- Terraform installed (version v1.15.9 or higher recommended).
+- Azure CLI configured with your credentials.
+- An Azure account with permissions to create virtual machines.
+
+### Steps
+
+1. Initialize Terraform (downloads provider plugins):
+   ```bash
+   terraform init
+   ```
+2. Generate a new SSH key:
+   ```bash
+   ssh-keygen -t ed25519 -C "your_email@example.com"
+   ```
+3. Copy the example template to configure your input variables:
+   ```bash
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+   Open `terraform.tfvars` and customize the values for your setup.
+4. Preview the infrastructure changes Terraform will apply:
+   ```bash
+   terraform plan
+   ```
+5. Apply the configuration to create the virtual machine:
+   ```bash
+   terraform apply
+   ```
+6. Clean up when you're done:
+   ```bash
+   terraform destroy
+   ```
