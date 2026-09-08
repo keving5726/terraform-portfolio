@@ -65,3 +65,15 @@ resource "azurerm_lb_probe" "http" {
   request_path        = "/"
   interval_in_seconds = 15
 }
+
+resource "azurerm_lb_rule" "http" {
+  name                           = "rule-${local.prefix}-001"
+  loadbalancer_id                = azurerm_lb.external.id
+  protocol                       = "Tcp"
+  frontend_port                  = 80
+  backend_port                   = 80
+  frontend_ip_configuration_name = "LoadBalancerFrontEnd"
+  backend_address_pool_ids = [azurerm_lb_backend_address_pool.main.id]
+  probe_id                 = azurerm_lb_probe.http.id
+  disable_outbound_snat    = true
+}
