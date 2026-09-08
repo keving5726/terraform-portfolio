@@ -100,3 +100,12 @@ resource "azurerm_lb_outbound_rule" "main" {
     name = "LoadBalancerFrontEnd"
   }
 }
+
+resource "azurerm_ssh_public_key" "admin" {
+  name                = "sshkey-${local.prefix}-001"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  public_key          = file("${var.public_key}")
+
+  tags = local.default_tags
+}
