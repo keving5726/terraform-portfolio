@@ -40,3 +40,14 @@ resource "azurerm_public_ip" "main" {
 
   tags = local.default_tags
 }
+
+resource "azurerm_lb" "external" {
+  name                = "lbe-${local.prefix}-001"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  frontend_ip_configuration {
+    name                 = "LoadBalancerFrontEnd"
+    public_ip_address_id = azurerm_public_ip.main.id
+  }
+}
