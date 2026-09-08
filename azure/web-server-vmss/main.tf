@@ -89,3 +89,14 @@ resource "azurerm_lb_nat_rule" "ssh" {
   backend_address_pool_id        = azurerm_lb_backend_address_pool.main.id
   frontend_ip_configuration_name = "LoadBalancerFrontEnd"
 }
+
+resource "azurerm_lb_outbound_rule" "main" {
+  name                    = "OutboundRule"
+  loadbalancer_id         = azurerm_lb.external.id
+  protocol                = "All"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.main.id
+
+  frontend_ip_configuration {
+    name = "LoadBalancerFrontEnd"
+  }
+}
