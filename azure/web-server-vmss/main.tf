@@ -31,3 +31,12 @@ resource "azurerm_subnet" "internal" {
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = ["172.16.0.0/24"]
 }
+
+resource "azurerm_public_ip" "main" {
+  name                = "pip-${local.prefix}-001"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  allocation_method   = "Static"
+
+  tags = local.default_tags
+}
