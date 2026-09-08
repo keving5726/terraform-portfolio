@@ -51,3 +51,8 @@ resource "azurerm_lb" "external" {
     public_ip_address_id = azurerm_public_ip.main.id
   }
 }
+
+resource "azurerm_lb_backend_address_pool" "main" {
+  name            = "bepool"
+  loadbalancer_id = azurerm_lb.external.id
+}
