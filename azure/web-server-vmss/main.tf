@@ -41,6 +41,38 @@ resource "azurerm_public_ip" "main" {
   tags = local.default_tags
 }
 
+resource "azurerm_network_security_group" "main" {
+  name                = "nsg-${local.prefix}-001"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+
+  tags = local.default_tags
+
+  security_rule {
+    name                       = "default-allow-ssh"
+    priority                   = 1000
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "default-allow-http"
+    priority                   = 1010
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
 resource "azurerm_lb" "external" {
   name                = "lbe-${local.prefix}-001"
   location            = azurerm_resource_group.main.location
@@ -111,7 +143,7 @@ resource "azurerm_ssh_public_key" "admin" {
 }
 
 resource "azurerm_linux_virtual_machine_scale_set" "linux" {
-  name                            = "vmss-${local.prefix}-001"
+  name                            = "vmss-${local.prefix}"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location
   sku                             = var.sku
@@ -119,12 +151,21 @@ resource "azurerm_linux_virtual_machine_scale_set" "linux" {
   admin_username                  = var.username
   disable_password_authentication = true
   custom_data                     = filebase64("./cloud-init.yaml")
+  upgrade_mode                    = "Automatic"
+  health_probe_id                 = azurerm_lb_probe.http.id
+  zones                           = ["1", "2", "3"]
 
   tags = local.default_tags
 
+  depends_on = [
+    azurerm_lb_rule.http,
+    azurerm_lb_probe.http
+  ]
+
   network_interface {
-    name    = "main"
-    primary = true
+    name                      = "main"
+    primary                   = true
+    network_security_group_id = azurerm_network_security_group.main.id
 
     ip_configuration {
       name                                   = "internal"
