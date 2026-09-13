@@ -78,6 +78,8 @@ resource "azurerm_lb" "external" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
 
+  tags = local.default_tags
+
   frontend_ip_configuration {
     name                 = "LoadBalancerFrontEnd"
     public_ip_address_id = azurerm_public_ip.main.id
@@ -202,6 +204,8 @@ resource "azurerm_monitor_autoscale_setting" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   target_resource_id  = azurerm_linux_virtual_machine_scale_set.linux.id
+
+  tags = local.default_tags
 
   profile {
     name = "AutoScale"
